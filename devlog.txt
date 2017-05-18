@@ -1,7 +1,7 @@
 Simplicity
 Ryan Siu
-Eric Zhang
 Tiffany Moi
+Eric Zhang
 pd 5
 ---------------------
 Airline simulator
@@ -18,12 +18,17 @@ Airline simulator
 
 2017-05-16
 --------------------------------------------------------------
-Ryan Siu, Eric Zhang, Tiffany Moi :: Brainstormed ideas for project
+Ryan Siu, Tiffany Moi, Eric Zhang :: Brainstormed ideas for project
 ==============================================================
 
-2017-05-16
+2017-05-17
 --------------------------------------------------------------
-Ryan Siu, Eric Zhang, Tiffany Moi :: Worked on and completed project proposal
+Ryan Siu, Tiffany Moi, Eric Zhang :: Worked on and completed project proposal
+==============================================================
+
+2017-05-18
+--------------------------------------------------------------
+Ryan Siu, Tiffany Moi, Eric Zhang :: Worked on and completed plan
 ==============================================================
 
 

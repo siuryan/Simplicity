@@ -3,18 +3,21 @@
 PLAN
 
 Core Functionality
- 1.
- 2.
- 3.
- 4.
- 5.
- 6.
+ 1. Airplane, City, Flight classes
+ 2. Driver file without progression (input/output in terminal)
+ 3. GUI for main screen
+ 4. Migrate driver to Processing
+ 5. Add progression
+ 6. Create subclasses of Airplanes, Cities, Flights
+ 7. Path finder
+ 8. GUIs for entire UI
 
 Timeline
-
-START <-------------------------------------------> FINISH
-
+       1 6 2 3 4 5/6 7 8            CORE
+START <------------------------------|------------> FINISH
+                                  FINISHED
+				  
 Jobs
 Ryan    :: 
-Eric    ::
 Tiffany ::
+Eric    ::
