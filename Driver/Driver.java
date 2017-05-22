@@ -33,13 +33,23 @@ public class Driver {
 
 	    if ( Integer.valueOf(mode) == 0 ) {
 		ArrayList<FlightRoute> routes = possibleFlights();
+		int i = 0;
 		for (FlightRoute r : routes) {
-		    System.out.println(r);
+		    System.out.println(i + ". " + r);
 		    System.out.println("(" + r.getDeparture().getXcor() +
 				       "," + r.getDeparture().getYcor() +
 				       "),(" + r.getArrival().getXcor() +
 				       "," + r.getArrival().getYcor() + ")");
+		    i ++;
 		    System.out.println();
+		}
+		String choice = prompt( "\nCHOICES:\n" +
+					"\n0: Start a flight\n" +
+					"\n1: Return to menu\n");
+		if (Integer.valueOf(choice) == 0){
+		    i = 0;
+		    String route = prompt("Choose a route");
+		    routes.get(Integer.valueOf(route)).getAirplane().setStatus(1);			   
 		}
 	    } else if ( Integer.valueOf(mode) == 1 ) {
 		for (Airplane a : airplanes) {
@@ -62,7 +72,7 @@ public class Driver {
 	int permutation = fact(cities.length) / fact(cities.length-2);
 	ArrayList<FlightRoute> routes = new ArrayList<FlightRoute>(permutation);
 	for (Airplane plane : airplanes) {
-	    if (plane != null) {
+	    if (plane != null && plane.getStatus() != 1) {
 		for (City city : cities) {
 		    if (plane.getCity() != city) {
 			routes.add(
