@@ -3,15 +3,16 @@ import java.util.*;
 
 public class Driver {
 
-    public static int SCREEN_SIZE = 600;
+    public static final int SCREEN_SIZE = 600;
 
     private static InputStreamReader isr;
     private static BufferedReader in;
 
-    public static Airplane[] airplanes;
-    public static City[] cities;
+    private static Airplane[] airplanes;
+    private static City[] cities;
+    private static ArrayList<FlightRoute> flights;
 
-    public static int money;
+    private static int money;
 
     public static void main( String[] args ) {
 
@@ -32,11 +33,15 @@ public class Driver {
 
 	airplanes[0].setCity( cities[0] );
 	airplanes[1].setCity( cities[1] );
+
+	flights = new ArrayList<FlightRoute>();
     
         while (true) {
 	    String mode = prompt( "\nMENU:\n" +
-				  "0: Possible Flight Routes\n" +
-				  "1: Your airplanes");
+				  "0: Possible flight routes\n" +
+				  "1: Your airplanes\n" +
+				  "2: See current flights\n" +
+				  "You have $" + money + ".");
 
 	    if ( Integer.valueOf(mode) == 0 ) {
 		ArrayList<FlightRoute> routes = possibleFlights();
@@ -56,8 +61,11 @@ public class Driver {
 					    "0: Start a flight\n" +
 					    "1: Return to menu\n");
 		    if (Integer.valueOf(choice) == 0){
-			String route = prompt("Choose a route: ");
-			routes.get(Integer.valueOf(route)).getAirplane().setStatus(1);
+			String in = prompt("Choose a route: ");
+			FlightRoute route = routes.get(Integer.valueOf(in));
+			flights.add(route);
+			route.getAirplane().setStatus(1);
+			money += route.getProfit();
 		    }
 		} else {
 		    System.out.println( "Sorry, there are no possible routes." );
@@ -65,6 +73,11 @@ public class Driver {
 	    } else if ( Integer.valueOf(mode) == 1 ) {
 		for (Airplane a : airplanes) {
 		    System.out.println(a);
+		}
+	    } else if ( Integer.valueOf(mode) == 2) {
+		updateFlights();
+		for (FlightRoute r : flights) {
+		    System.out.println(r);
 		}
 	    }
 	}
@@ -96,6 +109,18 @@ public class Driver {
 	    }
 	}
 	return routes;
+    }
+
+    private static void updateFlights() {
+	long currentTime = System.currentTimeMillis();
+	for (int i = 0; i < flights.size(); i++) {
+	    FlightRoute r = flights.get(i);
+	    if (r.getEndTime() < currentTime) {
+		r.getAirplane().setStatus(0);
+		r.getAirplane().setCity( r.getArrival() );
+		flights.remove(i);
+	    }
+	}
     }
 
     private static String prompt( String query ) {

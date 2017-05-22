@@ -6,6 +6,7 @@ public class FlightRoute {
     private int _profit;
     private Airplane _plane;
     private int _tickPrice;
+    private long _timeEnd;
     
     public FlightRoute() {
 	_departCity = null;
@@ -14,6 +15,7 @@ public class FlightRoute {
 	_profit = 0;
 	_plane = null;
 	_tickPrice = 0;
+	_timeEnd = 0;
     }
 
     public FlightRoute( City departCity, City arriveCity, Airplane plane) {
@@ -23,6 +25,7 @@ public class FlightRoute {
 	updateDistance();
 	_tickPrice = autoCalcPrice();
 	updateProfit();
+	updateTime();
     }
 
     public City getDeparture() { return _departCity; }
@@ -31,6 +34,7 @@ public class FlightRoute {
     public int getProfit() { return _profit; }
     public Airplane getAirplane() { return _plane; }
     public int getTicketPrice() { return _tickPrice; }
+    public long getEndTime() { return _timeEnd; }
 
     public City setDeparture( City newCity ) {
 	City foo = _departCity;
@@ -86,14 +90,25 @@ public class FlightRoute {
 	_profit = passengers*_tickPrice;
     }
 
-
-    public int autoCalcPrice() {
+    private int autoCalcPrice() {
 	return (int)(getDistance()/100);
     }
 
+    private void updateTime() {
+	long currentTime = System.currentTimeMillis();
+	_timeEnd = currentTime + (long)((getDistance() / getAirplane().getSpeed()) * 1000 * 60); // to convert to min
+    }
+
     public String toString() {
-	return "Flight from " + getDeparture() + " to " + getArrival() +
-	    ". Distance: " + getDistance() + ". Profit: " + getProfit() + ".\n"
-	    + "Airplane:\n" + getAirplane().toString();
+	if (getAirplane().getStatus() != 1) {
+	    return "Flight from " + getDeparture() + " to " + getArrival() +
+		". Distance: " + getDistance() + ". Profit: " + getProfit() + ".\n"
+		+ "Airplane:\n" + getAirplane().toString();
+	} else {
+	    return "Flight from " + getDeparture() + " to " + getArrival() +
+		". Distance: " + getDistance() + ". Profit: " + getProfit() + ".\n"
+		+ "Airplane:\n" + getAirplane().toString() + "\nTime remaining: " +
+		((getEndTime() - System.currentTimeMillis())/1000) + "s";
+	}
     }
 }
