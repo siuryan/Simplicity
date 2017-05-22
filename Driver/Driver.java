@@ -11,13 +11,19 @@ public class Driver {
     public static Airplane[] airplanes;
     public static City[] cities;
 
+    public static int money;
+
     public static void main( String[] args ) {
 
 	isr = new InputStreamReader( System.in );
 	in = new BufferedReader( isr );
+	//100:1 Real:In Game
+	money = 5000000;
 
 	airplanes = new Airplane[5];
-	airplanes[0] = new Airplane( "Airbus", 100, 100, 10, 1000, 100, null);
+	// name, range, speed, capacity, price, fuelCapacity, currentCity
+	airplanes[0] = new Airplane( "Airbus A380", 300, 100, 50, 4200000, 100, null);
+	airplanes[1] = new Airplane( "Boeing 787" , 300, 100, 25, 3000000, 100, null);
 
 	cities = new City[4];
 	for (int i = 0; i < 4; i++) {
@@ -25,6 +31,7 @@ public class Driver {
 	}
 
 	airplanes[0].setCity( cities[0] );
+	airplanes[1].setCity( cities[1] );
     
         while (true) {
 	    String mode = prompt( "\nMENU:\n" +
@@ -56,7 +63,8 @@ public class Driver {
 	}
 	return retNum;
     }
-    
+
+    //check if plane can cover distance
     private static ArrayList<FlightRoute> possibleFlights() {
 	//optimizing the arraylist
 	int permutation = fact(cities.length) / fact(cities.length-2);
