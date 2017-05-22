@@ -21,7 +21,7 @@ public class FlightRoute {
 	_arriveCity = arriveCity;
 	_plane = plane;
 	updateDistance();
-	_tickPrice = calcPrice();
+	_tickPrice = autoCalcPrice();
 	updateProfit();
     }
 
@@ -87,7 +87,7 @@ public class FlightRoute {
     }
 
 
-    public int calcPrice() {
+    public int autoCalcPrice() {
 	return (int)(getDistance()/100);
     }
 

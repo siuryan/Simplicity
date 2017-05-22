@@ -41,22 +41,26 @@ public class Driver {
 	    if ( Integer.valueOf(mode) == 0 ) {
 		ArrayList<FlightRoute> routes = possibleFlights();
 		int routeNum = 0;
-		for (FlightRoute r : routes) {
-		    System.out.println("(" + routeNum + ") " + r);
-		    System.out.println("Coords of cities: " + 
-				       "(" + r.getDeparture().getXcor() +
-				       "," + r.getDeparture().getYcor() +
-				       "),(" + r.getArrival().getXcor() +
-				       "," + r.getArrival().getYcor() + ")");
-		    System.out.println();
-		    routeNum++;
-		}
-		String choice = prompt( "\nCHOICES:\n" +
-					"0: Start a flight\n" +
-					"1: Return to menu\n");
-		if (Integer.valueOf(choice) == 0){
-		    String route = prompt("Choose a route: ");
-		    routes.get(Integer.valueOf(route)).getAirplane().setStatus(1);
+		if (routes.size() > 0) {
+		    for (FlightRoute r : routes) {
+			System.out.println("(" + routeNum + ") " + r);
+			System.out.println("Coords of cities: " + 
+					   "(" + r.getDeparture().getXcor() +
+					   "," + r.getDeparture().getYcor() +
+					   "),(" + r.getArrival().getXcor() +
+					   "," + r.getArrival().getYcor() + ")");
+			System.out.println();
+			routeNum++;
+		    }
+		    String choice = prompt( "\nCHOICES:\n" +
+					    "0: Start a flight\n" +
+					    "1: Return to menu\n");
+		    if (Integer.valueOf(choice) == 0){
+			String route = prompt("Choose a route: ");
+			routes.get(Integer.valueOf(route)).getAirplane().setStatus(1);
+		    }
+		} else {
+		    System.out.println( "Sorry, there are no possible routes." );
 		}
 	    } else if ( Integer.valueOf(mode) == 1 ) {
 		for (Airplane a : airplanes) {
@@ -74,7 +78,6 @@ public class Driver {
 	return retNum;
     }
 
-    //check if plane can cover distance
     private static ArrayList<FlightRoute> possibleFlights() {
 	//optimizing the arraylist
 	int permutation = fact(cities.length) / fact(cities.length-2);
@@ -83,9 +86,11 @@ public class Driver {
 	    if (plane != null && plane.getStatus() != 1) {
 		for (City city : cities) {
 		    if (plane.getCity() != city) {
-			routes.add(
-			  new FlightRoute( plane.getCity(), city, plane )
-			);
+			FlightRoute r = new FlightRoute( plane.getCity(), city, plane );
+			routes.add(r);
+			if (r.getDistance() > plane.getRange()) {
+			    routes.remove(routes.size()-1);
+			}
 		    }
 		}
 	    }
