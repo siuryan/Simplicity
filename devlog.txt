@@ -44,9 +44,9 @@ Ryan Siu :: Began terminal driver class, wrote template for testing classes, beg
 
 2017-05-22
 --------------------------------------------------------------
-Ryan Siu :: Finished flight path generation based on airplane availability
+Ryan Siu :: Finished flight path generation based on airplane availability, cleaned up code, created profit algorithm
 Tiffany Moi :: Added ability to choose flight route in driver class 
-Eric Zhang :: Looked up Dijkstra's algorithm, troubleshooting
+Eric Zhang :: Looked up Dijkstra's algorithm, troubleshooting, created profit algorithm, created money scale (100:1)
 ==============================================================
 
 TEMPLATE

@@ -40,23 +40,23 @@ public class Driver {
 
 	    if ( Integer.valueOf(mode) == 0 ) {
 		ArrayList<FlightRoute> routes = possibleFlights();
-		int i = 0;
+		int routeNum = 0;
 		for (FlightRoute r : routes) {
-		    System.out.println(i + ". " + r);
-		    System.out.println("(" + r.getDeparture().getXcor() +
+		    System.out.println("(" + routeNum + ") " + r);
+		    System.out.println("Coords of cities: " + 
+				       "(" + r.getDeparture().getXcor() +
 				       "," + r.getDeparture().getYcor() +
 				       "),(" + r.getArrival().getXcor() +
 				       "," + r.getArrival().getYcor() + ")");
-		    i ++;
 		    System.out.println();
+		    routeNum++;
 		}
 		String choice = prompt( "\nCHOICES:\n" +
-					"\n0: Start a flight\n" +
-					"\n1: Return to menu\n");
+					"0: Start a flight\n" +
+					"1: Return to menu\n");
 		if (Integer.valueOf(choice) == 0){
-		    i = 0;
-		    String route = prompt("Choose a route");
-		    routes.get(Integer.valueOf(route)).getAirplane().setStatus(1);			   
+		    String route = prompt("Choose a route: ");
+		    routes.get(Integer.valueOf(route)).getAirplane().setStatus(1);
 		}
 	    } else if ( Integer.valueOf(mode) == 1 ) {
 		for (Airplane a : airplanes) {

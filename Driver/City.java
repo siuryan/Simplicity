@@ -15,7 +15,7 @@ public class City {
   public City( String n, int screenSize ) {
     _xcor = (int)(Math.random()*screenSize);
     _ycor = (int)(Math.random()*screenSize);
-    _pop = (int)(Math.random()*100);
+    _pop = (int)(Math.random()*500) + 500;
     _name = n;
   }
 
