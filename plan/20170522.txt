@@ -1,0 +1,22 @@
+5/22/17
+
+PLAN
+
+Game Aspects
+ 1. GUI for main screen
+ 2. Migrate driver to Processing
+ 3. Add progression
+ 4. Add levels for the player and expand map accordingly
+ 5. Create subclasses of Airplanes, Cities, Flights
+ 6. Path finder
+ 7. GUIs for entire UI
+
+Timeline
+                3 4 5 6 2 1 7   GAMING ASPECTS
+START <------------------------------|------------> FINISH
+                                  FINISHED
+				  
+Jobs
+Ryan    :: 1 3 7
+Tiffany :: 4 5 2
+Eric    :: 6 
