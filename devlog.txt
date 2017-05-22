@@ -39,12 +39,13 @@ Tiffany Moi :: Wrote City class
 
 2017-05-21
 --------------------------------------------------------------
-Ryan Siu :: Began terminal driver class, began FlightRoute class
+Ryan Siu :: Began terminal driver class, wrote template for testing classes, began FlightRoute class
 ==============================================================
 
 2017-05-22
 --------------------------------------------------------------
-Ryan Siu, Tiffany Moi :: Augmented terminal driver class with more testing
+Ryan Siu :: Finished flight path generation based on airplane availability
+Tiffany Moi :: Added ability to choose flight route in driver class 
 Eric Zhang :: Looked up Dijkstra's algorithm, troubleshooting
 ==============================================================
 
