@@ -17,6 +17,6 @@ START <------------------------------|------------> FINISH
                                   FINISHED
 				  
 Jobs
-Ryan    :: 
+Ryan    :: 1 3 7
 Tiffany :: 4 5 2
-Eric    :: 
+Eric    :: 6 
