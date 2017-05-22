@@ -31,6 +31,10 @@ public class Airplane {
     _currCity = currCity;
   }
 
+  public String getName() {
+    return _name;
+  }
+
   public int getRange() {
     return _range;
   }
@@ -72,6 +76,8 @@ public class Airplane {
   }
   
   public String toString() {
-    return _name;
+      return getName() + ". Range: " + getRange() + ". Speed: " + getSpeed() +
+	  ". Capacity: " + getCapacity() + ". Price: " + getPrice() +
+	  ". Current city: " + getCity() + ". Status: " + getStatus() + ".";
   }
 }

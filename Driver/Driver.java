@@ -3,51 +3,87 @@ import java.util.*;
 
 public class Driver {
 
-    public static int HEIGHT = 600;
-    public static int WIDTH = 600;
-    
-    private City[] cities;
-    private Airplane[] airplanes;
+    public static int SCREEN_SIZE = 600;
 
-    private InputStreamReader isr;
-    private BufferedReader in;
+    private static InputStreamReader isr;
+    private static BufferedReader in;
 
-    public Driver() {
-	_data = new ArrayPriorityQueue<Ticket>();
+    public static Airplane[] airplanes;
+    public static City[] cities;
+
+    public static void main( String[] args ) {
+
 	isr = new InputStreamReader( System.in );
 	in = new BufferedReader( isr );
-	_running = true;
-    }
 
-    public void static main( String[] args ) {
+	airplanes = new Airplane[5];
+	airplanes[0] = new Airplane( "Airbus", 100, 100, 10, 1000, 100, null);
 
-	Driver d = new Driver();
-
-	d.airplanes = new Airplane[5];
-	d.airplanes[0] = new Airplane( "Airbus", 100, 100, 10, 1000, 100, null);
-	System.out.println(d.airplanes[0].getSpeed()); 
-	System.out.println(d.airplanes[0]);
-
-	d.cities = new City[15];
-	for (int i = 0; i < 15; i++) {
-	    d.cities[i] = new City(i+"", (int)(Math.random()*WIDTH), (int)(Math.random()*HEIGHT), (int)(Math.random()*100));
+	cities = new City[4];
+	for (int i = 0; i < 4; i++) {
+	    cities[i] = new City(i+"", SCREEN_SIZE);
 	}
 
-	d.airplanes[0].setCity( cities[0] );
-	System.out.println(d.airplanes[0].getCity());
+	airplanes[0].setCity( cities[0] );
     
         while (true) {
-	    System.out.println("MENU:\n");
-	    System.out.print(">> ");
-	    String mode = "";
-	    try {
-		mode = in.readLine();
-	    }
-	    catch(IOException e){ }
+	    String mode = prompt( "\nMENU:\n" +
+				  "0: Possible Flight Routes\n" +
+				  "1: Your airplanes");
 
-	    if ( mode.equals('0') ) {
-
+	    if ( Integer.valueOf(mode) == 0 ) {
+		ArrayList<FlightRoute> routes = possibleFlights();
+		for (FlightRoute r : routes) {
+		    System.out.println(r);
+		    System.out.println("(" + r.getDeparture().getXcor() +
+				       "," + r.getDeparture().getYcor() +
+				       "),(" + r.getArrival().getXcor() +
+				       "," + r.getArrival().getYcor() + ")");
+		    System.out.println();
+		}
+	    } else if ( Integer.valueOf(mode) == 1 ) {
+		for (Airplane a : airplanes) {
+		    System.out.println(a);
+		}
 	    }
 	}
+    }
+
+    private static int fact( int n ) {
+	int retNum = 1;
+	for (int i = n; i > 0; i--) {
+	    retNum *= i;
+	}
+	return retNum;
+    }
+    
+    private static ArrayList<FlightRoute> possibleFlights() {
+	//optimizing the arraylist
+	int permutation = fact(cities.length) / fact(cities.length-2);
+	ArrayList<FlightRoute> routes = new ArrayList<FlightRoute>(permutation);
+	for (Airplane plane : airplanes) {
+	    if (plane != null) {
+		for (City city : cities) {
+		    if (plane.getCity() != city) {
+			routes.add(
+			  new FlightRoute( plane.getCity(), city, plane )
+			);
+		    }
+		}
+	    }
+	}
+	return routes;
+    }
+
+    private static String prompt( String query ) {
+	System.out.println(query);
+	System.out.print(">> ");
+	String input = "";
+	try {
+	    input = in.readLine();
+	}
+	catch(IOException e){ }
+
+	return input;
     }
 }

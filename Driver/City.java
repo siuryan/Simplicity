@@ -12,10 +12,10 @@ public class City {
     _pop = 0;
   }
 
-  public City( String n, int x, int y, int pop ) {
-    _xcor = x;
-    _ycor = y;
-    _pop = pop;
+  public City( String n, int screenSize ) {
+    _xcor = (int)(Math.random()*screenSize);
+    _ycor = (int)(Math.random()*screenSize);
+    _pop = (int)(Math.random()*100);
     _name = n;
   }
 
