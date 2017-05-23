@@ -83,7 +83,9 @@ public class FlightRoute {
 	}
 	_profit = _profit - (int)(getDistance() / 30);
 	*/
-	int passengers = Math.abs(getDeparture().getPop()-getArrival().getPop())/2;
+	
+	// max is 100
+	int passengers = (int)Math.sqrt((getDeparture().getPop()+getArrival().getPop())/2);
 	if (passengers > getAirplane().getCapacity()) {
 	    passengers = getAirplane().getCapacity();
 	}
@@ -91,7 +93,7 @@ public class FlightRoute {
     }
 
     private int autoCalcPrice() {
-	return (int)(getDistance()/100);
+	return (int)(getDistance());
     }
 
     private void updateTime() {
@@ -102,11 +104,11 @@ public class FlightRoute {
     public String toString() {
 	if (getAirplane().getStatus() != 1) {
 	    return "Flight from " + getDeparture() + " to " + getArrival() +
-		". Distance: " + getDistance() + ". Profit: " + getProfit() + ".\n"
+		". Distance: " + (int)getDistance() + ". Profit: " + getProfit() + ".\n"
 		+ "Airplane:\n" + getAirplane().toString();
 	} else {
 	    return "Flight from " + getDeparture() + " to " + getArrival() +
-		". Distance: " + getDistance() + ". Profit: " + getProfit() + ".\n"
+		". Distance: " + (int)getDistance() + ". Profit: " + getProfit() + ".\n"
 		+ "Airplane:\n" + getAirplane().toString() + "\nTime remaining: " +
 		((getEndTime() - System.currentTimeMillis())/1000) + "s";
 	}
