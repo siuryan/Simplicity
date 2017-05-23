@@ -1,9 +1,14 @@
-files = ["Airplane","City","Driver","FlightRoute","Shop"]
+import os
+files = os.listdir("Driver")
+for word in files:
+    if not ".java" in word:
+        files.remove(word)
+        
 text = ""
 
 
 for s in files:
-    f = open("Driver/" + s + ".java",'r')
+    f = open("Driver/" + s,'r')
     text += s + "\n\n"
     line = f.readline()
     while line != "":
