@@ -23,12 +23,12 @@ public class Driver {
 
 	airplanes = new Airplane[5];
 	// name, range, speed, capacity, price, fuelCapacity, currentCity
-	airplanes[0] = new Airplane( "Airbus A380", 300, 100, 50, 4200000, 100, null);
-	airplanes[1] = new Airplane( "Boeing 787" , 300, 100, 25, 3000000, 100, null);
+	airplanes[0] = Shop.airplanes[0];
+	airplanes[1] = Shop.airplanes[1];
 
 	cities = new City[4];
 	for (int i = 0; i < 4; i++) {
-	    cities[i] = new City(i+"", SCREEN_SIZE);
+	    cities[i] = new City(Shop.popCityName(), SCREEN_SIZE);
 	}
 
 	airplanes[0].setCity( cities[0] );
@@ -78,6 +78,7 @@ public class Driver {
 		updateFlights();
 		for (FlightRoute r : flights) {
 		    System.out.println(r);
+		    System.out.println();
 		}
 	    }
 	}
@@ -112,9 +113,9 @@ public class Driver {
     }
 
     private static void updateFlights() {
-	long currentTime = System.currentTimeMillis();
 	for (int i = 0; i < flights.size(); i++) {
 	    FlightRoute r = flights.get(i);
+	    long currentTime = System.currentTimeMillis();
 	    if (r.getEndTime() < currentTime) {
 		r.getAirplane().setStatus(0);
 		r.getAirplane().setCity( r.getArrival() );
