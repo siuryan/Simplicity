@@ -32,7 +32,7 @@ public final class Shop {
 	return city;
     }
 
-    private static void removeCity( int index ) {
+    public static void removeCity( int index ) {
 	City[] copy = new City[cities.length-1];
         for (int i = 0; i < index; i++) {
 	    copy[i] = cities[i];
