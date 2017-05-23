@@ -8,8 +8,8 @@ public class Driver {
     private static InputStreamReader isr;
     private static BufferedReader in;
 
-    private static Airplane[] airplanes;
-    private static City[] cities;
+    private static ArrayList<Airplane> airplanes;
+    private static ArrayList<City> cities;
     private static ArrayList<FlightRoute> flights;
 
     private static int money;
@@ -21,26 +21,46 @@ public class Driver {
 	//100:1 Real:In Game
 	money = 5000000;
 
-	airplanes = new Airplane[5];
+	airplanes = new ArrayList<Airplane>();
 	// name, range, speed, capacity, price, fuelCapacity, currentCity
-	airplanes[0] = Shop.airplanes[0];
-	airplanes[1] = Shop.airplanes[1];
 
-	cities = new City[4];
-	for (int i = 0; i < 4; i++) {
-	    cities[i] = new City(Shop.popCityName(), SCREEN_SIZE);
+	//if we want to give a free plane to start with
+	//airplanes.add(Shop.airplanes[0]);
+
+	cities = new ArrayList<City>();
+	for (int i = 0; i < 2; i++) {
+	    cities.add(Shop.popCity());
 	}
 
-	airplanes[0].setCity( cities[0] );
-	airplanes[1].setCity( cities[1] );
+	//if free plane given
+	//airplanes[0].setCity( cities[0] );
 
 	flights = new ArrayList<FlightRoute>();
-    
+
+
+	String planeMenu = "";
+	for (int index = 0; index < Shop.airplanes.length; index++) {
+	    planeMenu += index + ": " + Shop.airplanes[index].getName() + "\n";
+	    planeMenu += "\tCost: " + Shop.airplanes[index].getPrice() + "\n";
+	    planeMenu += "\tCapacity: " + Shop.airplanes[index].getCapacity() + "\n";
+	    planeMenu += "\tRange: " + Shop.airplanes[index].getRange() + "\n\n";
+	}
+	planeMenu += "You have $" + money + ".";
+
+	String cityMenu = "";
+	for (int index = 0; index < Shop.cities.length; index++) {
+	    cityMenu += index + ": " + Shop.cities[index] + "\n";
+	    cityMenu += "\tCost: " + Shop.cities[index].getPop()*100 + "\n";
+	    cityMenu += "\tPopulation: " + Shop.cities[index].getPop() + "\n\n";
+	}
+	cityMenu += "You have $" + money + ".";
+
         while (true) {
 	    String mode = prompt( "\nMENU:\n" +
 				  "0: Possible flight routes\n" +
 				  "1: Your airplanes\n" +
 				  "2: See current flights\n" +
+				  "3: Shop\n" +
 				  "You have $" + money + ".");
 
 	    if ( Integer.valueOf(mode) == 0 ) {
@@ -80,6 +100,48 @@ public class Driver {
 		    System.out.println(r);
 		    System.out.println();
 		}
+	    } else if ( Integer.valueOf(mode) == 3) {
+		while (true) {
+		    String shop = prompt( "\nSHOP:\n" +
+					  "0: Airplanes\n" +
+					  "1: Unlock new cities\n" +
+					  "2: Return to menu\n" +
+					  "You have $" + money + ".");
+		    if (Integer.valueOf(shop) == 0) {
+			String choicePlane = prompt(planeMenu);
+			for (int index = 0; index < Shop.airplanes.length; index++) {
+			    if (Integer.valueOf(choicePlane) == index) {
+				if (money > Shop.airplanes[index].getPrice()) {
+				    money -= Shop.airplanes[index].getPrice();
+				    airplanes.add(Shop.airplanes[index]);
+				    airplanes.get(airplanes.size()-1).setCity(cities.get(0));
+				}
+				else {
+				    System.out.println("Not enough money");
+				}
+			    }
+			}
+		    }
+
+		    else if (Integer.valueOf(shop) == 1) {
+			String choiceCity = prompt(cityMenu);
+			for (int index = 0; index < Shop.cities.length; index++) {
+			    if (Integer.valueOf(choiceCity) == index) {
+				if (money > Shop.cities[index].getPop()*100) {
+				    money -= Shop.cities[index].getPop()*100;
+				    cities.add(Shop.cities[index]);
+				}
+				else {
+				    System.out.println("Not enough money");
+				}
+			    }
+			}
+		    }
+
+		    else {
+			break;
+		    }
+		}
 	    }
 	}
     }
@@ -94,7 +156,7 @@ public class Driver {
 
     private static ArrayList<FlightRoute> possibleFlights() {
 	//optimizing the arraylist
-	int permutation = fact(cities.length) / fact(cities.length-2);
+	int permutation = fact(cities.size()) / fact(cities.size()-2);
 	ArrayList<FlightRoute> routes = new ArrayList<FlightRoute>(permutation);
 	for (Airplane plane : airplanes) {
 	    if (plane != null && plane.getStatus() != 1) {

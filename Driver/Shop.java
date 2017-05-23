@@ -1,31 +1,46 @@
 public final class Shop {
 
     public static Airplane[] airplanes = {
-	new Airplane( "Airbus A380", 300, 100, 50, 4200000, 100, null),
-	new Airplane( "Boeing 787", 300, 100, 25, 3000000, 100, null)
+	new Airplane( "Boeing 787", 300, 100, 25, 3000000, 100, null),
+	new Airplane( "Airbus A380", 300, 100, 50, 4200000, 100, null)
     };
-
+    /*
     public static String[] cityNames = {
 	"New York", "Los Angeles", "San Francisco", "Houston", "Boston",
 	"Washington DC"
     };
-    
-    public static String popCityName() {
-	int index = (int)(Math.random()*cityNames.length);
-	String cityName = cityNames[index];
+    */
+
+    //population -- 1000:1 Real:In Game
+    public static City[] cities = {
+	new City("New York", 8491, 600),
+	new City("Los Angeles", 3929, 600),
+	new City("Chicago", 2722, 600),
+	new City("Houston", 2296, 600),
+	new City("Philadelphia", 1567, 600),
+	new City("Phoenix", 1563, 600),
+	new City("San Francisco", 852, 600),
+	new City("Washington DC", 672, 600),
+	new City("Boston", 656, 600)
+    };
+
+
+    public static City popCity() {
+	int index = (int)(Math.random()*cities.length);
+	City city = cities[index];
 	removeCity( index );
-	return cityName;
+	return city;
     }
 
     private static void removeCity( int index ) {
-	String[] copy = new String[cityNames.length-1];
+	City[] copy = new City[cities.length-1];
         for (int i = 0; i < index; i++) {
-	    copy[i] = cityNames[i];
+	    copy[i] = cities[i];
 	}
-	for (int i = index+1; i < cityNames.length; i++) {
-	    copy[i-1] = cityNames[i];
+	for (int i = index+1; i < cities.length; i++) {
+	    copy[i-1] = cities[i];
 	}
-	cityNames = copy;
+	cities = copy;
     }
     
 }
