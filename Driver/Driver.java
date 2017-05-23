@@ -22,10 +22,9 @@ public class Driver {
 	money = 5000000;
 
 	airplanes = new ArrayList<Airplane>();
-	// name, range, speed, capacity, price, fuelCapacity, currentCity
 
 	//if we want to give a free plane to start with
-	//airplanes.add(Shop.airplanes[0]);
+	airplanes.add(Shop.airplanes[0]);
 
 	cities = new ArrayList<City>();
 	for (int i = 0; i < 2; i++) {
@@ -33,7 +32,7 @@ public class Driver {
 	}
 
 	//if free plane given
-	//airplanes[0].setCity( cities[0] );
+	airplanes.get(0).setCity( cities.get(0) );
 
 	flights = new ArrayList<FlightRoute>();
 
@@ -46,7 +45,7 @@ public class Driver {
 				  "1: Your airplanes\n" +
 				  "2: See current flights\n" +
 				  "3: Shop\n" +
-				  "4: View your cities (in dev)\n" +
+				  "4: View your cities\n" +
 				  "You have $" + money + ".");
 
 	    if ( Integer.valueOf(mode) == 0 ) {
@@ -55,11 +54,6 @@ public class Driver {
 		if (routes.size() > 0) {
 		    for (FlightRoute r : routes) {
 			System.out.println("(" + routeNum + ") " + r);
-			System.out.println("Coords of cities: " + 
-					   "(" + r.getDeparture().getXcor() +
-					   "," + r.getDeparture().getYcor() +
-					   "),(" + r.getArrival().getXcor() +
-					   "," + r.getArrival().getYcor() + ")");
 			System.out.println();
 			routeNum++;
 		    }
@@ -79,9 +73,11 @@ public class Driver {
 	    } else if ( Integer.valueOf(mode) == 1 ) {
 		if (airplanes.size() == 0) {
 		    System.out.println( "Sorry, you have no airplanes. You can buy one from the shop." );
-		}
-		for (Airplane a : airplanes) {
-		    System.out.println(a);
+		} else {
+		    updateFlights();
+		    for (Airplane a : airplanes) {
+			System.out.println(a);
+		    }
 		}
 	    } else if ( Integer.valueOf(mode) == 2) {
 		if (flights.size() == 0) {
@@ -146,6 +142,10 @@ public class Driver {
 			break;
 		    }
 		}
+	    } else if ( Integer.parseInt(mode) == 4) {
+		for (City c : cities) {
+		    System.out.println(c);
+		}
 	    }
 	}
     }
@@ -158,6 +158,7 @@ public class Driver {
 	    planeMenu += "\tCapacity: " + Shop.airplanes[index].getCapacity() + "\n";
 	    planeMenu += "\tRange: " + Shop.airplanes[index].getRange() + "\n\n";
 	}
+	planeMenu += "Enter any other number to exit.\n\n";
 	return planeMenu;
     }
 
@@ -166,10 +167,9 @@ public class Driver {
 	for (int index = 0; index < Shop.cities.length; index++) {
 	    cityMenu += index + ": " + Shop.cities[index] + "\n";
 	    cityMenu += "\tCost: " + Shop.cities[index].getPop()*100 + "\n";
-	    cityMenu += "\tPopulation: " + Shop.cities[index].getPop() + "\n";
-	    cityMenu += "\tCoordinates: (" + Shop.cities[index].getXcor() +
-		"," + Shop.cities[index].getYcor() + ")\n\n";
+	    cityMenu += "\tPopulation: " + Shop.cities[index].getPop() + "\n\n";
 	}
+	cityMenu += "Enter any other number to exit.\n\n";
 	return cityMenu;
     }
 
@@ -219,8 +219,10 @@ public class Driver {
 	String input = "";
 	try {
 	    input = in.readLine();
+	    int test = Integer.valueOf(input);
 	}
 	catch(IOException e){ }
+	catch(NumberFormatException e){ return "-1"; }
 
 	return input;
     }

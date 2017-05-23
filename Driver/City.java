@@ -19,6 +19,10 @@ public class City {
 	_name = n;
     }
 
+    public String getName() {
+	return _name;
+    }
+
     public int getPop() {
 	return _pop;
     }
@@ -32,6 +36,6 @@ public class City {
     }
 
     public String toString() {
-	return _name;
+	return _name + " (" + getXcor() + "," + getYcor() + ")";
     }
 }

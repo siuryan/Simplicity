@@ -1,6 +1,8 @@
 public final class Shop {
 
     public static Airplane[] airplanes = {
+	// name, range, speed, capacity, price, fuelCapacity, currentCity
+	new Airplane( "Old plane", 500, 30, 10, 500000, 50, null),
 	new Airplane( "Boeing 787", 300, 100, 25, 3000000, 100, null),
 	new Airplane( "Airbus A380", 300, 100, 50, 4200000, 100, null)
     };
