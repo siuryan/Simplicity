@@ -49,6 +49,13 @@ Tiffany Moi :: Added ability to choose flight route in driver class, worked on p
 Eric Zhang :: Looked up Dijkstra's algorithm, troubleshooting, created profit algorithm, created money scale (100:1), implemented shop
 ==============================================================
 
+2017-05-23
+--------------------------------------------------------------
+Ryan Siu :: Bug fixes
+Eric Zhang :: 
+Tiffany Moi :: 
+==============================================================
+
 TEMPLATE
 2017-0x-xx
 --------------------------------------------------------------
