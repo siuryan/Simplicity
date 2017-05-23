@@ -20,5 +20,6 @@ for s in files:
     text += "\n\n\n"
     f.close()
 
-
-print(text)
+f = open("UML.txt","w")
+f.write(text)
+f.close()
