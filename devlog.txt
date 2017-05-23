@@ -51,7 +51,7 @@ Eric Zhang :: Looked up Dijkstra's algorithm, troubleshooting, created profit al
 
 2017-05-23
 --------------------------------------------------------------
-Ryan Siu :: Bug fixes, added option for viewing cities, readjusted algorithm for profit
+Ryan Siu :: Bug fixes, added option for viewing cities, readjusted algorithm for profit, started framework for GUIs
 Eric Zhang :: worked on UML 
 Tiffany Moi :: worked on UML and flow chart
 ==============================================================
