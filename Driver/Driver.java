@@ -37,23 +37,8 @@ public class Driver {
 
 	flights = new ArrayList<FlightRoute>();
 
-
-	String planeMenu = "";
-	for (int index = 0; index < Shop.airplanes.length; index++) {
-	    planeMenu += index + ": " + Shop.airplanes[index].getName() + "\n";
-	    planeMenu += "\tCost: " + Shop.airplanes[index].getPrice() + "\n";
-	    planeMenu += "\tCapacity: " + Shop.airplanes[index].getCapacity() + "\n";
-	    planeMenu += "\tRange: " + Shop.airplanes[index].getRange() + "\n\n";
-	}
-	planeMenu += "You have $" + money + ".";
-
-	String cityMenu = "";
-	for (int index = 0; index < Shop.cities.length; index++) {
-	    cityMenu += index + ": " + Shop.cities[index] + "\n";
-	    cityMenu += "\tCost: " + Shop.cities[index].getPop()*100 + "\n";
-	    cityMenu += "\tPopulation: " + Shop.cities[index].getPop() + "\n\n";
-	}
-	cityMenu += "You have $" + money + ".";
+	String planeMenu = planeMenu();
+	String cityMenu = cityMenu();
 
         while (true) {
 	    String mode = prompt( "\nMENU:\n" +
@@ -61,6 +46,7 @@ public class Driver {
 				  "1: Your airplanes\n" +
 				  "2: See current flights\n" +
 				  "3: Shop\n" +
+				  "4: View your cities (in dev)\n" +
 				  "You have $" + money + ".");
 
 	    if ( Integer.valueOf(mode) == 0 ) {
@@ -91,16 +77,23 @@ public class Driver {
 		    System.out.println( "Sorry, there are no possible routes." );
 		}
 	    } else if ( Integer.valueOf(mode) == 1 ) {
+		if (airplanes.size() == 0) {
+		    System.out.println( "Sorry, you have no airplanes. You can buy one from the shop." );
+		}
 		for (Airplane a : airplanes) {
 		    System.out.println(a);
 		}
 	    } else if ( Integer.valueOf(mode) == 2) {
-		updateFlights();
-		for (FlightRoute r : flights) {
-		    System.out.println(r);
-		    System.out.println();
+		if (flights.size() == 0) {
+		    System.out.println( "Sorry, you have no flights." );
+		} else {
+		    updateFlights();
+		    for (FlightRoute r : flights) {
+			System.out.println(r);
+			System.out.println();
+		    }
 		}
-	    } else if ( Integer.valueOf(mode) == 3) {
+	    } else if ( Integer.valueOf(mode) == 3 ) {
 		while (true) {
 		    String shop = prompt( "\nSHOP:\n" +
 					  "0: Airplanes\n" +
@@ -108,7 +101,8 @@ public class Driver {
 					  "2: Return to menu\n" +
 					  "You have $" + money + ".");
 		    if (Integer.valueOf(shop) == 0) {
-			String choicePlane = prompt(planeMenu);
+			String choicePlane = prompt(planeMenu +
+						    "You have $" + money + ".");
 			for (int index = 0; index < Shop.airplanes.length; index++) {
 			    if (Integer.valueOf(choicePlane) == index) {
 				if (money > Shop.airplanes[index].getPrice()) {
@@ -119,22 +113,32 @@ public class Driver {
 				else {
 				    System.out.println("Not enough money");
 				}
+				break;
 			    }
 			}
 		    }
 
 		    else if (Integer.valueOf(shop) == 1) {
-			String choiceCity = prompt(cityMenu);
-			for (int index = 0; index < Shop.cities.length; index++) {
-			    if (Integer.valueOf(choiceCity) == index) {
-				if (money > Shop.cities[index].getPop()*100) {
-				    money -= Shop.cities[index].getPop()*100;
-				    cities.add(Shop.cities[index]);
-				}
-				else {
-				    System.out.println("Not enough money");
+			// check if no cities left
+			if (Shop.cities.length > 0) {
+			    String choiceCity = prompt(cityMenu +
+						       "You have $" + money + ".");
+			    for (int index = 0; index < Shop.cities.length; index++) {
+				if (Integer.valueOf(choiceCity) == index) {
+				    if (money > Shop.cities[index].getPop()*100) {
+					money -= Shop.cities[index].getPop()*100;
+					cities.add(Shop.cities[index]);
+					Shop.removeCity( index );
+					cityMenu = cityMenu();
+				    }
+				    else {
+					System.out.println("Not enough money");
+				    }
+				    break;
 				}
 			    }
+			} else {
+			    System.out.println("No more new cities");
 			}
 		    }
 
@@ -144,6 +148,29 @@ public class Driver {
 		}
 	    }
 	}
+    }
+
+    private static String planeMenu() {
+	String planeMenu = "";
+	for (int index = 0; index < Shop.airplanes.length; index++) {
+	    planeMenu += index + ": " + Shop.airplanes[index].getName() + "\n";
+	    planeMenu += "\tCost: " + Shop.airplanes[index].getPrice() + "\n";
+	    planeMenu += "\tCapacity: " + Shop.airplanes[index].getCapacity() + "\n";
+	    planeMenu += "\tRange: " + Shop.airplanes[index].getRange() + "\n\n";
+	}
+	return planeMenu;
+    }
+
+    private static String cityMenu() {
+	String cityMenu = "";
+	for (int index = 0; index < Shop.cities.length; index++) {
+	    cityMenu += index + ": " + Shop.cities[index] + "\n";
+	    cityMenu += "\tCost: " + Shop.cities[index].getPop()*100 + "\n";
+	    cityMenu += "\tPopulation: " + Shop.cities[index].getPop() + "\n";
+	    cityMenu += "\tCoordinates: (" + Shop.cities[index].getXcor() +
+		"," + Shop.cities[index].getYcor() + ")\n\n";
+	}
+	return cityMenu;
     }
 
     private static int fact( int n ) {
