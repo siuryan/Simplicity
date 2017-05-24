@@ -1,5 +1,5 @@
 Integer[] arr = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18};
-Menu<Integer> test = new Menu<Integer>( 50, 25, 128, "Hello world", arr );
+Menu<Integer> test = new Menu<Integer>( 50, 25, color(119, 244, 66), "Hello world", arr );
 
 void setup() {
   size(600, 600);
@@ -13,11 +13,11 @@ void draw() {
 class Menu<T> {
 
   int _borderSize, _innerBorderSize, _bezel, _textSize;
-  int _themeColor;
+  color _themeColor;
   String _title;
   T[] _contents;
 
-  Menu( int borderSize, int innerBorderSize, int themeColor, String title, T[] contents) {
+  Menu( int borderSize, int innerBorderSize, color themeColor, String title, T[] contents) {
     _borderSize = borderSize;
     _bezel = borderSize/2;
     _innerBorderSize = innerBorderSize;
@@ -29,7 +29,10 @@ class Menu<T> {
 
   void create() {
     // create GUI window
-    fill((_themeColor+256)/2);
+    float red = (255-red(_themeColor))/2+red(_themeColor);
+    float green = (255-green(_themeColor))/2+green(_themeColor);
+    float blue = (255-blue(_themeColor))/2+blue(_themeColor);
+    fill(color(red, green, blue));
     rect(_borderSize, _borderSize, width-_borderSize*2, height-_borderSize*2, _bezel);
 
     // create title section
@@ -75,7 +78,8 @@ class MenuItem<T> {
   }
 
   void create() {
-    fill(_themeColor*5/3);
+    //fill(_themeColor*5/3);
+    fill(255);
     rect(_x, _y, _width, _height, _bezel);
     fill(0);
     textAlign( CENTER, CENTER );
