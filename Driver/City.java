@@ -4,6 +4,7 @@ public class City {
     private int _xcor;
     private int _ycor;
     private String _name;
+    private boolean status;
 
     public City() {
 	_name = "";
@@ -17,6 +18,7 @@ public class City {
 	_ycor = (int)(Math.random()*screenSize);
 	_pop = pop;
 	_name = n;
+	status = false;
     }
 
     public String getName() {
@@ -37,5 +39,12 @@ public class City {
 
     public String toString() {
 	return _name + " (" + getXcor() + "," + getYcor() + ")";
+    }
+    
+    public boolean getStatus(){
+	return status;
+    }
+    public void buy(){
+	status = true;
     }
 }
