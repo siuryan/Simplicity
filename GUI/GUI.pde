@@ -1,88 +1,21 @@
-Integer[] arr = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18};
-Menu<Integer> test = new Menu<Integer>( 50, 25, color(119, 244, 66), "Hello world", arr );
+String[] arr = {"0", "a", "2", "b", "4", "c", "6", "d", "8", "e", "10", "f", "12", "g", "14", "h", "16", "i", "18"};
+Menu<String> test = new Menu<String>( 50, 25, color(128), "Hello world", arr );
 
 void setup() {
-  size(600, 600);
+  size(600, 900);
   background(255);
-  test.create();
 }
 
 void draw() {
+  test.update();
 }
 
-class Menu<T> {
-
-  int _borderSize, _innerBorderSize, _bezel, _textSize;
-  color _themeColor;
-  String _title;
-  T[] _contents;
-
-  Menu( int borderSize, int innerBorderSize, color themeColor, String title, T[] contents) {
-    _borderSize = borderSize;
-    _bezel = borderSize/2;
-    _innerBorderSize = innerBorderSize;
-    _textSize = borderSize/2;
-    _themeColor = themeColor;
-    _title = title;
-    _contents = contents;
-  }
-
-  void create() {
-    // create GUI window
-    float red = (255-red(_themeColor))/2+red(_themeColor);
-    float green = (255-green(_themeColor))/2+green(_themeColor);
-    float blue = (255-blue(_themeColor))/2+blue(_themeColor);
-    fill(color(red, green, blue));
-    rect(_borderSize, _borderSize, width-_borderSize*2, height-_borderSize*2, _bezel);
-
-    // create title section
-    fill(_themeColor);
-    rect(_borderSize, _borderSize, width-_borderSize*2, 3*_bezel, _bezel, _bezel, 0, 0);
-
-    // create title text
-    fill(0);
-    textAlign( CENTER, CENTER );
-    textSize(_textSize);
-    text(_title, _borderSize, _borderSize, width-_borderSize*2, 3*_bezel);
-
-    // create menu items
-    int maxContent = maxContent();
-    for (int i = 0; i < _contents.length && i <= maxContent; i++) {
-      MenuItem<T> item = new MenuItem<T>( _borderSize+_innerBorderSize, _borderSize+4*_bezel+i*(_textSize*2+_innerBorderSize/2), 
-                                          width-(_borderSize+_innerBorderSize)*2, _textSize*2, 
-                                          _innerBorderSize, _themeColor, _contents[i] );
-      item.create();
-    }
-  }
-  
-  int maxContent() {
-    return (height - _borderSize - _borderSize+4*_bezel) / (_textSize*2+_innerBorderSize/2) - 4;
-  }
-}
-
-class MenuItem<T> {
-
-  int _x, _y, _width, _height, _borderSize, _bezel;
-  int _themeColor;
-  T _content;
-
-  MenuItem( int x, int y, int w, int h, int borderSize, int themeColor, T content ) {
-    _x = x;
-    _y = y;
-    _width = w;
-    _height = h;
-    _borderSize = borderSize;
-    _bezel = borderSize/2;
-    _themeColor = themeColor;
-    _content = content;
-  }
-
-  void create() {
-    //fill(_themeColor*5/3);
-    fill(255);
-    rect(_x, _y, _width, _height, _bezel);
-    fill(0);
-    textAlign( CENTER, CENTER );
-    text(_content.toString(), _x, _y, _width, _height);
+void mousePressed() {
+  if (test.overBack()) {
+    test.prevPage();
+  } else if (test.overNext()) {
+    test.nextPage();
+  } else if (test.overElement() != -1) {
+    System.out.println(test.getElement(test.overElement()));
   }
 }
