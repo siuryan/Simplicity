@@ -1,3 +1,5 @@
+
+
 public final class Shop {
 
     public static Airplane[] airplanes = {
@@ -15,16 +17,17 @@ public final class Shop {
 
     //population -- 1000:1 Real:In Game
     public static City[] cities = {
-	new City("New York", 8491, 1000),
-	new City("Los Angeles", 3929, 1000),
-	new City("Chicago", 2722, 1000),
-	new City("Houston", 2296, 1000),
+ 	new City("New York", 8491, 1000),
+ 	new City("Los Angeles", 3929, 1000),
+ 	new City("Chicago", 2722, 1000),
+ 	new City("Houston", 2296, 1000),
 	new City("Philadelphia", 1567, 1000),
-	new City("Phoenix", 1563, 1000),
-	new City("San Francisco", 852, 1000),
-	new City("Washington DC", 672, 1000),
-	new City("Boston", 656, 1000)
-    };
+ 	new City("Phoenix", 1563, 1000),
+ 	new City("San Francisco", 852, 1000),
+ 	new City("Washington DC", 672, 1000),
+ 	new City("Boston", 656, 1000)
+     };
+    
 
 
     public static City popCity() {
@@ -35,6 +38,14 @@ public final class Shop {
     }
 
     public static void removeCity( int index ) {
-	cities[index].buy();
+	City[] copy = new City[cities.length-1];
+	for (int i = 0; i < index; i++) {
+	    copy[i] = cities[i];
+  	}
+	for (int i = index+1; i < cities.length; i++) {
+	    copy[i-1] = cities[i];
+  	}
+	cities = copy;
     }
+
 }
