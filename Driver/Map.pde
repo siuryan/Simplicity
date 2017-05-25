@@ -1,6 +1,7 @@
 class Map {
 
   int[][] _coords = new int[Shop.cities.length][3];
+  ArrayList<FlightRoute> flights = Driver.flights;
 
   Map() {
     for (int i = 0; i < Shop.cities.length; i++) {
@@ -12,6 +13,12 @@ class Map {
   
   void update( ArrayList<City> c ) {
     background(color(1, 114, 153));  
+    
+    double dy;
+    int dx;
+    int x;
+    int y;
+
     for (int i = 0; i < _coords.length; i++) {
       fill(color(144, 221, 99));
       noStroke();
@@ -32,5 +39,16 @@ class Map {
       textSize(Constants.WIDTH/100);
       text(c.get(i).getCityName(), c.get(i).getXcor(), c.get(i).getYcor()+10);
     }
+    /*
+    for (int i = 0; i < flights.size(); i ++){
+        dx = flights.get(i).getDeparture().getXcor() - flights.get(i).getArrival().getXcor();
+        dx = dx / flights.get(i).getDistance();
+        dy = flights.get(i).getDeparture().getYcor() - flights.get(i).getArrival().getYcor();
+        dy = dy / flights.get(i).getDistance();
+        x = flights.get(i).getDeparture().getXcor() + dx * flights.get(i).getTimeRem();
+        y = flights.get(i).getDeparture().getYcor() + dx * flights.get(i).getTimeRem();
+        
+    }
+    */
   }
 }

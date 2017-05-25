@@ -114,6 +114,11 @@ public class FlightRoute {
     long currentTime = System.currentTimeMillis();
     _timeEnd = currentTime + (long)((getDistance() / getAirplane().getSpeed()) * 1000 * 60); // to convert to min
   }
+  
+  public long getTimeRem(){
+      long currentTime = System.currentTimeMillis();
+      return _timeEnd - currentTime;
+  }
 
   public String toString() {
     if (getAirplane().getStatus() != 1) {
