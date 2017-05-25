@@ -41,6 +41,12 @@ void setup() {
 
 void draw() {
   switch (mode) {
+    
+  // exit
+  case -1:
+    exit();
+    break;
+    
   // main
   case 0:
     map.update( cities );
@@ -49,16 +55,26 @@ void draw() {
       if (mainMenu.overElement() != -1) {
         String input = mainMenu.getElement(mainMenu.overElement());
         switch (input) {
+        case "Exit":
+          mode = -1;
+          break;
         case "Airplanes":
           mode = 2;
+          break;
+        case "Flight Routes":
+          mode = 3;
           break;
         }
       }
     }
     break;
+    
+  // possible flight routes
+  case 1:
+   break;
+   
   // view airplanes
   case 2:
-    //String[] airplaneMenuContents = {"Back", "Next"};
     Airplane[] planes = airplanes.toArray(new Airplane[airplanes.size()]);
     Menu<Airplane> airplaneMenu = new Menu<Airplane>( "Airplanes", Constants.WIDTH, Constants.HEIGHT, 50, 25, color(121, 171, 252), planes, true );
     airplaneMenu.update();
@@ -72,9 +88,29 @@ void draw() {
       }
     }
     break;
-  // exit
+    
+  // current flights
+  case 3:
+    FlightRoute[] routes = flights.toArray(new FlightRoute[flights.size()]);
+    Menu<FlightRoute> flightMenu = new Menu<FlightRoute>( "Flight Routes", Constants.WIDTH, Constants.HEIGHT, 50, 25, color(121, 171, 252), routes, true );
+    flightMenu.update();
+    if (mouseClicked) {
+      if (flightMenu.overBack()) {
+        flightMenu.prevPage();
+      } else if (flightMenu.overNext()) {
+        flightMenu.nextPage();
+      } else if (flightMenu.overExit()) {
+        mode = 0;
+      }
+    }
+    break;
+    
+  // shop
+  case 4:
+    break;
+    
+  // help
   case 5:
-    //System.exit(0);
     break;
   }
   mouseClicked = false;

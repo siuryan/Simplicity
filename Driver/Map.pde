@@ -30,14 +30,22 @@ class Map {
       fill(0);
       ellipse(Shop.cities[i].getXcor(), Shop.cities[i].getYcor(), 10, 10);
       textSize(Constants.WIDTH/100);
-      text(Shop.cities[i].getCityName(), Shop.cities[i].getXcor(), Shop.cities[i].getYcor()+10);
+      if (Shop.cities[i].getYcor() > Constants.HEIGHT - 20) {
+        text(Shop.cities[i].getCityName(), Shop.cities[i].getXcor(), Shop.cities[i].getYcor()-20);
+      } else {
+        text(Shop.cities[i].getCityName(), Shop.cities[i].getXcor(), Shop.cities[i].getYcor()+10);
+      }
     }
     */
     for (int i = 0; i < c.size(); i++) {
       fill(0);
       ellipse(c.get(i).getXcor(), c.get(i).getYcor(), 10, 10);
       textSize(Constants.WIDTH/100);
-      text(c.get(i).getCityName(), c.get(i).getXcor(), c.get(i).getYcor()+10);
+      if (c.get(i).getYcor() > Constants.HEIGHT - 20) {
+        text(c.get(i).getCityName(), c.get(i).getXcor(), c.get(i).getYcor()-20);
+      } else {
+        text(c.get(i).getCityName(), c.get(i).getXcor(), c.get(i).getYcor()+10);
+      }
     }
     /*
     for (int i = 0; i < flights.size(); i ++){
