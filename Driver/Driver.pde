@@ -9,7 +9,7 @@ Menu<String> mainMenu = new Menu<String>( "Menu", Constants.MENU_MAP_DIVIDE, Con
 Map map = new Map( );
 
 void setup() {
-  size(1500, 1000); // should match WIDTH, HEIGHT
+  size(1500, 800); // should match WIDTH, HEIGHT
   //fullScreen();
   background(color(1, 114, 153));  
   
