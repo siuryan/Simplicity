@@ -71,6 +71,11 @@ void draw() {
         mode = 0;
       }
     }
+    break;
+  // exit
+  case 5:
+    //System.exit(0);
+    break;
   }
   mouseClicked = false;
 }

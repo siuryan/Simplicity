@@ -8,7 +8,7 @@ public class Airplane {
   private int _fuelCapacity;
   private int _status; // 0 for not flying, 1 for flying
   private City _currCity;
-
+  
   public Airplane() {
     _name = "";
     _range = 0;
