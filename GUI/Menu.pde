@@ -1,4 +1,4 @@
-class Menu<T> extends GUIElement<T> {
+class Menu<T> extends GUIElement {
 
   int _borderSize, _innerBorderSize, _bezel, _textSize, _width, _height;
   color _themeColor;
@@ -8,7 +8,7 @@ class Menu<T> extends GUIElement<T> {
   ArrayList<MenuItem<T>> _menuItems;
 
   
-  Menu( int w, int h, int borderSize, int innerBorderSize, color themeColor, String title, T[] contents) {
+  Menu( String title, int w, int h, int borderSize, int innerBorderSize, color themeColor, T[] contents) {
     _borderSize = borderSize;
     _bezel = borderSize/2;
     _width = w;
@@ -28,8 +28,6 @@ class Menu<T> extends GUIElement<T> {
     noStroke();
     textAlign( CENTER, CENTER );
     textSize(_textSize*3/2);
-    rect(0, (_width-_borderSize)/2, _borderSize, _borderSize);
-    rect(_width-_borderSize, (_height-_borderSize)/2, _borderSize, _borderSize);
     fill(0);
     text("←", 0, (_height-_borderSize)/2, _borderSize, _borderSize);
     text("→", _width-_borderSize, (_height-_borderSize)/2, _borderSize, _borderSize);

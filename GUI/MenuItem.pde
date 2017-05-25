@@ -1,4 +1,4 @@
-class MenuItem<T> extends GUIElement<T> {
+class MenuItem<T> extends GUIElement {
 
   int _x, _y, _width, _height, _borderSize, _bezel;
   int _color;

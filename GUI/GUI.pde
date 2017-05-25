@@ -1,22 +1,28 @@
-String[] arr = {"0", "a", "2", "b", "4", "c", "6", "d", "8", "e", "10", "f", "12", "g", "14", "h", "16", "i", "18"};
-Menu<String> test = new Menu<String>( 1000, 1000, 50, 25, color(121, 171, 252), "Hello world", arr );
+public static int WIDTH = 1500;
+public static int HEIGHT = 1000;
+public static int MENU_MAP_DIVIDE = 500;
+
+String[] arr = {"Back", "a", "2", "b", "4", "c", "6", "d", "8", "e", "10", "f", "12", "g", "14", "h", "16", "i", "18"};
+Menu<String> testMenu = new Menu<String>( "Hello world", MENU_MAP_DIVIDE, HEIGHT, 50, 25, color(121, 171, 252), arr );
+Map map = new Map( WIDTH, HEIGHT, MENU_MAP_DIVIDE );
 
 void setup() {
-  size(1000, 1000);
+  size(1500, 1000); // should match WIDTH, HEIGHT
   //fullScreen();
-  background(255);
+  background(color(1, 114, 153));  
 }
 
 void draw() {
-  test.update();
+  map.update();
+  testMenu.update();
 }
 
 void mousePressed() {
-  if (test.overBack()) {
-    test.prevPage();
-  } else if (test.overNext()) {
-    test.nextPage();
-  } else if (test.overElement() != -1) {
-    System.out.println(test.getElement(test.overElement()));
+  if (testMenu.overBack()) {
+    testMenu.prevPage();
+  } else if (testMenu.overNext()) {
+    testMenu.nextPage();
+  } else if (testMenu.overElement() != -1) {
+    System.out.println(testMenu.getElement(testMenu.overElement()));
   }
 }
