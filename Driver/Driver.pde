@@ -4,15 +4,19 @@ private static ArrayList<FlightRoute> flights;
 
 private static int money;
 
-String[] arr = {"Back", "a", "2", "b", "4", "c", "6", "d", "8", "e", "10", "f", "12", "g", "14", "h", "16", "i", "18"};
-Menu<String> mainMenu = new Menu<String>( "Menu", Constants.MENU_MAP_DIVIDE, Constants.HEIGHT, 50, 25, color(121, 171, 252), arr );
+private static int mode;
+
+private static boolean mouseClicked;
+
+String[] mainMenuContents = {"Start a Flight", "Airplanes", "Flight Routes", "Shop", "Help", "Exit"};
+Menu<String> mainMenu = new Menu<String>( "Airline Simulator", Constants.MENU_MAP_DIVIDE, Constants.HEIGHT, 50, 25, color(121, 171, 252), mainMenuContents, false );
 Map map = new Map( );
 
 void setup() {
   size(1500, 1000); // should match WIDTH, HEIGHT
   //fullScreen();
   background(color(1, 114, 153));  
-  
+
   money = 5000000;
 
   airplanes = new ArrayList<Airplane>();
@@ -29,19 +33,48 @@ void setup() {
   airplanes.get(0).setCity( cities.get(0) );
 
   flights = new ArrayList<FlightRoute>();
+
+  mode = 0;
+
+  mouseClicked = false;
 }
 
 void draw() {
-  map.update( cities );
-  mainMenu.update();
+  switch (mode) {
+  // main
+  case 0:
+    map.update( cities );
+    mainMenu.update();
+    if (mouseClicked) {
+      if (mainMenu.overElement() != -1) {
+        String input = mainMenu.getElement(mainMenu.overElement());
+        switch (input) {
+        case "Airplanes":
+          mode = 2;
+          break;
+        }
+      }
+    }
+    break;
+  // view airplanes
+  case 2:
+    //String[] airplaneMenuContents = {"Back", "Next"};
+    Airplane[] planes = airplanes.toArray(new Airplane[airplanes.size()]);
+    Menu<Airplane> airplaneMenu = new Menu<Airplane>( "Airplanes", Constants.WIDTH, Constants.HEIGHT, 50, 25, color(121, 171, 252), planes, true );
+    airplaneMenu.update();
+    if (mouseClicked) {
+      if (airplaneMenu.overBack()) {
+        airplaneMenu.prevPage();
+      } else if (airplaneMenu.overNext()) {
+        airplaneMenu.nextPage();
+      } else if (airplaneMenu.overExit()) {
+        mode = 0;
+      }
+    }
+  }
+  mouseClicked = false;
 }
 
-void mousePressed() {
-  if (mainMenu.overBack()) {
-    mainMenu.prevPage();
-  } else if (mainMenu.overNext()) {
-    mainMenu.nextPage();
-  } else if (mainMenu.overElement() != -1) {
-    System.out.println(mainMenu.getElement(mainMenu.overElement()));
-  }
+void mouseClicked() {
+  mouseClicked = true;
 }

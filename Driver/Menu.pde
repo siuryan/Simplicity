@@ -1,6 +1,7 @@
 class Menu<T> extends GUIElement {
 
   int _borderSize, _innerBorderSize, _bezel, _textSize, _width, _height;
+  boolean _includeBack;
   color _themeColor;
   String _title;
   int _page;
@@ -8,7 +9,7 @@ class Menu<T> extends GUIElement {
   ArrayList<MenuItem<T>> _menuItems;
 
 
-  Menu( String title, int w, int h, int borderSize, int innerBorderSize, color themeColor, T[] contents) {
+  Menu( String title, int w, int h, int borderSize, int innerBorderSize, color themeColor, T[] contents, boolean includeBack) {
     _borderSize = borderSize;
     _bezel = borderSize/2;
     _width = w;
@@ -19,6 +20,7 @@ class Menu<T> extends GUIElement {
     _title = title;
     _page = 0;
     _contents = contents;
+    _includeBack = includeBack;
     _menuItems = new ArrayList<MenuItem<T>>();
   }
 
@@ -49,8 +51,16 @@ class Menu<T> extends GUIElement {
     textAlign( CENTER, CENTER );
     textSize(_textSize);
     text(_title, _borderSize, _borderSize, _width-_borderSize*2, 3*_bezel);
+    
+    // create exit button
+    if (_includeBack) {
+      textSize(_textSize*2/3);
+      fill(0);
+      text("Back", _borderSize, _borderSize, _borderSize*2, 3*_bezel);
+    }
 
     // create menu items
+    textSize(_textSize);
     int maxContent = maxContent();
     for (int i = _page*maxContent; i < _contents.length && i <= (_page+1)*maxContent; i++) {
       MenuItem<T> item = new MenuItem<T>( _borderSize+_innerBorderSize, _borderSize+4*_bezel+(i-maxContent*_page)*(_textSize*2+_innerBorderSize/2), 
@@ -77,11 +87,15 @@ class Menu<T> extends GUIElement {
   boolean overNext() {
     return overRect(_width-_borderSize, (_height-_borderSize)/2, _borderSize, _borderSize);
   }
+  
+  boolean overExit() {
+    return overRect(_borderSize, _borderSize, _borderSize*2, 3*_bezel);  
+  }
 
   int overElement() {
     int maxContent = maxContent();
-    for (int i = 0; i <= maxContent; i++) {
-      if (_menuItems.get(i).overElement() && i+_page*maxContent < _contents.length) {
+    for (int i = 0; i < _contents.length && i <= (_page+1)*maxContent; i++) {
+      if (i+_page*maxContent < _contents.length && _menuItems.get(i).overElement()) {
         return i+_page*maxContent;
       }
     }
