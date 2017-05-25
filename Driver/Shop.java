@@ -1,4 +1,4 @@
-public final class Shop {
+public class Shop {
 
   public static Airplane[] airplanes = {
     // name, range, speed, capacity, price, fuelCapacity, currentCity

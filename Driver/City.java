@@ -19,7 +19,7 @@ public class City {
     _name = n;
   }
 
-  public String getName() {
+  public String getCityName() {
     return _name;
   }
 

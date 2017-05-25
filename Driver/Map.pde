@@ -11,19 +11,26 @@ class Map {
   }
   
   void update( ArrayList<City> c ) {
+    background(color(1, 114, 153));  
     for (int i = 0; i < _coords.length; i++) {
       fill(color(144, 221, 99));
       noStroke();
       //ellipse(_coords[i][0], _coords[i][1], (float)Math.log(_coords[i][2])*60, (float)Math.log(_coords[i][2])*60);
       ellipse(_coords[i][0], _coords[i][1], _coords[i][2]/3, _coords[i][2]/3);
     }
-    for (int i = 0; i < _coords.length; i++) {
+    /* display shop cities
+    for (int i = 0; i < Shop.cities.length; i++) {
       fill(0);
-      ellipse(_coords[i][0], _coords[i][1], 10, 10);
-    }/*
+      ellipse(Shop.cities[i].getXcor(), Shop.cities[i].getYcor(), 10, 10);
+      textSize(Constants.WIDTH/100);
+      text(Shop.cities[i].getCityName(), Shop.cities[i].getXcor(), Shop.cities[i].getYcor()+10);
+    }
+    */
     for (int i = 0; i < c.size(); i++) {
       fill(0);
       ellipse(c.get(i).getXcor(), c.get(i).getYcor(), 10, 10);
-    }*/
+      textSize(Constants.WIDTH/100);
+      text(c.get(i).getCityName(), c.get(i).getXcor(), c.get(i).getYcor()+10);
+    }
   }
 }
