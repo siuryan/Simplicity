@@ -31,30 +31,46 @@ public class Airplane {
     _currCity = currCity;
   }
 
-  public String getName() { return _name; }
-  public int getRange() { return _range; }
-  public int getSpeed() { return _speed; }
-  public int getCapacity() { return _capacity; }
-  public int getPrice() { return _price; }
-  public int getFuelCapacity() { return _fuelCapacity; }
-  public int getStatus() { return _status; }
-  public City getCity() { return _currCity; }
+  public String getName() { 
+    return _name;
+  }
+  public int getRange() { 
+    return _range;
+  }
+  public int getSpeed() { 
+    return _speed;
+  }
+  public int getCapacity() { 
+    return _capacity;
+  }
+  public int getPrice() { 
+    return _price;
+  }
+  public int getFuelCapacity() { 
+    return _fuelCapacity;
+  }
+  public int getStatus() { 
+    return _status;
+  }
+  public City getCity() { 
+    return _currCity;
+  }
 
   public int setStatus( int status ) {
     int foo = _status;
     _status = status;
     return foo;
   }
-  
+
   public City setCity( City city ) {
     City foo = _currCity;
     _currCity = city;
     return foo;
   }
-  
+
   public String toString() {
-      return getName() + ". Range: " + getRange() + ". Speed: " + getSpeed() +
-	  ". Capacity: " + getCapacity() + ". Current city: " + getCity() +
-	  ". Status: " + getStatus() + ".";
+    return getName() + ". Range: " + getRange() + ". Speed: " + getSpeed() +
+      ". Capacity: " + getCapacity() + ". Current city: " + getCity() +
+      ". Status: " + getStatus() + ".";
   }
 }

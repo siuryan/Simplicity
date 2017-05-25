@@ -3,7 +3,7 @@ public static int HEIGHT = 1000;
 public static int MENU_MAP_DIVIDE = 500;
 
 String[] arr = {"Back", "a", "2", "b", "4", "c", "6", "d", "8", "e", "10", "f", "12", "g", "14", "h", "16", "i", "18"};
-Menu<String> testMenu = new Menu<String>( "Hello world", MENU_MAP_DIVIDE, HEIGHT, 50, 25, color(121, 171, 252), arr );
+Menu<String> testMenu = new Menu<String>( "Menu", MENU_MAP_DIVIDE, HEIGHT, 50, 25, color(121, 171, 252), arr );
 Map map = new Map( WIDTH, HEIGHT, MENU_MAP_DIVIDE );
 
 void setup() {
