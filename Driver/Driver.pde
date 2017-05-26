@@ -1,6 +1,8 @@
 import java.awt.*;
 import java.net.*;
 
+final color THEME_COLOR = color(121, 171, 252);
+
 private static ArrayList<Airplane> airplanes;
 private static ArrayList<City> cities;
 private static ArrayList<FlightRoute> flights;
@@ -12,7 +14,7 @@ private static int mode;
 private static boolean mouseClicked;
 
 String[] mainMenuContents = {"Start a Flight", "Airplanes", "Flight Routes", "Shop", "Help", "Exit"};
-Menu<String> mainMenu = new Menu<String>( "Airline Simulator", Constants.MENU_MAP_DIVIDE, Constants.HEIGHT, 50, 25, color(121, 171, 252), mainMenuContents, false );
+Menu<String> mainMenu = new Menu<String>( "Airline Simulator", Constants.MENU_MAP_DIVIDE, Constants.HEIGHT*13/14, 50, 25, 2, THEME_COLOR, mainMenuContents, false );
 Map map = new Map( );
 
 void setup() {
@@ -45,12 +47,12 @@ void setup() {
 void draw() {
   switch (mode) {
 
-  // exit
+    // exit
   case -1:
     exit();
     break;
 
-  // main
+    // main
   case 0:
     map.update( cities, flights );
     mainMenu.update();
@@ -60,6 +62,9 @@ void draw() {
         switch (input) {
         case "Exit":
           mode = -1;
+          break;
+        case "Start a Flight":
+          mode = 1;
           break;
         case "Airplanes":
           mode = 2;
@@ -73,16 +78,39 @@ void draw() {
         }
       }
     }
+    textSize(Constants.HEIGHT/25);
+    fill(255);
+    text("$" + money, Constants.MENU_MAP_DIVIDE/2, Constants.HEIGHT*13/14);
     break;
 
-  // possible flight routes
+    // possible flight routes
   case 1:
+    ArrayList<FlightRoute> possibleRoutes = possibleFlights();
+    FlightRoute[] arrRoutes = possibleRoutes.toArray(new FlightRoute[possibleRoutes.size()]);
+    Menu<FlightRoute> possibleFlightMenu = new Menu<FlightRoute>( "Start a Flight", Constants.WIDTH, Constants.HEIGHT, 50, 25, 4, THEME_COLOR, arrRoutes, true );
+    possibleFlightMenu.update();
+    if (mouseClicked) {
+      if (possibleFlightMenu.overBack()) {
+        possibleFlightMenu.prevPage();
+      } else if (possibleFlightMenu.overNext()) {
+        possibleFlightMenu.nextPage();
+      } else if (possibleFlightMenu.overExit()) {
+        mode = 0;
+      } else if (mainMenu.overElement() != -1) {
+        int input = mainMenu.overElement();
+        FlightRoute route = possibleRoutes.get(input);
+        flights.add(route);
+        route.getAirplane().setStatus(1);
+        money += route.getProfit();
+        mode = 0;
+      }
+    }
     break;
 
-  // view airplanes
+    // view airplanes
   case 2:
     Airplane[] planes = airplanes.toArray(new Airplane[airplanes.size()]);
-    Menu<Airplane> airplaneMenu = new Menu<Airplane>( "Airplanes", Constants.WIDTH, Constants.HEIGHT, 50, 25, color(121, 171, 252), planes, true );
+    Menu<Airplane> airplaneMenu = new Menu<Airplane>( "Airplanes", Constants.WIDTH, Constants.HEIGHT, 50, 25, 2, THEME_COLOR, planes, true );
     airplaneMenu.update();
     if (mouseClicked) {
       if (airplaneMenu.overBack()) {
@@ -95,10 +123,10 @@ void draw() {
     }
     break;
 
-  // current flights
+    // current flights
   case 3:
     FlightRoute[] routes = flights.toArray(new FlightRoute[flights.size()]);
-    Menu<FlightRoute> flightMenu = new Menu<FlightRoute>( "Flight Routes", Constants.WIDTH, Constants.HEIGHT, 50, 25, color(121, 171, 252), routes, true );
+    Menu<FlightRoute> flightMenu = new Menu<FlightRoute>( "Flight Routes", Constants.WIDTH, Constants.HEIGHT, 50, 25, 6, THEME_COLOR, routes, true );
     flightMenu.update();
     if (mouseClicked) {
       if (flightMenu.overBack()) {
@@ -111,21 +139,64 @@ void draw() {
     }
     break;
 
-  // shop
+    // shop
   case 4:
     break;
 
-  // help
+    // help
   case 5:
     try {
       Desktop.getDesktop().browse(new URL("https://github.com/siuryan/Simplicity").toURI());
       mode = 0;
-    } catch (Exception e) { }
+    } 
+    catch (Exception e) {
+    }
     break;
   }
+  updateFlights();
   mouseClicked = false;
 }
 
 void mouseClicked() {
   mouseClicked = true;
+}
+
+static int fact( int n ) {
+  int retNum = 1;
+  for (int i = n; i > 0; i--) {
+    retNum *= i;
+  }
+  return retNum;
+}
+
+static ArrayList<FlightRoute> possibleFlights() {
+  //optimizing the arraylist
+  int permutation = fact(cities.size()) / fact(cities.size()-2);
+  ArrayList<FlightRoute> routes = new ArrayList<FlightRoute>(permutation);
+  for (Airplane plane : airplanes) {
+    if (plane != null && plane.getStatus() != 1) {
+      for (City city : cities) {
+        if (plane.getCity() != city) {
+          FlightRoute r = new FlightRoute( plane.getCity(), city, plane );
+          routes.add(r);
+          if (r.getDistance() > plane.getRange()) {
+            routes.remove(routes.size()-1);
+          }
+        }
+      }
+    }
+  }
+  return routes;
+}
+
+static void updateFlights() {
+  for (int i = 0; i < flights.size(); i++) {
+    FlightRoute r = flights.get(i);
+    long currentTime = System.currentTimeMillis();
+    if (r.getEndTime() < currentTime) {
+      r.getAirplane().setStatus(0);
+      r.getAirplane().setCity( r.getArrival() );
+      flights.remove(i);
+    }
+  }
 }

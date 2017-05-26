@@ -1,6 +1,6 @@
 class Menu<T> extends GUIElement {
 
-  int _borderSize, _innerBorderSize, _bezel, _textSize, _width, _height;
+  int _borderSize, _innerBorderSize, _bezel, _textSize, _width, _height, _elementRows;
   boolean _includeBack;
   color _themeColor;
   String _title;
@@ -9,12 +9,13 @@ class Menu<T> extends GUIElement {
   ArrayList<MenuItem<T>> _menuItems;
 
 
-  Menu( String title, int w, int h, int borderSize, int innerBorderSize, color themeColor, T[] contents, boolean includeBack) {
+  Menu( String title, int w, int h, int borderSize, int innerBorderSize, int elementRows, color themeColor, T[] contents, boolean includeBack) {
     _borderSize = borderSize;
     _bezel = borderSize/2;
     _width = w;
     _height = h;
     _innerBorderSize = innerBorderSize;
+    _elementRows = elementRows;
     _textSize = borderSize/2;
     _themeColor = themeColor;
     _title = title;
@@ -63,8 +64,8 @@ class Menu<T> extends GUIElement {
     textSize(_textSize);
     int maxContent = maxContent();
     for (int i = _page*maxContent; i < _contents.length && i <= (_page+1)*maxContent; i++) {
-      MenuItem<T> item = new MenuItem<T>( _borderSize+_innerBorderSize, _borderSize+4*_bezel+(i-maxContent*_page)*(_textSize*2+_innerBorderSize/2), 
-        _width-(_borderSize+_innerBorderSize)*2, _textSize*2, 
+      MenuItem<T> item = new MenuItem<T>( _borderSize+_innerBorderSize, _borderSize+4*_bezel+(i-maxContent*_page)*(_textSize*_elementRows+_innerBorderSize/2), 
+        _width-(_borderSize+_innerBorderSize)*2, _textSize*_elementRows, 
         _innerBorderSize, _contents[i] );
       _menuItems.add( item );
       if (item.overElement()) {
@@ -77,7 +78,7 @@ class Menu<T> extends GUIElement {
   }
 
   int maxContent() {
-    return (_height - _borderSize - _borderSize+4*_bezel - _innerBorderSize) / (_textSize*2+_innerBorderSize/2) - 4;
+    return (_height - _borderSize - _borderSize+4*_bezel - _innerBorderSize) / (_textSize*_elementRows+_innerBorderSize/2) - 4;
   }
 
   boolean overBack() {
