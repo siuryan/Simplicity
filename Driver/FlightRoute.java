@@ -117,19 +117,21 @@ public class FlightRoute {
   
   public long getTimeRem(){
       long currentTime = System.currentTimeMillis();
-      return _timeEnd - currentTime;
+      return (_timeEnd - currentTime)/1000;
   }
 
   public String toString() {
     if (getAirplane().getStatus() != 1) {
+      System.out.println("hi");
       return "Flight from " + getDeparture() + " to " + getArrival() +
         ". Distance: " + (int)getDistance() + ". Profit: " + getProfit() + ".\n"
-        + "Airplane:\n" + getAirplane().toString();
+        + "Airplane: " + getAirplane().toString();
     } else {
+      System.out.println("bye");
       return "Flight from " + getDeparture() + " to " + getArrival() +
         ". Distance: " + (int)getDistance() + ". Profit: " + getProfit() + ".\n"
-        + "Airplane:\n" + getAirplane().toString() + "\nTime remaining: " +
-        ((getEndTime() - System.currentTimeMillis())/1000) + "s";
+        + "Airplane: " + getAirplane().toString() + "\nTime remaining: " +
+        getTimeRem() + "s";
     }
   }
 }
