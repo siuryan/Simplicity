@@ -28,6 +28,7 @@ void setup() {
 
   //if we want to give a free plane to start with
   airplanes.add(Shop.airplanes[0]);
+  //airplanes.add(Shop.airplanes[1]);
 
   cities = new ArrayList<City>();
   for (int i = 0; i < 2; i++) {
@@ -36,6 +37,7 @@ void setup() {
 
   //if free plane given
   airplanes.get(0).setCity( cities.get(0) );
+  //airplanes.get(1).setCity( cities.get(1) );
 
   flights = new ArrayList<FlightRoute>();
 
@@ -98,6 +100,7 @@ void draw() {
         mode = 0;
       } else if (mainMenu.overElement() != -1) {
         int input = mainMenu.overElement();
+        System.out.println(input);
         FlightRoute route = possibleRoutes.get(input);
         flights.add(route);
         route.getAirplane().setStatus(1);

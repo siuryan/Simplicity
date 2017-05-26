@@ -122,12 +122,10 @@ public class FlightRoute {
 
   public String toString() {
     if (getAirplane().getStatus() != 1) {
-      System.out.println("hi");
       return "Flight from " + getDeparture() + " to " + getArrival() +
         ". Distance: " + (int)getDistance() + ". Profit: " + getProfit() + ".\n"
         + "Airplane: " + getAirplane().toString();
     } else {
-      System.out.println("bye");
       return "Flight from " + getDeparture() + " to " + getArrival() +
         ". Distance: " + (int)getDistance() + ". Profit: " + getProfit() + ".\n"
         + "Airplane: " + getAirplane().toString() + "\nTime remaining: " +
