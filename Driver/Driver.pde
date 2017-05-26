@@ -92,19 +92,20 @@ void draw() {
     Menu<FlightRoute> possibleFlightMenu = new Menu<FlightRoute>( "Start a Flight", Constants.WIDTH, Constants.HEIGHT, 50, 25, 4, THEME_COLOR, arrRoutes, true );
     possibleFlightMenu.update();
     if (mouseClicked) {
-      if (possibleFlightMenu.overBack()) {
-        possibleFlightMenu.prevPage();
-      } else if (possibleFlightMenu.overNext()) {
-        possibleFlightMenu.nextPage();
-      } else if (possibleFlightMenu.overExit()) {
-        mode = 0;
-      } else if (mainMenu.overElement() != -1) {
+      if (mainMenu.overElement() != -1) {
         int input = mainMenu.overElement();
         System.out.println(input);
         FlightRoute route = possibleRoutes.get(input);
         flights.add(route);
         route.getAirplane().setStatus(1);
         money += route.getProfit();
+        mode = 0;
+      }
+      if (possibleFlightMenu.overBack()) {
+        possibleFlightMenu.prevPage();
+      } else if (possibleFlightMenu.overNext()) {
+        possibleFlightMenu.nextPage();
+      } else if (possibleFlightMenu.overExit()) {
         mode = 0;
       }
     }
