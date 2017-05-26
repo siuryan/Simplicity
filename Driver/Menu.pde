@@ -9,7 +9,7 @@ class Menu<T> extends GUIElement {
   ArrayList<MenuItem<T>> _menuItems;
 
 
-  Menu( String title, int w, int h, int borderSize, int innerBorderSize, int elementRows, color themeColor, T[] contents, boolean includeBack) {
+  Menu( String title, int w, int h, int borderSize, int innerBorderSize, int elementRows, color themeColor, T[] contents, boolean includeBack ) {
     _borderSize = borderSize;
     _bezel = borderSize/2;
     _width = w;
@@ -24,6 +24,11 @@ class Menu<T> extends GUIElement {
     _includeBack = includeBack;
     _menuItems = new ArrayList<MenuItem<T>>();
   }
+  
+  Menu( String title, int w, int h, int borderSize, int innerBorderSize, int elementRows, color themeColor, T[] contents, boolean includeBack, int page ) {
+    this( title, w, h, borderSize, innerBorderSize, elementRows, themeColor, contents, includeBack );
+    _page = page;
+  }
 
   void update() {
     // create back and next buttons
@@ -32,8 +37,12 @@ class Menu<T> extends GUIElement {
     textAlign( CENTER, CENTER );
     textSize(_textSize*3/2);
     fill(0);
-    text("←", 0, (_height-_borderSize)/2, _borderSize, _borderSize);
-    text("→", _width-_borderSize, (_height-_borderSize)/2, _borderSize, _borderSize);
+    System.out.println(_contents.length);
+    System.out.println(maxContent());
+    if (_contents.length > maxContent()) {
+      text("←", 0, (_height-_borderSize)/2, _borderSize, _borderSize);
+      text("→", _width-_borderSize, (_height-_borderSize)/2, _borderSize, _borderSize);
+    }
 
     // create GUI window
     stroke(0);
@@ -52,7 +61,7 @@ class Menu<T> extends GUIElement {
     textAlign( CENTER, CENTER );
     textSize(_textSize);
     text(_title, _borderSize, _borderSize, _width-_borderSize*2, 3*_bezel);
-    
+
     // create exit button
     if (_includeBack) {
       textSize(_textSize*2/3);
@@ -88,9 +97,9 @@ class Menu<T> extends GUIElement {
   boolean overNext() {
     return overRect(_width-_borderSize, (_height-_borderSize)/2, _borderSize, _borderSize);
   }
-  
+
   boolean overExit() {
-    return overRect(_borderSize, _borderSize, _borderSize*2, 3*_bezel);  
+    return overRect(_borderSize, _borderSize, _borderSize*2, 3*_bezel);
   }
 
   int overElement() {
@@ -119,5 +128,15 @@ class Menu<T> extends GUIElement {
       _page++;
       update();
     }
+  }
+  
+  int getPage() {
+    return _page;
+  }
+  
+  int setPage( int page ) {
+    int foo = _page;
+    _page = page;
+    return foo;
   }
 }
