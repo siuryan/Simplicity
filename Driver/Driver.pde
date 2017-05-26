@@ -13,12 +13,14 @@ private static int mode;
 
 private static boolean mouseClicked;
 
+private static int currentPage;
+
 String[] mainMenuContents = {"Start a Flight", "Airplanes", "Flight Routes", "Shop", "Help", "Exit"};
-Menu<String> mainMenu = new Menu<String>( "Airline Simulator", Constants.MENU_MAP_DIVIDE, Constants.HEIGHT*13/14, 50, 25, 2, THEME_COLOR, mainMenuContents, false );
+Menu<String> mainMenu = new Menu<String>( "Airline Simulator", Constants.MENU_MAP_DIVIDE, Constants.HEIGHT_NO_FOOTER, 50, 25, 2, THEME_COLOR, mainMenuContents, false );
 Map map = new Map( );
 
 void setup() {
-  size(1500, 1000); // should match WIDTH, HEIGHT
+  size(1500, 800); // should match WIDTH, HEIGHT
   //fullScreen();
   background(color(1, 114, 153));  
 
@@ -44,6 +46,8 @@ void setup() {
   mode = 0;
 
   mouseClicked = false;
+  
+  currentPage = 0;
 }
 
 void draw() {
@@ -61,6 +65,7 @@ void draw() {
     if (mouseClicked) {
       if (mainMenu.overElement() != -1) {
         String input = mainMenu.getElement(mainMenu.overElement());
+        currentPage = 0;
         switch (input) {
         case "Exit":
           mode = -1;
@@ -74,6 +79,9 @@ void draw() {
         case "Flight Routes":
           mode = 3;
           break;
+        case "Shop":
+          mode = 4;
+          break;
         case "Help":
           mode = 5;
           break;
@@ -82,14 +90,14 @@ void draw() {
     }
     textSize(Constants.HEIGHT/25);
     fill(255);
-    text("$" + money, Constants.MENU_MAP_DIVIDE/2, Constants.HEIGHT*13/14);
+    text("$" + money, Constants.MENU_MAP_DIVIDE/2, Constants.HEIGHT_NO_FOOTER);
     break;
 
     // possible flight routes
   case 1:
     ArrayList<FlightRoute> possibleRoutes = possibleFlights();
     FlightRoute[] arrRoutes = possibleRoutes.toArray(new FlightRoute[possibleRoutes.size()]);
-    Menu<FlightRoute> possibleFlightMenu = new Menu<FlightRoute>( "Start a Flight", Constants.WIDTH, Constants.HEIGHT, 50, 25, 4, THEME_COLOR, arrRoutes, true );
+    Menu<FlightRoute> possibleFlightMenu = new Menu<FlightRoute>( "Start a Flight", Constants.WIDTH, Constants.HEIGHT_NO_FOOTER, 50, 25, 4, THEME_COLOR, arrRoutes, true, currentPage );
     possibleFlightMenu.update();
     if (mouseClicked) {
       if (mainMenu.overElement() != -1) {
@@ -103,8 +111,10 @@ void draw() {
       }
       if (possibleFlightMenu.overBack()) {
         possibleFlightMenu.prevPage();
+        currentPage = possibleFlightMenu.getPage();
       } else if (possibleFlightMenu.overNext()) {
         possibleFlightMenu.nextPage();
+        currentPage = possibleFlightMenu.getPage();
       } else if (possibleFlightMenu.overExit()) {
         mode = 0;
       }
@@ -114,13 +124,15 @@ void draw() {
     // view airplanes
   case 2:
     Airplane[] planes = airplanes.toArray(new Airplane[airplanes.size()]);
-    Menu<Airplane> airplaneMenu = new Menu<Airplane>( "Airplanes", Constants.WIDTH, Constants.HEIGHT, 50, 25, 2, THEME_COLOR, planes, true );
+    Menu<Airplane> airplaneMenu = new Menu<Airplane>( "Airplanes", Constants.WIDTH, Constants.HEIGHT_NO_FOOTER, 50, 25, 2, THEME_COLOR, planes, true, currentPage );
     airplaneMenu.update();
     if (mouseClicked) {
       if (airplaneMenu.overBack()) {
         airplaneMenu.prevPage();
+        currentPage = airplaneMenu.getPage();
       } else if (airplaneMenu.overNext()) {
         airplaneMenu.nextPage();
+        currentPage = airplaneMenu.getPage();
       } else if (airplaneMenu.overExit()) {
         mode = 0;
       }
@@ -130,13 +142,15 @@ void draw() {
     // current flights
   case 3:
     FlightRoute[] routes = flights.toArray(new FlightRoute[flights.size()]);
-    Menu<FlightRoute> flightMenu = new Menu<FlightRoute>( "Flight Routes", Constants.WIDTH, Constants.HEIGHT, 50, 25, 6, THEME_COLOR, routes, true );
+    Menu<FlightRoute> flightMenu = new Menu<FlightRoute>( "Flight Routes", Constants.WIDTH, Constants.HEIGHT_NO_FOOTER, 50, 25, 6, THEME_COLOR, routes, true, currentPage );
     flightMenu.update();
     if (mouseClicked) {
       if (flightMenu.overBack()) {
         flightMenu.prevPage();
+        currentPage = flightMenu.getPage();
       } else if (flightMenu.overNext()) {
         flightMenu.nextPage();
+        currentPage = flightMenu.getPage();
       } else if (flightMenu.overExit()) {
         mode = 0;
       }
@@ -145,6 +159,20 @@ void draw() {
 
     // shop
   case 4:
+    String[] mainShopMenuContents = {"Airplanes", "Cities", "a", "a", "b", "c", "d", "e", "f","g"};
+    Menu<String> mainShopMenu = new Menu<String>( "Shop", Constants.WIDTH, Constants.HEIGHT_NO_FOOTER, 50, 25, 2, THEME_COLOR, mainShopMenuContents, true, currentPage );
+    mainShopMenu.update();
+    if (mouseClicked) {
+      if (mainShopMenu.overBack()) {
+        mainShopMenu.prevPage();
+        currentPage = mainShopMenu.getPage();
+      } else if (mainShopMenu.overNext()) {
+        mainShopMenu.nextPage();
+        currentPage = mainShopMenu.getPage();
+      } else if (mainShopMenu.overExit()) {
+        mode = 0;
+      }
+    }
     break;
 
     // help
