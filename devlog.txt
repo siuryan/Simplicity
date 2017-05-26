@@ -63,6 +63,13 @@ Eric Zhang :: Worked on pathfinding algorithm
 Tiffany Moi :: Worked on main screen map generation
 ==============================================================
 
+2017-05-25
+--------------------------------------------------------------
+Ryan Siu :: Merged terminal to GUI version of game (added view airplanes and flights and help features) 
+Eric Zhang :: Worked on pathfinding algorithm
+Tiffany Moi :: Worked on main screen animation
+==============================================================
+
 TEMPLATE
 2017-0x-xx
 --------------------------------------------------------------
