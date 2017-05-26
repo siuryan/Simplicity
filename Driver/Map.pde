@@ -11,13 +11,13 @@ class Map {
     }
   }
   
-  void update( ArrayList<City> c ) {
+  void update( ArrayList<City> c, ArrayList<FlightRoute> f ) {
     background(color(1, 114, 153));  
     
     double dy;
-    int dx;
-    int x;
-    int y;
+    double dx;
+    float x;
+    float y;
 
     for (int i = 0; i < _coords.length; i++) {
       fill(color(144, 221, 99));
@@ -47,16 +47,18 @@ class Map {
         text(c.get(i).getCityName(), c.get(i).getXcor(), c.get(i).getYcor()+10);
       }
     }
-    /*
-    for (int i = 0; i < flights.size(); i ++){
-        dx = flights.get(i).getDeparture().getXcor() - flights.get(i).getArrival().getXcor();
-        dx = dx / flights.get(i).getDistance();
-        dy = flights.get(i).getDeparture().getYcor() - flights.get(i).getArrival().getYcor();
-        dy = dy / flights.get(i).getDistance();
-        x = flights.get(i).getDeparture().getXcor() + dx * flights.get(i).getTimeRem();
-        y = flights.get(i).getDeparture().getYcor() + dx * flights.get(i).getTimeRem();
+    
+    for (int i = 0; i < f.size(); i ++){
+        dx = f.get(i).getDeparture().getXcor() - f.get(i).getArrival().getXcor();
+        dx = dx / f.get(i).getDistance();
+        dy = f.get(i).getDeparture().getYcor() - f.get(i).getArrival().getYcor();
+        dy = dy / f.get(i).getDistance();
+        x = (float)(f.get(i).getDeparture().getXcor() + dx * f.get(i).getTimeRem());
+        y = (float) (f.get(i).getDeparture().getYcor() + dx * f.get(i).getTimeRem());
+        PImage img = loadImage("Airplane.jpg");
+        image(img, x, y);
         
     }
-    */
+    
   }
 }

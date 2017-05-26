@@ -52,7 +52,7 @@ void draw() {
 
   // main
   case 0:
-    map.update( cities );
+    map.update( cities, flights );
     mainMenu.update();
     if (mouseClicked) {
       if (mainMenu.overElement() != -1) {
