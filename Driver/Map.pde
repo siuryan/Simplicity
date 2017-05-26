@@ -1,7 +1,6 @@
 class Map {
 
   int[][] _coords = new int[Shop.cities.length][3];
-  ArrayList<FlightRoute> flights = Driver.flights;
 
   Map() {
     for (int i = 0; i < Shop.cities.length; i++) {
@@ -13,11 +12,6 @@ class Map {
   
   void update( ArrayList<City> c, ArrayList<FlightRoute> f ) {
     background(color(1, 114, 153));  
-    
-    double dy;
-    double dx;
-    float x;
-    float y;
 
     for (int i = 0; i < _coords.length; i++) {
       fill(color(144, 221, 99));
@@ -49,15 +43,14 @@ class Map {
     }
     
     for (int i = 0; i < f.size(); i ++){
-        dx = f.get(i).getDeparture().getXcor() - f.get(i).getArrival().getXcor();
+        double dx = f.get(i).getArrival().getXcor() - f.get(i).getDeparture().getXcor();
         dx = dx / f.get(i).getDistance();
-        dy = f.get(i).getDeparture().getYcor() - f.get(i).getArrival().getYcor();
+        double dy = f.get(i).getArrival().getYcor() - f.get(i).getDeparture().getYcor();
         dy = dy / f.get(i).getDistance();
-        x = (float)(f.get(i).getDeparture().getXcor() + dx * f.get(i).getTimeRem());
-        y = (float) (f.get(i).getDeparture().getYcor() + dy * f.get(i).getTimeRem());
+        float x = (float)(f.get(i).getDeparture().getXcor() + dx * f.get(i).getTimeRem());
+        float y = (float) (f.get(i).getDeparture().getYcor() + dy * f.get(i).getTimeRem());
         PImage img = loadImage("img/Airplane.png");
-        image(img, x, y, 50, 50);
-        
+        image(img, x-25, y-25, 50, 50);
     }
     
   }
