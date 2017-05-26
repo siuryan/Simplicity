@@ -1,3 +1,6 @@
+import java.awt.*;
+import java.net.*;
+
 private static ArrayList<Airplane> airplanes;
 private static ArrayList<City> cities;
 private static ArrayList<FlightRoute> flights;
@@ -41,12 +44,12 @@ void setup() {
 
 void draw() {
   switch (mode) {
-    
+
   // exit
   case -1:
     exit();
     break;
-    
+
   // main
   case 0:
     map.update( cities );
@@ -64,15 +67,18 @@ void draw() {
         case "Flight Routes":
           mode = 3;
           break;
+        case "Help":
+          mode = 5;
+          break;
         }
       }
     }
     break;
-    
+
   // possible flight routes
   case 1:
-   break;
-   
+    break;
+
   // view airplanes
   case 2:
     Airplane[] planes = airplanes.toArray(new Airplane[airplanes.size()]);
@@ -88,7 +94,7 @@ void draw() {
       }
     }
     break;
-    
+
   // current flights
   case 3:
     FlightRoute[] routes = flights.toArray(new FlightRoute[flights.size()]);
@@ -104,13 +110,17 @@ void draw() {
       }
     }
     break;
-    
+
   // shop
   case 4:
     break;
-    
+
   // help
   case 5:
+    try {
+      Desktop.getDesktop().browse(new URL("https://github.com/siuryan/Simplicity").toURI());
+      mode = 0;
+    } catch (Exception e) { }
     break;
   }
   mouseClicked = false;
