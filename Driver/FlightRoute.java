@@ -7,6 +7,7 @@ public class FlightRoute {
   private Airplane _plane;
   private int _tickPrice;
   private long _timeEnd;
+  private long _timeStart;
 
   public FlightRoute() {
     _departCity = null;
@@ -16,6 +17,7 @@ public class FlightRoute {
     _plane = null;
     _tickPrice = 0;
     _timeEnd = 0;
+    _timeStart = 0;
   }
 
   public FlightRoute( City departCity, City arriveCity, Airplane plane) {
@@ -112,7 +114,17 @@ public class FlightRoute {
 
   private void updateTime() {
     long currentTime = System.currentTimeMillis();
+    _timeStart = currentTime;
     _timeEnd = currentTime + (long)((getDistance() / getAirplane().getSpeed()) * 1000 * 60); // to convert to min
+  }
+  
+  public long getStartTime(){
+     return _timeStart; 
+  }
+  
+  public long getTimeElapsed(){
+    long currentTime = System.currentTimeMillis();
+    return currentTime - _timeStart;
   }
   
   public long getTimeRem(){
