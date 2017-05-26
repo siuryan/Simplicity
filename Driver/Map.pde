@@ -47,8 +47,8 @@ class Map {
         dx = dx / f.get(i).getDistance();
         double dy = f.get(i).getArrival().getYcor() - f.get(i).getDeparture().getYcor();
         dy = dy / f.get(i).getDistance();
-        float x = (float)(f.get(i).getDeparture().getXcor() + dx * f.get(i).getTimeRem());
-        float y = (float) (f.get(i).getDeparture().getYcor() + dy * f.get(i).getTimeRem());
+        float x = (float)(f.get(i).getDeparture().getXcor() + dx * f.get(i).getTimeElapsed());
+        float y = (float) (f.get(i).getDeparture().getYcor() + dy * f.get(i).getTimeElapsed());
         PImage img = loadImage("img/Airplane.png");
         image(img, x-25, y-25, 50, 50);
     }
