@@ -102,7 +102,6 @@ void draw() {
     if (mouseClicked) {
       if (mainMenu.overElement() != -1) {
         int input = mainMenu.overElement();
-        System.out.println(input);
         FlightRoute route = possibleRoutes.get(input);
         flights.add(route);
         route.getAirplane().setStatus(1);
@@ -159,10 +158,14 @@ void draw() {
 
     // shop
   case 4:
-    String[] mainShopMenuContents = {"Airplanes", "Cities", "a", "a", "b", "c", "d", "e", "f","g"};
+    String[] mainShopMenuContents = {"Airplanes", "Cities"};
     Menu<String> mainShopMenu = new Menu<String>( "Shop", Constants.WIDTH, Constants.HEIGHT_NO_FOOTER, 50, 25, 2, THEME_COLOR, mainShopMenuContents, true, currentPage );
     mainShopMenu.update();
     if (mouseClicked) {
+      if (mainShopMenu.overElement() != -1) {
+        int input = mainMenu.overElement();
+        mode = 6;
+      }
       if (mainShopMenu.overBack()) {
         mainShopMenu.prevPage();
         currentPage = mainShopMenu.getPage();
