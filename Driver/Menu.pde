@@ -37,8 +37,6 @@ class Menu<T> extends GUIElement {
     textAlign( CENTER, CENTER );
     textSize(_textSize*3/2);
     fill(0);
-    System.out.println(_contents.length);
-    System.out.println(maxContent());
     if (_contents.length > maxContent()) {
       text("←", 0, (_height-_borderSize)/2, _borderSize, _borderSize);
       text("→", _width-_borderSize, (_height-_borderSize)/2, _borderSize, _borderSize);
@@ -87,7 +85,7 @@ class Menu<T> extends GUIElement {
   }
 
   int maxContent() {
-    return (_height - _borderSize - _borderSize+4*_bezel - _innerBorderSize) / (_textSize*_elementRows+_innerBorderSize/2) - 4;
+    return (_height - _borderSize - _borderSize+4*_bezel - _innerBorderSize) / (_textSize*_elementRows+_innerBorderSize) - 2;
   }
 
   boolean overBack() {
