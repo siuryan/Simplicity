@@ -17,3 +17,6 @@ To run the terminal version:
 1. Move or copy ```Driver.java```, contained in the ```terminal``` directory, to the ```Driver``` directory.
 2. Compile ```Driver.java```.
 3. ```java Driver``` to run.
+
+## How to Play
+See [here](https://github.com/siuryan/Simplicity/blob/master/Help.md) for more details.
