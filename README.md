@@ -14,6 +14,6 @@ To run the GUI version:
 2. Press run. Enjoy!
 
 To run the terminal version:
-1. Move ```Driver.java```, contained in the ```terminal``` directory, to the ```Driver``` directory.
+1. Move or copy ```Driver.java```, contained in the ```terminal``` directory, to the ```Driver``` directory.
 2. Compile ```Driver.java```.
 3. ```java Driver``` to run.
