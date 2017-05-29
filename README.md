@@ -3,6 +3,7 @@ Ryan Siu, Eric Zhang, Tiffany Moi<br>
 Airline simulator game for APCS2 final project
 
 ## Description
+  Welcome to our airline game! In this game, you are the owner of an airline company and you get to choose your own flight routes between different cities! You start out with some money and an airplane and your goal is to make more money by starting new flight routes. With the money you earn, you can buy better airplanes with greater efficiency and range and you can also unlock cities with higher populations. The profit you gain from each flight is determined by the size of the city and the capacity of your airplanes, so your goal is to buy the best airplanes and unlock the biggest cities. 
 
 ## How it Works
 
