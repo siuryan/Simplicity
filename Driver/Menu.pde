@@ -101,13 +101,15 @@ class Menu<T> extends GUIElement {
     return overRect(_borderSize, _borderSize, _borderSize*2, 3*_bezel);
   }
 
+  // returns index of element in _contents
   int overElement() {
     int maxContent = maxContent();
-    //System.out.println(maxContent);
+    System.out.println(maxContent);
     //System.out.println(_contents.length);
     //System.out.println(_page);
-    for (int i = 0; i < _contents.length && i <= (_page+1)*maxContent; i++) {
+    for (int i = 0; i+(_page*maxContent) < _contents.length && i <= (_page+1)*maxContent; i++) {
       if (_menuItems.get(i).overElement()) {
+        System.out.println(_menuItems.get(i));
         return i+_page*maxContent;
       }
     }

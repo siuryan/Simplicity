@@ -115,13 +115,13 @@ void draw() {
       if (mainMenu.overElement() != -1) {
         int input = mainMenu.overElement();
         System.out.println(input);
-        
+        /*
         FlightRoute route = possibleRoutes.get(input);
         flights.add(route);
         route.getAirplane().setStatus(1);
         money += route.getProfit();
         mode = 0;
-        
+        */
       }
       if (possibleFlightMenu.overBack()) {
         possibleFlightMenu.prevPage();
