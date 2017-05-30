@@ -14,8 +14,8 @@ The FlightRoutes available to the user are generated based all of the possible c
 ## Instructions
 There are two versions of this game: a Processing GUI version with the latest features, and a terminal, text-based version that was developed for testing. The terminal version may not have all the features contained in the GUI version, and may contain bugs.
 
-Download the repo:
-1. ```git clone```
+Download the repo:<br>
+```git clone https://github.com/siuryan/Simplicity.git```
 
 To run the GUI version:
 1. Open ```Driver.pde``` in the ```Driver``` directory, contained in the root of this repo.
