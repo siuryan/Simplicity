@@ -70,6 +70,7 @@ class Menu<T> extends GUIElement {
     // create menu items
     textSize(_textSize);
     int maxContent = maxContent();
+    _menuItems = new ArrayList<MenuItem<T>>();
     for (int i = _page*maxContent; i < _contents.length && i <= (_page+1)*maxContent; i++) {
       MenuItem<T> item = new MenuItem<T>( _borderSize+_innerBorderSize, _borderSize+4*_bezel+(i-maxContent*_page)*(_textSize*_elementRows+_innerBorderSize/2), 
         _width-(_borderSize+_innerBorderSize)*2, _textSize*_elementRows, 
@@ -85,7 +86,7 @@ class Menu<T> extends GUIElement {
   }
 
   int maxContent() {
-    return (_height - _borderSize - _borderSize+4*_bezel - _innerBorderSize) / (_textSize*_elementRows+_innerBorderSize) - 2;
+    return (_height - 2*_borderSize - 4*_bezel - _innerBorderSize) / (_textSize*_elementRows+_innerBorderSize/2) - 1;
   }
 
   boolean overBack() {
@@ -102,8 +103,11 @@ class Menu<T> extends GUIElement {
 
   int overElement() {
     int maxContent = maxContent();
+    //System.out.println(maxContent);
+    //System.out.println(_contents.length);
+    //System.out.println(_page);
     for (int i = 0; i < _contents.length && i <= (_page+1)*maxContent; i++) {
-      if (i+_page*maxContent < _contents.length && _menuItems.get(i).overElement()) {
+      if (_menuItems.get(i).overElement()) {
         return i+_page*maxContent;
       }
     }

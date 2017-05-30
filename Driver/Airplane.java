@@ -1,5 +1,10 @@
+/**
+  class Airplane
+  Represents an airplane in the game.
+*/
 public class Airplane {
 
+  // Instance vars
   private String _name;
   private int _range;
   private int _speed;
@@ -9,6 +14,7 @@ public class Airplane {
   private int _status; // 0 for not flying, 1 for flying
   private City _currCity;
   
+  // Default constructor
   public Airplane() {
     _name = "";
     _range = 0;
@@ -20,6 +26,7 @@ public class Airplane {
     _currCity = null;
   }
 
+  // Overloaded constructor
   public Airplane( String name, int range, int speed, int capacity, int price, int fuelCapacity, City currCity ) {
     _name = name;
     _range = range;
@@ -31,37 +38,22 @@ public class Airplane {
     _currCity = currCity;
   }
 
-  public String getName() { 
-    return _name;
-  }
-  public int getRange() { 
-    return _range;
-  }
-  public int getSpeed() { 
-    return _speed;
-  }
-  public int getCapacity() { 
-    return _capacity;
-  }
-  public int getPrice() { 
-    return _price;
-  }
-  public int getFuelCapacity() { 
-    return _fuelCapacity;
-  }
-  public int getStatus() { 
-    return _status;
-  }
-  public City getCity() { 
-    return _currCity;
-  }
+  // Accessors
+  public String getName() { return _name; }
+  public int getRange() { return _range; }
+  public int getSpeed() { return _speed; }
+  public int getCapacity() { return _capacity; }
+  public int getPrice() { return _price; }
+  public int getFuelCapacity() { return _fuelCapacity; }
+  public int getStatus() { return _status; }
+  public City getCity() { return _currCity; }
 
+  // Mutators
   public int setStatus( int status ) {
     int foo = _status;
     _status = status;
     return foo;
   }
-
   public City setCity( City city ) {
     City foo = _currCity;
     _currCity = city;
