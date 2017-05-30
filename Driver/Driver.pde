@@ -29,14 +29,14 @@ void setup() {
   airplanes = new ArrayList<Airplane>();
 
   //if we want to give a free plane to start with
-  airplanes.add(Shop.airplanes[0]);
+  airplanes.add(Shop.buy(Shop.airplanes[0]));
   /*
   airplanes.add(Shop.airplanes[0]);
-  airplanes.add(Shop.airplanes[0]);
-  airplanes.add(Shop.airplanes[0]);
-  airplanes.add(Shop.airplanes[0]);
-  airplanes.add(Shop.airplanes[0]);
-  */
+   airplanes.add(Shop.airplanes[0]);
+   airplanes.add(Shop.airplanes[0]);
+   airplanes.add(Shop.airplanes[0]);
+   airplanes.add(Shop.airplanes[0]);
+   */
 
   cities = new ArrayList<City>();
   for (int i = 0; i < 2; i++) {
@@ -47,18 +47,18 @@ void setup() {
   airplanes.get(0).setCity( cities.get(0) );
   /*
   airplanes.get(1).setCity( cities.get(1) );
-  airplanes.get(2).setCity( cities.get(0) );
-  airplanes.get(3).setCity( cities.get(1) );
-  airplanes.get(4).setCity( cities.get(0) );
-  airplanes.get(5).setCity( cities.get(1) );
-  */
+   airplanes.get(2).setCity( cities.get(0) );
+   airplanes.get(3).setCity( cities.get(1) );
+   airplanes.get(4).setCity( cities.get(0) );
+   airplanes.get(5).setCity( cities.get(1) );
+   */
 
   flights = new ArrayList<FlightRoute>();
 
   mode = 0;
 
   mouseClicked = false;
-  
+
   currentPage = 0;
 }
 
@@ -117,11 +117,11 @@ void draw() {
         System.out.println(input);
         /*
         FlightRoute route = possibleRoutes.get(input);
-        flights.add(route);
-        route.getAirplane().setStatus(1);
-        money += route.getProfit();
-        mode = 0;
-        */
+         flights.add(route);
+         route.getAirplane().setStatus(1);
+         money += route.getProfit();
+         mode = 0;
+         */
       }
       if (possibleFlightMenu.overBack()) {
         possibleFlightMenu.prevPage();
@@ -179,7 +179,12 @@ void draw() {
     if (mouseClicked) {
       if (mainShopMenu.overElement() != -1) {
         int input = mainMenu.overElement();
-        mode = 6;
+        if (input == 0){
+          mode = 6; //airplane
+        }
+        else{
+          mode = 7; //cities
+        }
       }
       if (mainShopMenu.overBack()) {
         mainShopMenu.prevPage();
@@ -202,10 +207,49 @@ void draw() {
     catch (Exception e) {
     }
     break;
+
+  case 6:
+    Airplane[] newAirplanes = Shop.airplanes;
+    Menu<Airplane> airplaneShop = new Menu<Airplane>("Airplanes", Constants.WIDTH, Constants.HEIGHT_NO_FOOTER, 50, 25, 2, THEME_COLOR, newAirplanes, true, currentPage );
+    airplaneShop.update();
+    if (mouseClicked) {
+      if (airplaneShop.overBack()) {
+        airplaneShop.prevPage();
+        currentPage = airplaneShop.getPage();
+      } else if (airplaneShop.overNext()) {
+        airplaneShop.nextPage();
+        currentPage = airplaneShop.getPage();
+      } else if (airplaneShop.overExit()) {
+        mode = 4;
+        currentPage = 0;
+      }
+    }
+    break;
+  
+  
+  case 7:
+    City[] newCities = Shop.cities;
+    Menu<City> citiesShop = new Menu<City>("Cities", Constants.WIDTH, Constants.HEIGHT_NO_FOOTER, 50, 25, 2, THEME_COLOR, newCities, true, currentPage );
+    citiesShop.update();
+    if (mouseClicked) {
+      if (citiesShop.overBack()) {
+        citiesShop.prevPage();
+        currentPage = citiesShop.getPage();
+      } else if (citiesShop.overNext()) {
+        citiesShop.nextPage();
+        currentPage = citiesShop.getPage();
+      } else if (citiesShop.overExit()) {
+        mode = 4;
+        currentPage = 0;
+      }
+    }
+  break;
+  
   }
   updateFlights();
   mouseClicked = false;
 }
+
 
 void mouseClicked() {
   mouseClicked = true;
