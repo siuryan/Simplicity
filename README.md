@@ -6,7 +6,9 @@ Airline simulator game for APCS2 final project
 Welcome to our airline game! In this game, you are the owner of an airline company and you get to choose your own flight routes between different cities! You start out with some money and an airplane and your goal is to make more money by starting new flight routes. With the money you earn, you can buy better airplanes with greater efficiency and range and you can also unlock cities with higher populations. The profit you gain from each flight is determined by the size of the city and the capacity of your airplanes, so your goal is to buy the best airplanes and unlock the biggest cities. 
 
 ## How it Works
-Our game works by creating sets of cities, airplanes, and flight routes that the user possesses and adding to them as the game progresses. The flight routes available to the user are generated based on the shortest connections to each city from each possible starting city by pathfinding from each starting point.
+Our game works by creating instances of Cities, Airplanes, and FlightRoutes that the user possesses, and other instances of Cities and Airplanes are created in a Shop class as well, where they can be added to the user's collection the game progresses. 
+### Algorithms
+The FlightRoutes available to the user are generated based all of the possible connections from each Airplane's current City to each City in the Airplane's range. A suggested FlightRoute feature would find the circuit of paths starting from the Airplane's current City that would generate the most money.
 
 
 ## Instructions
