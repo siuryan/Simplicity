@@ -43,4 +43,8 @@ public class Shop {
     }
     cities = copy;
   }
+  public static Airplane buy(Airplane original){
+     Airplane copy = new Airplane(original.getName(), original.getRange(),original.getSpeed(), original.getCapacity(), original.getPrice(), original.getFuelCapacity(), null );
+     return copy;
+  }
 }
