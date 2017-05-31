@@ -32,7 +32,7 @@ class MenuItem<T> extends GUIElement {
     textAlign( CENTER, CENTER );
     text(_content.toString(), _x, _y, _width, _height);
   }
-
+  
   /**
    Returns whether or not the mouse cursor is currently in the rectangle containing the element.
    */
