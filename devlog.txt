@@ -87,6 +87,13 @@ Ryan Siu :: Worked on README, help page
 Eric Zhang, Tiffany Moi :: Worked on README
 ==============================================================
 
+2017-05-30
+--------------------------------------------------------------
+Ryan Siu :: 
+Eric Zhang :: 
+Tiffany Moi :: Added features to buy cities and airplanes, added feature to keep track of used fuel in airplanes, updated uml and flowchart
+==============================================================
+
 TEMPLATE
 2017-0x-xx
 --------------------------------------------------------------
