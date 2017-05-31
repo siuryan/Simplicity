@@ -16,6 +16,7 @@ public class Airplane {
   private double _efficiency;
   private int _tank;
   private boolean bought;
+  private int state;
 
   // Default constructor
   public Airplane() {
@@ -30,6 +31,7 @@ public class Airplane {
     _efficiency = 0;
     _tank = 0;
     bought = false;
+    state = 0;
   }
 
   // Overloaded constructor
@@ -45,6 +47,7 @@ public class Airplane {
     _efficiency = (double) fuelCapacity / range;
     _tank = _fuelCapacity;
     bought = false;
+    state = 0;
   }
 
   // Accessors
@@ -77,7 +80,17 @@ public class Airplane {
   }
   public int getTank() {
     return _tank;
-  };
+  }
+  public boolean getBought(){
+    return bought;
+  }
+  public int getCost(){
+     return (_fuelCapacity - _tank) * 10; 
+  }
+  
+  public void setState( int n ){
+     state = n; 
+  } 
 
   // Mutators
   public int setStatus( int status ) {
@@ -96,17 +109,29 @@ public class Airplane {
   }
   public void setBought(){
      bought = true; 
+     state = 1;
+  }
+  public boolean full(){
+     return _tank == _fuelCapacity; 
+  }
+  public void refuel(){
+     _tank = _fuelCapacity; 
   }
   public String toString() {
-    if (bought){
+    if (state == 1){
     return getAirplaneName() + ". Range: " + getRange() + ". Speed: " + getSpeed() +
       ". Capacity: " + getCapacity() + ". Current city: " + getCity() +
       ". Status: " + getStatus() + 
       ". Fuel: " + getTank() + ".";
     }
-    return getAirplaneName() + ". Range: " + getRange() + ". Speed: " + getSpeed() +
+    else if (state == 2){
+      return getAirplaneName() + " Fuel Remaining : " + getTank() +
+      " out of " + _fuelCapacity + ". Cost to refuel: $" + getCost();
+    }
+    return getAirplaneName() + " . Range: " + getRange() + ". Speed: " + getSpeed() +
       ". Capacity: " + getCapacity() + ". Current city: " + getCity() +
       ". Status: " + getStatus() + 
       ". Price: " + getPrice() + ".";
+    
   }
 }
