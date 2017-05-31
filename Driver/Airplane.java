@@ -13,7 +13,7 @@ public class Airplane {
   private int _fuelCapacity;
   private int _status; // 0 for not flying, 1 for flying
   private City _currCity;
-  private int _efficiency;
+  private double _efficiency;
   private int _tank;
 
   // Default constructor
@@ -40,7 +40,7 @@ public class Airplane {
     _fuelCapacity = fuelCapacity;
     _status = 0;
     _currCity = currCity;
-    _efficiency = _fuelCapacity / _range;
+    _efficiency = (double) fuelCapacity / range;
     _tank = _fuelCapacity;
   }
 
@@ -69,7 +69,7 @@ public class Airplane {
   public City getCity() { 
     return _currCity;
   }
-  public int getEfficiency() {
+  public double getEfficiency() {
     return _efficiency;
   }
   public int getTank() {
@@ -87,8 +87,8 @@ public class Airplane {
     _currCity = city;
     return foo;
   }
-  public int setTank( int distance ) {
-    _tank = _tank - (_efficiency * distance); 
+  public int setTank( double distance ) {
+    _tank = (int) (_tank - (_efficiency * distance)); 
     return _tank;
   }
   public String toString() {
