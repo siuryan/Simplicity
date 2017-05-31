@@ -89,6 +89,10 @@ public class FlightRoute {
     double y2 = getArrival().getYcor();
     _distance = Math.sqrt( (y2-y1)*(y2-y1) + (x2-x1)*(x2-x1) );
   }
+  
+  private void updateFuel(){
+      
+  }
 
   private void updateProfit() {
     // insert formula for calculating route profit (using city pop?)
