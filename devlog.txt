@@ -91,7 +91,7 @@ Eric Zhang, Tiffany Moi :: Worked on README
 --------------------------------------------------------------
 Ryan Siu :: Bug fixing, comments
 Eric Zhang :: Bug fixing, plan
-Tiffany Moi :: Implemented shop, fuel
+Tiffany Moi :: Added features to buy cities and airplanes, added feature to keep track of used fuel in airplanes, updated uml and flowchart
 ==============================================================
 
 TEMPLATE
