@@ -3,6 +3,7 @@ import java.net.*;
 
 final color THEME_COLOR = color(121, 171, 252);
 
+// Instance vars
 private static ArrayList<Airplane> airplanes;
 private static ArrayList<City> cities;
 private static ArrayList<FlightRoute> flights;
@@ -15,43 +16,38 @@ private static boolean mouseClicked;
 
 private static int currentPage;
 
+// Main screen instantiation
 String[] mainMenuContents = {"Start a Flight", "Airplanes", "Flight Routes", "Shop", "Help", "Exit"};
 Menu<String> mainMenu = new Menu<String>( "Airline Simulator", Constants.MENU_MAP_DIVIDE, Constants.HEIGHT_NO_FOOTER, 50, 25, 2, THEME_COLOR, mainMenuContents, false );
 Map map = new Map( );
 
 void setup() {
-  size(1500, 800); // should match WIDTH, HEIGHT
-  //fullScreen();
+  size(1500, 800); // should match Constants.WIDTH, Constants.HEIGHT
   background(color(1, 114, 153));  
 
   money = 5000000;
 
   airplanes = new ArrayList<Airplane>();
 
-  //if we want to give a free plane to start with
+  // if we want to give a free plane to start with
   airplanes.add(Shop.buy(Shop.airplanes[0]));
-  /*
-  airplanes.add(Shop.airplanes[0]);
-   airplanes.add(Shop.airplanes[0]);
-   airplanes.add(Shop.airplanes[0]);
-   airplanes.add(Shop.airplanes[0]);
-   airplanes.add(Shop.airplanes[0]);
-   */
+  airplanes.add(Shop.buy(Shop.airplanes[0]));
+  airplanes.add(Shop.buy(Shop.airplanes[0]));
+  airplanes.add(Shop.buy(Shop.airplanes[0]));
+  airplanes.add(Shop.buy(Shop.airplanes[0]));
 
+  // start with 2 random cities from the shop
   cities = new ArrayList<City>();
   for (int i = 0; i < 2; i++) {
     cities.add(Shop.popCity());
   }
 
-  //if free plane given
+  // if free plane given
   airplanes.get(0).setCity( cities.get(0) );
-  /*
   airplanes.get(1).setCity( cities.get(1) );
-   airplanes.get(2).setCity( cities.get(0) );
-   airplanes.get(3).setCity( cities.get(1) );
-   airplanes.get(4).setCity( cities.get(0) );
-   airplanes.get(5).setCity( cities.get(1) );
-   */
+  airplanes.get(2).setCity( cities.get(0) );
+  airplanes.get(3).setCity( cities.get(1) );
+  airplanes.get(4).setCity( cities.get(0) );
 
   flights = new ArrayList<FlightRoute>();
 
@@ -63,6 +59,20 @@ void setup() {
 }
 
 void draw() {
+  
+  /*
+  Each "mode" represents a different in-game screen:
+  -1: exit
+   0: main
+   1: possible flight routes
+   2: view airplanes
+   3: view current flight routes
+   4: shop
+   5: help
+   6: shop -- airplanes
+   7: shop -- cities
+  */
+  
   switch (mode) {
 
     // exit
@@ -100,6 +110,8 @@ void draw() {
         }
       }
     }
+    
+    // draw money text
     textSize(Constants.HEIGHT/25);
     fill(255);
     text("$" + money, Constants.MENU_MAP_DIVIDE/2, Constants.HEIGHT_NO_FOOTER);
@@ -115,13 +127,13 @@ void draw() {
       if (mainMenu.overElement() != -1) {
         int input = mainMenu.overElement();
         System.out.println(input);
-        /*
+        
         FlightRoute route = possibleRoutes.get(input);
          flights.add(route);
          route.getAirplane().setStatus(1);
          money += route.getProfit();
          mode = 0;
-         */
+         
       }
       if (possibleFlightMenu.overBack()) {
         possibleFlightMenu.prevPage();
@@ -173,16 +185,15 @@ void draw() {
 
     // shop
   case 4:
-    String[] mainShopMenuContents = {"Airplanes", "Cities", "a", "b", "c", "d", "e", "f", "g", "h", "i"};
+    String[] mainShopMenuContents = {"Airplanes", "Cities"};
     Menu<String> mainShopMenu = new Menu<String>( "Shop", Constants.WIDTH, Constants.HEIGHT_NO_FOOTER, 50, 25, 2, THEME_COLOR, mainShopMenuContents, true, currentPage );
     mainShopMenu.update();
     if (mouseClicked) {
       if (mainShopMenu.overElement() != -1) {
         int input = mainMenu.overElement();
-        if (input == 0){
+        if (input == 0) {
           mode = 6; //airplane
-        }
-        else{
+        } else {
           mode = 7; //cities
         }
       }
@@ -208,6 +219,7 @@ void draw() {
     }
     break;
 
+  // Shop -- Airplanes
   case 6:
     Airplane[] newAirplanes = Shop.airplanes;
     Menu<Airplane> airplaneShop = new Menu<Airplane>("Airplanes", Constants.WIDTH, Constants.HEIGHT_NO_FOOTER, 50, 25, 2, THEME_COLOR, newAirplanes, true, currentPage );
@@ -225,8 +237,8 @@ void draw() {
       }
     }
     break;
-  
-  
+
+  // Shop -- Cities
   case 7:
     City[] newCities = Shop.cities;
     Menu<City> citiesShop = new Menu<City>("Cities", Constants.WIDTH, Constants.HEIGHT_NO_FOOTER, 50, 25, 2, THEME_COLOR, newCities, true, currentPage );
@@ -243,18 +255,21 @@ void draw() {
         currentPage = 0;
       }
     }
-  break;
-  
+    break;
   }
+  
+  // handle loop tasks
   updateFlights();
   mouseClicked = false;
 }
-
 
 void mouseClicked() {
   mouseClicked = true;
 }
 
+/**
+ Returns n!.
+ */
 static int fact( int n ) {
   int retNum = 1;
   for (int i = n; i > 0; i--) {
@@ -263,10 +278,16 @@ static int fact( int n ) {
   return retNum;
 }
 
+/**
+ Finds all the possible FlightRoutes, given the current state of the game.
+ return ArrayList<FlightRoute> - contains the possible FlightRoutes
+ */
 static ArrayList<FlightRoute> possibleFlights() {
   //optimizing the arraylist
   int permutation = fact(cities.size()) / fact(cities.size()-2);
   ArrayList<FlightRoute> routes = new ArrayList<FlightRoute>(permutation);
+
+  // goes through every plane, looking for possible flight routes from the plane's current city to another city
   for (Airplane plane : airplanes) {
     if (plane != null && plane.getStatus() != 1) {
       for (City city : cities) {
@@ -283,6 +304,9 @@ static ArrayList<FlightRoute> possibleFlights() {
   return routes;
 }
 
+/**
+ Manages the current flights, removes them if they finish.
+ */
 static void updateFlights() {
   for (int i = 0; i < flights.size(); i++) {
     FlightRoute r = flights.get(i);
