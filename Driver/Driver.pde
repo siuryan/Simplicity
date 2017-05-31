@@ -134,6 +134,7 @@ void draw() {
         FlightRoute route = possibleRoutes.get(input);
          flights.add(route);
          route.getAirplane().setStatus(1);
+         route.getAirplane().setTank(route.getDistance());
          money += route.getProfit();
          mode = 0;
          
