@@ -54,7 +54,7 @@ public class Shop {
    Makes a copy of an Airplane and returns that copy.
    */
   public static Airplane buy(Airplane original) {
-    Airplane copy = new Airplane(original.getName(), original.getRange(), original.getSpeed(), original.getCapacity(), original.getPrice(), original.getFuelCapacity(), null );
+    Airplane copy = new Airplane(original.getAirplaneName(), original.getRange(), original.getSpeed(), original.getCapacity(), original.getPrice(), original.getFuelCapacity(), null );
     return copy;
   }
 }

@@ -10,12 +10,11 @@ Our game works by creating instances of Cities, Airplanes, and FlightRoutes that
 ### Algorithms
 The FlightRoutes available to the user are generated based all of the possible connections from each Airplane's current City to each City in the Airplane's range. A suggested FlightRoute feature would find the circuit of paths starting from the Airplane's current City that would generate the most money.
 
-
-## Instructions
+## Launch Instructions
 There are two versions of this game: a Processing GUI version with the latest features, and a terminal, text-based version that was developed for testing. The terminal version may not have all the features contained in the GUI version, and may contain bugs.
 
 Download the repo:<br>
-```git clone https://github.com/siuryan/Simplicity.git```
+```$ git clone https://github.com/siuryan/Simplicity.git```
 
 To run the GUI version:
 1. Open ```Driver.pde``` in the ```Driver``` directory, contained in the root of this repo.
@@ -23,8 +22,8 @@ To run the GUI version:
 
 To run the terminal version:
 1. Move or copy ```Driver.java```, contained in the ```terminal``` directory, to the ```Driver``` directory.
-2. Compile ```Driver.java```.
-3. ```java Driver``` to run.
+2. Compile. ```$ javac Driver.java```.
+3. ```$ java Driver``` to run.
 
 ## How to Play
 See [here](https://github.com/siuryan/Simplicity/blob/master/Help.md) for more details.

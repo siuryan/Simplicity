@@ -119,10 +119,13 @@ void draw() {
 
     // possible flight routes
   case 1:
+    // create menu
     ArrayList<FlightRoute> possibleRoutes = possibleFlights();
     FlightRoute[] arrRoutes = possibleRoutes.toArray(new FlightRoute[possibleRoutes.size()]);
     Menu<FlightRoute> possibleFlightMenu = new Menu<FlightRoute>( "Start a Flight", Constants.WIDTH, Constants.HEIGHT_NO_FOOTER, 50, 25, 4, THEME_COLOR, arrRoutes, true, currentPage );
     possibleFlightMenu.update();
+    
+    // handle interactions
     if (mouseClicked) {
       if (mainMenu.overElement() != -1) {
         int input = mainMenu.overElement();
@@ -167,9 +170,12 @@ void draw() {
 
     // current flights
   case 3:
+    // create menu
     FlightRoute[] routes = flights.toArray(new FlightRoute[flights.size()]);
     Menu<FlightRoute> flightMenu = new Menu<FlightRoute>( "Flight Routes", Constants.WIDTH, Constants.HEIGHT_NO_FOOTER, 50, 25, 6, THEME_COLOR, routes, true, currentPage );
     flightMenu.update();
+    
+    // handle interactions
     if (mouseClicked) {
       if (flightMenu.overBack()) {
         flightMenu.prevPage();
@@ -185,9 +191,12 @@ void draw() {
 
     // shop
   case 4:
-    String[] mainShopMenuContents = {"Airplanes", "Cities"};
+    // create menu
+    String[] mainShopMenuContents = {"Airplanes", "Cities", "Refuel"};
     Menu<String> mainShopMenu = new Menu<String>( "Shop", Constants.WIDTH, Constants.HEIGHT_NO_FOOTER, 50, 25, 2, THEME_COLOR, mainShopMenuContents, true, currentPage );
     mainShopMenu.update();
+    
+    // handle interactions
     if (mouseClicked) {
       if (mainShopMenu.overElement() != -1) {
         int input = mainMenu.overElement();
@@ -212,6 +221,7 @@ void draw() {
     // help
   case 5:
     try {
+      // open a new window in browser to help page
       Desktop.getDesktop().browse(new URL("https://github.com/siuryan/Simplicity/blob/master/Help.md").toURI());
       mode = 0;
     } 
@@ -221,9 +231,12 @@ void draw() {
 
   // Shop -- Airplanes
   case 6:
+    // create menu
     Airplane[] newAirplanes = Shop.airplanes;
     Menu<Airplane> airplaneShop = new Menu<Airplane>("Airplanes", Constants.WIDTH, Constants.HEIGHT_NO_FOOTER, 50, 25, 2, THEME_COLOR, newAirplanes, true, currentPage );
     airplaneShop.update();
+    
+    // handle interactions
     if (mouseClicked) {
       if (airplaneShop.overBack()) {
         airplaneShop.prevPage();
@@ -240,9 +253,12 @@ void draw() {
 
   // Shop -- Cities
   case 7:
+    // create menu
     City[] newCities = Shop.cities;
     Menu<City> citiesShop = new Menu<City>("Cities", Constants.WIDTH, Constants.HEIGHT_NO_FOOTER, 50, 25, 2, THEME_COLOR, newCities, true, currentPage );
     citiesShop.update();
+    
+    // handle interactions
     if (mouseClicked) {
       if (citiesShop.overBack()) {
         citiesShop.prevPage();
@@ -283,6 +299,7 @@ static int fact( int n ) {
  return ArrayList<FlightRoute> - contains the possible FlightRoutes
  */
 static ArrayList<FlightRoute> possibleFlights() {
+  
   //optimizing the arraylist
   int permutation = fact(cities.size()) / fact(cities.size()-2);
   ArrayList<FlightRoute> routes = new ArrayList<FlightRoute>(permutation);

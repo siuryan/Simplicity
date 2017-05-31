@@ -13,6 +13,8 @@ public class Airplane {
   private int _fuelCapacity;
   private int _status; // 0 for not flying, 1 for flying
   private City _currCity;
+  private int _efficiency;
+  private int _tank;
 
   // Default constructor
   public Airplane() {
@@ -24,6 +26,8 @@ public class Airplane {
     _fuelCapacity = 0;
     _status = 0;
     _currCity = null;
+    _efficiency = 0;
+    _tank = 0;
   }
 
   // Overloaded constructor
@@ -36,10 +40,12 @@ public class Airplane {
     _fuelCapacity = fuelCapacity;
     _status = 0;
     _currCity = currCity;
+    _efficiency = _fuelCapacity / _range;
+    _tank = _fuelCapacity;
   }
 
   // Accessors
-  public String getName() { 
+  public String getAirplaneName() { 
     return _name;
   }
   public int getRange() { 
@@ -63,6 +69,12 @@ public class Airplane {
   public City getCity() { 
     return _currCity;
   }
+  public int getEfficiency() {
+    return _efficiency;
+  }
+  public int getTank() {
+    return _tank;
+  };
 
   // Mutators
   public int setStatus( int status ) {
@@ -75,10 +87,14 @@ public class Airplane {
     _currCity = city;
     return foo;
   }
-
+  public int setTank( int distance ) {
+    _tank = _tank - (_efficiency * distance); 
+    return _tank;
+  }
   public String toString() {
-    return getName() + ". Range: " + getRange() + ". Speed: " + getSpeed() +
+    return getAirplaneName() + ". Range: " + getRange() + ". Speed: " + getSpeed() +
       ". Capacity: " + getCapacity() + ". Current city: " + getCity() +
-      ". Status: " + getStatus() + ".";
+      ". Status: " + getStatus() + 
+      ". Fuel: " + getTank() + ".";
   }
 }
