@@ -87,6 +87,13 @@ Ryan Siu :: Worked on README, help page
 Eric Zhang, Tiffany Moi :: Worked on README
 ==============================================================
 
+2017-05-30
+--------------------------------------------------------------
+Ryan Siu :: Bug fixing, comments
+Eric Zhang :: Bug fixing, plan
+Tiffany Moi :: Implemented shop, fuel
+==============================================================
+
 TEMPLATE
 2017-0x-xx
 --------------------------------------------------------------
