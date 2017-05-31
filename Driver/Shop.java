@@ -15,15 +15,15 @@ public class Shop {
   // to be bought Cities
   // population -- 1000:1 Real:In Game
   public static City[] cities = {
-    new City("New York", 8491, 1000), 
-    new City("Los Angeles", 3929, 1000), 
-    new City("Chicago", 2722, 1000), 
-    new City("Houston", 2296, 1000), 
-    new City("Philadelphia", 1567, 1000), 
-    new City("Phoenix", 1563, 1000), 
-    new City("San Francisco", 852, 1000), 
-    new City("Washington DC", 672, 1000), 
-    new City("Boston", 656, 1000)
+    new City("New York", 8491, 1000, 10000), 
+    new City("Los Angeles", 3929, 1000, 10000), 
+    new City("Chicago", 2722, 1000, 10000), 
+    new City("Houston", 2296, 1000, 5000), 
+    new City("Philadelphia", 1567, 1000, 10000), 
+    new City("Phoenix", 1563, 1000, 5000), 
+    new City("San Francisco", 852, 1000, 10000), 
+    new City("Washington DC", 672, 1000, 5000), 
+    new City("Boston", 656, 1000, 5000)
   };
 
   /**

@@ -239,7 +239,13 @@ void draw() {
     
     // handle interactions
     if (mouseClicked) {
-      if (airplaneShop.overBack()) {
+      if (airplaneShop.overElement() != -1) {
+        int input = airplaneShop.overElement();
+        airplanes.add(Shop.buy(newAirplanes[input]));
+        money -= newAirplanes[input].getPrice();
+        mode = 0;
+      }
+      else if (airplaneShop.overBack()) {
         airplaneShop.prevPage();
         currentPage = airplaneShop.getPage();
       } else if (airplaneShop.overNext()) {
@@ -261,7 +267,14 @@ void draw() {
     
     // handle interactions
     if (mouseClicked) {
-      if (citiesShop.overBack()) {
+      if (citiesShop.overElement() != -1) {
+        int input = citiesShop.overElement();
+        cities.add(newCities[input]);
+        Shop.removeCity(input);
+        money -= newCities[input].getPrice();
+        mode = 0;
+      }
+      else if (citiesShop.overBack()) {
         citiesShop.prevPage();
         currentPage = citiesShop.getPage();
       } else if (citiesShop.overNext()) {

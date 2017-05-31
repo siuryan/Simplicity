@@ -9,6 +9,7 @@ public class City {
   private int _xcor;
   private int _ycor;
   private String _name;
+  private int _price;
 
   // Default constructor
   public City() {
@@ -16,15 +17,17 @@ public class City {
     _xcor = 0;
     _ycor = 0;
     _pop = 0;
+    _price = 0;
   }
 
   // Overloaded constructor
-  public City( String n, int pop, int screenSize ) {
+  public City( String n, int pop, int screenSize, int price ) {
     // set xcor and ycor to random values inside the playing map
     _xcor = (int)(Math.random()*(Constants.WIDTH-Constants.MENU_MAP_DIVIDE)+Constants.MENU_MAP_DIVIDE);
     _ycor = (int)(Math.random()*Constants.HEIGHT);
     _pop = pop;
     _name = n;
+    _price = price;
   }
 
   // Accessors
@@ -40,8 +43,12 @@ public class City {
   public int getYcor() { 
     return _ycor;
   }
+  
+  public int getPrice(){
+    return _price;    
+  }
 
   public String toString() {
-    return _name + " (" + getXcor() + "," + getYcor() + ")";
+    return _name + " (" + getXcor() + "," + getYcor() + ")  " + "Price: " + _price;
   }
 }
