@@ -173,7 +173,7 @@ void draw() {
 
     // shop
   case 4:
-    String[] mainShopMenuContents = {"Airplanes", "Cities", "a", "b", "c", "d", "e", "f", "g", "h", "i"};
+    String[] mainShopMenuContents = {"Airplanes", "Cities", "Refuel", "b", "c", "d", "e", "f", "g", "h", "i"};
     Menu<String> mainShopMenu = new Menu<String>( "Shop", Constants.WIDTH, Constants.HEIGHT_NO_FOOTER, 50, 25, 2, THEME_COLOR, mainShopMenuContents, true, currentPage );
     mainShopMenu.update();
     if (mouseClicked) {
