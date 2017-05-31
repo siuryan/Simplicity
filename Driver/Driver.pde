@@ -59,10 +59,10 @@ void setup() {
 }
 
 void draw() {
-  
+
   /*
   Each "mode" represents a different in-game screen:
-  -1: exit
+   -1: exit
    0: main
    1: possible flight routes
    2: view airplanes
@@ -71,8 +71,8 @@ void draw() {
    5: help
    6: shop -- airplanes
    7: shop -- cities
-  */
-  
+   */
+
   switch (mode) {
 
     // exit
@@ -110,7 +110,7 @@ void draw() {
         }
       }
     }
-    
+
     // draw money text
     textSize(Constants.HEIGHT/25);
     fill(255);
@@ -124,20 +124,19 @@ void draw() {
     FlightRoute[] arrRoutes = possibleRoutes.toArray(new FlightRoute[possibleRoutes.size()]);
     Menu<FlightRoute> possibleFlightMenu = new Menu<FlightRoute>( "Start a Flight", Constants.WIDTH, Constants.HEIGHT_NO_FOOTER, 50, 25, 4, THEME_COLOR, arrRoutes, true, currentPage );
     possibleFlightMenu.update();
-    
+
     // handle interactions
     if (mouseClicked) {
       if (mainMenu.overElement() != -1) {
         int input = mainMenu.overElement();
         System.out.println(input);
-        
+
         FlightRoute route = possibleRoutes.get(input);
-         flights.add(route);
-         route.getAirplane().setStatus(1);
-         route.getAirplane().setTank(route.getDistance());
-         money += route.getProfit();
-         mode = 0;
-         
+        flights.add(route);
+        route.getAirplane().setStatus(1);
+        route.getAirplane().setTank(route.getDistance());
+        money += route.getProfit();
+        mode = 0;
       }
       if (possibleFlightMenu.overBack()) {
         possibleFlightMenu.prevPage();
@@ -175,7 +174,7 @@ void draw() {
     FlightRoute[] routes = flights.toArray(new FlightRoute[flights.size()]);
     Menu<FlightRoute> flightMenu = new Menu<FlightRoute>( "Flight Routes", Constants.WIDTH, Constants.HEIGHT_NO_FOOTER, 50, 25, 6, THEME_COLOR, routes, true, currentPage );
     flightMenu.update();
-    
+
     // handle interactions
     if (mouseClicked) {
       if (flightMenu.overBack()) {
@@ -196,102 +195,131 @@ void draw() {
     String[] mainShopMenuContents = {"Airplanes", "Cities", "Refuel"};
     Menu<String> mainShopMenu = new Menu<String>( "Shop", Constants.WIDTH, Constants.HEIGHT_NO_FOOTER, 50, 25, 2, THEME_COLOR, mainShopMenuContents, true, currentPage );
     mainShopMenu.update();
-    
+
     // handle interactions
     if (mouseClicked) {
       if (mainShopMenu.overElement() != -1) {
         int input = mainMenu.overElement();
         if (input == 0) {
           mode = 6; //airplane
-        } else {
+        } else if (input == 1) {
           mode = 7; //cities
+        } else {
+          mode = 8; //refuel
         }
       }
-      if (mainShopMenu.overBack()) {
-        mainShopMenu.prevPage();
-        currentPage = mainShopMenu.getPage();
-      } else if (mainShopMenu.overNext()) {
-        mainShopMenu.nextPage();
-        currentPage = mainShopMenu.getPage();
-      } else if (mainShopMenu.overExit()) {
-        mode = 0;
-      }
     }
-    break;
-
-    // help
-  case 5:
-    try {
-      // open a new window in browser to help page
-      Desktop.getDesktop().browse(new URL("https://github.com/siuryan/Simplicity/blob/master/Help.md").toURI());
+    if (mainShopMenu.overBack()) {
+      mainShopMenu.prevPage();
+      currentPage = mainShopMenu.getPage();
+    } else if (mainShopMenu.overNext()) {
+      mainShopMenu.nextPage();
+      currentPage = mainShopMenu.getPage();
+    } else if (mainShopMenu.overExit()) {
       mode = 0;
-    } 
-    catch (Exception e) {
     }
-    break;
+  
+  break;
+
+  // help
+case 5:
+  try {
+    // open a new window in browser to help page
+    Desktop.getDesktop().browse(new URL("https://github.com/siuryan/Simplicity/blob/master/Help.md").toURI());
+    mode = 0;
+  } 
+  catch (Exception e) {
+  }
+  break;
 
   // Shop -- Airplanes
-  case 6:
-    // create menu
-    Airplane[] newAirplanes = Shop.airplanes;
-    Menu<Airplane> airplaneShop = new Menu<Airplane>("Airplanes", Constants.WIDTH, Constants.HEIGHT_NO_FOOTER, 50, 25, 2, THEME_COLOR, newAirplanes, true, currentPage );
-    airplaneShop.update();
-    
-    // handle interactions
-    if (mouseClicked) {
-      if (airplaneShop.overElement() != -1) {
-        int input = airplaneShop.overElement();
-        airplanes.add(Shop.buy(newAirplanes[input]));
-        money -= newAirplanes[input].getPrice();
-        mode = 0;
-      }
-      else if (airplaneShop.overBack()) {
-        airplaneShop.prevPage();
-        currentPage = airplaneShop.getPage();
-      } else if (airplaneShop.overNext()) {
-        airplaneShop.nextPage();
-        currentPage = airplaneShop.getPage();
-      } else if (airplaneShop.overExit()) {
-        mode = 4;
-        currentPage = 0;
-      }
+case 6:
+  // create menu
+  Airplane[] newAirplanes = Shop.airplanes;
+  Menu<Airplane> airplaneShop = new Menu<Airplane>("Airplanes", Constants.WIDTH, Constants.HEIGHT_NO_FOOTER, 50, 25, 2, THEME_COLOR, newAirplanes, true, currentPage );
+  airplaneShop.update();
+
+  // handle interactions
+  if (mouseClicked) {
+    if (airplaneShop.overElement() != -1) {
+      int input = airplaneShop.overElement();
+      airplanes.add(Shop.buy(newAirplanes[input]));
+      money -= newAirplanes[input].getPrice();
+      mode = 0;
+    } else if (airplaneShop.overBack()) {
+      airplaneShop.prevPage();
+      currentPage = airplaneShop.getPage();
+    } else if (airplaneShop.overNext()) {
+      airplaneShop.nextPage();
+      currentPage = airplaneShop.getPage();
+    } else if (airplaneShop.overExit()) {
+      mode = 4;
+      currentPage = 0;
     }
-    break;
+  }
+  break;
 
   // Shop -- Cities
-  case 7:
-    // create menu
-    City[] newCities = Shop.cities;
-    Menu<City> citiesShop = new Menu<City>("Cities", Constants.WIDTH, Constants.HEIGHT_NO_FOOTER, 50, 25, 2, THEME_COLOR, newCities, true, currentPage );
-    citiesShop.update();
-    
-    // handle interactions
-    if (mouseClicked) {
-      if (citiesShop.overElement() != -1) {
-        int input = citiesShop.overElement();
-        cities.add(newCities[input]);
-        Shop.removeCity(input);
-        newCities[input].setStatus(true);
-        money -= newCities[input].getPrice();
-        mode = 0;
-      }
-      else if (citiesShop.overBack()) {
-        citiesShop.prevPage();
-        currentPage = citiesShop.getPage();
-      } else if (citiesShop.overNext()) {
-        citiesShop.nextPage();
-        currentPage = citiesShop.getPage();
-      } else if (citiesShop.overExit()) {
-        mode = 4;
-        currentPage = 0;
-      }
+case 7:
+  // create menu
+  City[] newCities = Shop.cities;
+  Menu<City> citiesShop = new Menu<City>("Cities", Constants.WIDTH, Constants.HEIGHT_NO_FOOTER, 50, 25, 2, THEME_COLOR, newCities, true, currentPage );
+  citiesShop.update();
+
+  // handle interactions
+  if (mouseClicked) {
+    if (citiesShop.overElement() != -1) {
+      int input = citiesShop.overElement();
+      cities.add(newCities[input]);
+      Shop.removeCity(input);
+      newCities[input].setStatus(true);
+      money -= newCities[input].getPrice();
+      mode = 0;
+    } else if (citiesShop.overBack()) {
+      citiesShop.prevPage();
+      currentPage = citiesShop.getPage();
+    } else if (citiesShop.overNext()) {
+      citiesShop.nextPage();
+      currentPage = citiesShop.getPage();
+    } else if (citiesShop.overExit()) {
+      mode = 4;
+      currentPage = 0;
     }
-    break;
+  }
+  break;
+
+case 8:
+  // create menu
+  Airplane[] refills = Shop.toBeFilled(airplanes);
+  Menu<Airplane> refillShop = new Menu<Airplane>("Refuel", Constants.WIDTH, Constants.HEIGHT_NO_FOOTER, 50, 25, 2, THEME_COLOR, refills, true, currentPage );
+  refillShop.update();
+
+  // handle interactions
+  if (mouseClicked) {
+    if (refillShop.overElement() != -1) {
+      int input = refillShop.overElement();
+      money -= refills[input].getCost();
+      refills[input].refuel();
+      refills[input].setState(1);
+      mode = 0;
+    } else if (refillShop.overBack()) {
+      refillShop.prevPage();
+      currentPage = refillShop.getPage();
+    } else if (refillShop.overNext()) {
+      refillShop.nextPage();
+      currentPage = refillShop.getPage();
+    } else if (refillShop.overExit()) {
+      mode = 4;
+      currentPage = 0;
+    }
   }
   
-  // handle loop tasks
-  updateFlights();
-  mouseClicked = false;
+  break;
+}
+
+// handle loop tasks
+updateFlights();
+mouseClicked = false;
 }
 
 void mouseClicked() {
@@ -314,7 +342,7 @@ static int fact( int n ) {
  return ArrayList<FlightRoute> - contains the possible FlightRoutes
  */
 static ArrayList<FlightRoute> possibleFlights() {
-  
+
   //optimizing the arraylist
   int permutation = fact(cities.size()) / fact(cities.size()-2);
   ArrayList<FlightRoute> routes = new ArrayList<FlightRoute>(permutation);
