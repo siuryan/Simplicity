@@ -1,0 +1,24 @@
+5/31/17
+
+PLAN
+
+Game Aspects:
+1. Add a priority queue to the flights from each city/to each destination
+2. Add animations to start-up screen and transitions
+3. Add a saving feature
+4. Change the UI for flight routes to be more user friendly and less intensive
+5. Adjust the role of refueling
+
+Bug fixes:
+1. Fix the crashes from starting too many flights
+2. Correct the orientation of the airplane on the map
+
+Timeline
+              4 1 5 3 2   GAMING ASPECTS  1 2 BUG FIXES
+START <-------------------------|-----------------|-----> FINISH
+                             FINISHED         FINISHED
+				  
+Jobs (Game Aspects)
+Ryan    :: 1 2 3 
+Tiffany :: 1 2 5
+Eric    :: 3 4 5
