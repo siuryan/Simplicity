@@ -271,6 +271,7 @@ void draw() {
         int input = citiesShop.overElement();
         cities.add(newCities[input]);
         Shop.removeCity(input);
+        newCities[input].setStatus(true);
         money -= newCities[input].getPrice();
         mode = 0;
       }

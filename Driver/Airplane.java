@@ -15,6 +15,7 @@ public class Airplane {
   private City _currCity;
   private double _efficiency;
   private int _tank;
+  private boolean bought;
 
   // Default constructor
   public Airplane() {
@@ -28,6 +29,7 @@ public class Airplane {
     _currCity = null;
     _efficiency = 0;
     _tank = 0;
+    bought = false;
   }
 
   // Overloaded constructor
@@ -42,6 +44,7 @@ public class Airplane {
     _currCity = currCity;
     _efficiency = (double) fuelCapacity / range;
     _tank = _fuelCapacity;
+    bought = false;
   }
 
   // Accessors
@@ -91,10 +94,19 @@ public class Airplane {
     _tank = (int) (_tank - (_efficiency * distance)); 
     return _tank;
   }
+  public void setBought(){
+     bought = true; 
+  }
   public String toString() {
+    if (bought){
     return getAirplaneName() + ". Range: " + getRange() + ". Speed: " + getSpeed() +
       ". Capacity: " + getCapacity() + ". Current city: " + getCity() +
       ". Status: " + getStatus() + 
       ". Fuel: " + getTank() + ".";
+    }
+    return getAirplaneName() + ". Range: " + getRange() + ". Speed: " + getSpeed() +
+      ". Capacity: " + getCapacity() + ". Current city: " + getCity() +
+      ". Status: " + getStatus() + 
+      ". Price: " + getPrice() + ".";
   }
 }
