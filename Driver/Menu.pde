@@ -88,7 +88,7 @@ class Menu<T> extends GUIElement {
     }
 
     // create menu items and displays them
-    if (_menuItems.size() == 0) {
+    //if (_menuItems.size() == 0) {
       textSize(_textSize);
       int maxContent = maxContent();
 
@@ -107,7 +107,7 @@ class Menu<T> extends GUIElement {
         }
         item.update();  //keeps drawing updated
       }
-    }
+    //}
   }
 
   /**

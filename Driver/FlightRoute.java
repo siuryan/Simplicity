@@ -99,6 +99,10 @@ public class FlightRoute {
     double y2 = getArrival().getYcor();
     _distance = Math.sqrt( (y2-y1)*(y2-y1) + (x2-x1)*(x2-x1) );
   }
+  
+  private void updateFuel(){
+      
+  }
 
   // calculates and updates the profit from flying this route
   // ALGO: uses population of the two cities to get the # of passengers, then multiplies this by the ticket price
