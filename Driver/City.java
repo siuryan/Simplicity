@@ -1,7 +1,7 @@
 /**
-  class City
-  Represents a city in the game.
-*/
+ class City
+ Represents a city in the game.
+ */
 public class City {
 
   // Instance vars
@@ -28,10 +28,18 @@ public class City {
   }
 
   // Accessors
-  public String getCityName() { return _name; }
-  public int getPop() { return _pop; }
-  public int getXcor() { return _xcor; }
-  public int getYcor() { return _ycor; }
+  public String getCityName() { 
+    return _name;
+  }
+  public int getPop() { 
+    return _pop;
+  }
+  public int getXcor() { 
+    return _xcor;
+  }
+  public int getYcor() { 
+    return _ycor;
+  }
 
   public String toString() {
     return _name + " (" + getXcor() + "," + getYcor() + ")";

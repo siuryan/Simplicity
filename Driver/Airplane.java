@@ -1,7 +1,7 @@
 /**
-  class Airplane
-  Represents an airplane in the game.
-*/
+ class Airplane
+ Represents an airplane in the game.
+ */
 public class Airplane {
 
   // Instance vars
@@ -13,7 +13,7 @@ public class Airplane {
   private int _fuelCapacity;
   private int _status; // 0 for not flying, 1 for flying
   private City _currCity;
-  
+
   // Default constructor
   public Airplane() {
     _name = "";
@@ -39,14 +39,30 @@ public class Airplane {
   }
 
   // Accessors
-  public String getName() { return _name; }
-  public int getRange() { return _range; }
-  public int getSpeed() { return _speed; }
-  public int getCapacity() { return _capacity; }
-  public int getPrice() { return _price; }
-  public int getFuelCapacity() { return _fuelCapacity; }
-  public int getStatus() { return _status; }
-  public City getCity() { return _currCity; }
+  public String getName() { 
+    return _name;
+  }
+  public int getRange() { 
+    return _range;
+  }
+  public int getSpeed() { 
+    return _speed;
+  }
+  public int getCapacity() { 
+    return _capacity;
+  }
+  public int getPrice() { 
+    return _price;
+  }
+  public int getFuelCapacity() { 
+    return _fuelCapacity;
+  }
+  public int getStatus() { 
+    return _status;
+  }
+  public City getCity() { 
+    return _currCity;
+  }
 
   // Mutators
   public int setStatus( int status ) {

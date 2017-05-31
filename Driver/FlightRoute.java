@@ -1,5 +1,10 @@
+/**
+ class FlightRoute
+ Represents the flight route between two cities in the game.
+ */
 public class FlightRoute {
 
+  // Instance vars
   private City _departCity;
   private City _arriveCity;
   private double _distance;
@@ -8,6 +13,7 @@ public class FlightRoute {
   private int _tickPrice;
   private long _timeStart, _timeEnd;
 
+  // Default constructor
   public FlightRoute() {
     _departCity = null;
     _arriveCity = null;
@@ -20,6 +26,7 @@ public class FlightRoute {
     _timeStart = 0;
   }
 
+  // Overloaded construtor
   public FlightRoute( City departCity, City arriveCity, Airplane plane) {
     _departCity = departCity;
     _arriveCity = arriveCity;
@@ -30,6 +37,7 @@ public class FlightRoute {
     updateTime();
   }
 
+  // Accessors
   public City getDeparture() { 
     return _departCity;
   }
@@ -51,7 +59,11 @@ public class FlightRoute {
   public long getEndTime() { 
     return _timeEnd;
   }
+  public long getStartTime() { 
+    return _timeStart;
+  }
 
+  // Mutators
   public City setDeparture( City newCity ) {
     City foo = _departCity;
     _departCity = newCity;
@@ -59,7 +71,6 @@ public class FlightRoute {
     updateProfit();
     return foo;
   }
-
   public City setArrival( City newCity ) {
     City foo = _arriveCity;
     _arriveCity = newCity;
@@ -67,14 +78,12 @@ public class FlightRoute {
     updateProfit();
     return foo;
   }
-
   public Airplane setAirplane( Airplane newPlane ) {
     Airplane foo = _plane;
     _plane = newPlane;
     updateProfit();
     return foo;
   }
-
   public int setTicketPrice( int newPrice ) {
     int foo = _tickPrice;
     _tickPrice = newPrice;
@@ -82,6 +91,7 @@ public class FlightRoute {
     return foo;
   }
 
+  // helper method for finding the distance between the departure and arrival cities using their coords
   private void updateDistance() {
     double x1 = getDeparture().getXcor();
     double y1 = getDeparture().getYcor();
@@ -90,7 +100,11 @@ public class FlightRoute {
     _distance = Math.sqrt( (y2-y1)*(y2-y1) + (x2-x1)*(x2-x1) );
   }
 
+  // calculates and updates the profit from flying this route
+  // ALGO: uses population of the two cities to get the # of passengers, then multiplies this by the ticket price
+  // currently uses an automatic price setter for the ticket price
   private void updateProfit() {
+
     // insert formula for calculating route profit (using city pop?)
     /*
 	_profit = getDeparture().getPop() + getArrival().getPop();
@@ -108,31 +122,40 @@ public class FlightRoute {
     _profit = passengers*_tickPrice;
   }
 
+  // returns distance as ticket price
   private int autoCalcPrice() {
     return (int)(getDistance());
   }
 
+  // finds and updates the time when the flight will start and end (in milliseconds since January 1, 1970)
   private void updateTime() {
     long currentTime = System.currentTimeMillis();
     _timeStart = currentTime;
     _timeEnd = currentTime + (long)((getDistance() / getAirplane().getSpeed()) * 1000 * 60); // to convert to min
   }
-  
-  public long getStartTime(){
-     return _timeStart; 
-  }
-  
-  
-  public long getTimeRem(){
-      long currentTime = System.currentTimeMillis();
-      return (_timeEnd - currentTime)/1000;
+
+  /**
+   Calculates the time remaining in the flight.
+   returns long - milliseconds remaining
+   */
+  public long getTimeRem() {
+    long currentTime = System.currentTimeMillis();
+    return (_timeEnd - currentTime)/1000;
   }
 
+  /**
+   Calculates the time elapsed in the flight.
+   returns long - milliseconds elapsed
+   */
   public long getTimeElapsed() {
     long currentTime = System.currentTimeMillis();
     return (currentTime - _timeStart)/1000;
   }
 
+  /**
+   Calculates the total time of the flight.
+   returns long - time in milliseconds of flight
+   */
   public long totalTime() {
     return (_timeEnd - _timeStart)/1000;
   }
