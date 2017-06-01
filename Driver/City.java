@@ -9,7 +9,7 @@ public class City {
   private int _xcor;
   private int _ycor;
   private String _name;
-  private boolean status;
+  private boolean _status; //true if bought, false otherwise
 
   // Default constructor
   public City() {
@@ -17,7 +17,7 @@ public class City {
     _xcor = 0;
     _ycor = 0;
     _pop = 0;
-    status = false;
+    _status = false;
   }
 
   // Overloaded constructor
@@ -27,7 +27,7 @@ public class City {
     _ycor = (int)(Math.random()*Constants.HEIGHT);
     _pop = pop;
     _name = n;
-    status = false;
+    _status = false;
   }
 
   // Accessors
@@ -46,13 +46,16 @@ public class City {
   public int getPrice(){
      return _pop * 100; 
   }
+  
+  // Mutators
   public void setStatus( boolean n ){
-     status = n; 
+     _status = n; 
   }
+  
   public String toString() {
-    if (status){
-      return _name + " (" + getXcor() + "," + getYcor() + ")  ";
+    if (_status){
+      return _name + " (" + getXcor() + "," + getYcor() + ")";
     }
-    return _name + " (" + getXcor() + "," + getYcor() + ")  Price: " + getPrice();
+    return _name + " (" + getXcor() + "," + getYcor() + ") Price: " + getPrice();
   }
 }

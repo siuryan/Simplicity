@@ -7,7 +7,6 @@ import java.util.ArrayList;
 public class Shop {
 
   // to be bought Airplanes
-
   public static Airplane[] airplanes = {
     // name, range, speed, capacity, price, fuelCapacity, currentCity
     new Airplane( "Old plane", 500, 30, 10, 500000, 50, null), 
@@ -54,7 +53,7 @@ public class Shop {
   }
 
   /**
-   Makes a copy of an Airplane and returns that copy.
+   <insert stuff here>
    */
   public static Airplane[] toBeFilled(ArrayList<Airplane> list) {
     ArrayList<Airplane> eh = new ArrayList<Airplane>(); 
@@ -65,14 +64,18 @@ public class Shop {
       }
     }
     Airplane[] ret = new Airplane[eh.size()];
-    for (int i = 0; i < eh.size(); i ++){
-       ret[i] = eh.get(i); 
+    for (int i = 0; i < eh.size(); i ++) {
+      ret[i] = eh.get(i);
     }
-      return ret;
+    return ret;
   }
+
+  /**
+   Makes a copy of an Airplane and returns that copy.
+   */
   public static Airplane buy(Airplane original) {
     Airplane copy = new Airplane(original.getAirplaneName(), original.getRange(), original.getSpeed(), original.getCapacity(), original.getPrice(), original.getFuelCapacity(), null ); 
-      copy.setBought(); 
-      return copy;
+    copy.setBought(); 
+    return copy;
   }
 }

@@ -71,6 +71,7 @@ void draw() {
    5: help
    6: shop -- airplanes
    7: shop -- cities
+   8: refuel airplanes
    */
 
   switch (mode) {
@@ -218,108 +219,109 @@ void draw() {
     } else if (mainShopMenu.overExit()) {
       mode = 0;
     }
-  
-  break;
 
-  // help
-case 5:
-  try {
-    // open a new window in browser to help page
-    Desktop.getDesktop().browse(new URL("https://github.com/siuryan/Simplicity/blob/master/Help.md").toURI());
-    mode = 0;
-  } 
-  catch (Exception e) {
-  }
-  break;
+    break;
 
-  // Shop -- Airplanes
-case 6:
-  // create menu
-  Airplane[] newAirplanes = Shop.airplanes;
-  Menu<Airplane> airplaneShop = new Menu<Airplane>("Airplanes", Constants.WIDTH, Constants.HEIGHT_NO_FOOTER, 50, 25, 2, THEME_COLOR, newAirplanes, true, currentPage );
-  airplaneShop.update();
-
-  // handle interactions
-  if (mouseClicked) {
-    if (airplaneShop.overElement() != -1) {
-      int input = airplaneShop.overElement();
-      airplanes.add(Shop.buy(newAirplanes[input]));
-      money -= newAirplanes[input].getPrice();
+    // help
+  case 5:
+    try {
+      // open a new window in browser to help page
+      Desktop.getDesktop().browse(new URL("https://github.com/siuryan/Simplicity/blob/master/Help.md").toURI());
       mode = 0;
-    } else if (airplaneShop.overBack()) {
-      airplaneShop.prevPage();
-      currentPage = airplaneShop.getPage();
-    } else if (airplaneShop.overNext()) {
-      airplaneShop.nextPage();
-      currentPage = airplaneShop.getPage();
-    } else if (airplaneShop.overExit()) {
-      mode = 4;
-      currentPage = 0;
+    } 
+    catch (Exception e) {
     }
-  }
-  break;
+    break;
 
-  // Shop -- Cities
-case 7:
-  // create menu
-  City[] newCities = Shop.cities;
-  Menu<City> citiesShop = new Menu<City>("Cities", Constants.WIDTH, Constants.HEIGHT_NO_FOOTER, 50, 25, 2, THEME_COLOR, newCities, true, currentPage );
-  citiesShop.update();
+    // Shop -- Airplanes
+  case 6:
+    // create menu
+    Airplane[] newAirplanes = Shop.airplanes;
+    Menu<Airplane> airplaneShop = new Menu<Airplane>("Airplanes", Constants.WIDTH, Constants.HEIGHT_NO_FOOTER, 50, 25, 2, THEME_COLOR, newAirplanes, true, currentPage );
+    airplaneShop.update();
 
-  // handle interactions
-  if (mouseClicked) {
-    if (citiesShop.overElement() != -1) {
-      int input = citiesShop.overElement();
-      cities.add(newCities[input]);
-      Shop.removeCity(input);
-      newCities[input].setStatus(true);
-      money -= newCities[input].getPrice();
-      mode = 0;
-    } else if (citiesShop.overBack()) {
-      citiesShop.prevPage();
-      currentPage = citiesShop.getPage();
-    } else if (citiesShop.overNext()) {
-      citiesShop.nextPage();
-      currentPage = citiesShop.getPage();
-    } else if (citiesShop.overExit()) {
-      mode = 4;
-      currentPage = 0;
+    // handle interactions
+    if (mouseClicked) {
+      if (airplaneShop.overElement() != -1) {
+        int input = airplaneShop.overElement();
+        airplanes.add(Shop.buy(newAirplanes[input]));
+        money -= newAirplanes[input].getPrice();
+        mode = 0;
+      } else if (airplaneShop.overBack()) {
+        airplaneShop.prevPage();
+        currentPage = airplaneShop.getPage();
+      } else if (airplaneShop.overNext()) {
+        airplaneShop.nextPage();
+        currentPage = airplaneShop.getPage();
+      } else if (airplaneShop.overExit()) {
+        mode = 4;
+        currentPage = 0;
+      }
     }
-  }
-  break;
+    break;
 
-case 8:
-  // create menu
-  Airplane[] refills = Shop.toBeFilled(airplanes);
-  Menu<Airplane> refillShop = new Menu<Airplane>("Refuel", Constants.WIDTH, Constants.HEIGHT_NO_FOOTER, 50, 25, 2, THEME_COLOR, refills, true, currentPage );
-  refillShop.update();
+    // Shop -- Cities
+  case 7:
+    // create menu
+    City[] newCities = Shop.cities;
+    Menu<City> citiesShop = new Menu<City>("Cities", Constants.WIDTH, Constants.HEIGHT_NO_FOOTER, 50, 25, 2, THEME_COLOR, newCities, true, currentPage );
+    citiesShop.update();
 
-  // handle interactions
-  if (mouseClicked) {
-    if (refillShop.overElement() != -1) {
-      int input = refillShop.overElement();
-      money -= refills[input].getCost();
-      refills[input].refuel();
-      refills[input].setState(1);
-      mode = 0;
-    } else if (refillShop.overBack()) {
-      refillShop.prevPage();
-      currentPage = refillShop.getPage();
-    } else if (refillShop.overNext()) {
-      refillShop.nextPage();
-      currentPage = refillShop.getPage();
-    } else if (refillShop.overExit()) {
-      mode = 4;
-      currentPage = 0;
+    // handle interactions
+    if (mouseClicked) {
+      if (citiesShop.overElement() != -1) {
+        int input = citiesShop.overElement();
+        cities.add(newCities[input]);
+        Shop.removeCity(input);
+        newCities[input].setStatus(true);
+        money -= newCities[input].getPrice();
+        mode = 0;
+      } else if (citiesShop.overBack()) {
+        citiesShop.prevPage();
+        currentPage = citiesShop.getPage();
+      } else if (citiesShop.overNext()) {
+        citiesShop.nextPage();
+        currentPage = citiesShop.getPage();
+      } else if (citiesShop.overExit()) {
+        mode = 4;
+        currentPage = 0;
+      }
     }
-  }
-  
-  break;
-}
+    break;
 
-// handle loop tasks
-updateFlights();
-mouseClicked = false;
+    // refill fuel
+  case 8:
+    // create menu
+    Airplane[] refills = Shop.toBeFilled(airplanes);
+    Menu<Airplane> refillShop = new Menu<Airplane>("Refuel", Constants.WIDTH, Constants.HEIGHT_NO_FOOTER, 50, 25, 2, THEME_COLOR, refills, true, currentPage );
+    refillShop.update();
+
+    // handle interactions
+    if (mouseClicked) {
+      if (refillShop.overElement() != -1) {
+        int input = refillShop.overElement();
+        money -= refills[input].getCost();
+        refills[input].refuel();
+        refills[input].setState(1);
+        mode = 0;
+      } else if (refillShop.overBack()) {
+        refillShop.prevPage();
+        currentPage = refillShop.getPage();
+      } else if (refillShop.overNext()) {
+        refillShop.nextPage();
+        currentPage = refillShop.getPage();
+      } else if (refillShop.overExit()) {
+        mode = 4;
+        currentPage = 0;
+      }
+    }
+
+    break;
+  }
+
+  // handle loop tasks
+  updateFlights();
+  mouseClicked = false;
 }
 
 void mouseClicked() {

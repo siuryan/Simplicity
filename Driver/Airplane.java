@@ -15,8 +15,8 @@ public class Airplane {
   private City _currCity;
   private double _efficiency;
   private int _tank;
-  private boolean bought;
-  private int state;
+  private boolean _bought;
+  private int _state; // 1 for bought, 2 for to be refueled
 
   // Default constructor
   public Airplane() {
@@ -30,8 +30,8 @@ public class Airplane {
     _currCity = null;
     _efficiency = 0;
     _tank = 0;
-    bought = false;
-    state = 0;
+    _bought = false;
+    _state = 0;
   }
 
   // Overloaded constructor
@@ -46,8 +46,8 @@ public class Airplane {
     _currCity = currCity;
     _efficiency = (double) fuelCapacity / range;
     _tank = _fuelCapacity;
-    bought = false;
-    state = 0;
+    _bought = false;
+    _state = 0;
   }
 
   // Accessors
@@ -82,15 +82,11 @@ public class Airplane {
     return _tank;
   }
   public boolean getBought(){
-    return bought;
+    return _bought;
   }
   public int getCost(){
      return (_fuelCapacity - _tank) * 10; 
   }
-  
-  public void setState( int n ){
-     state = n; 
-  } 
 
   // Mutators
   public int setStatus( int status ) {
@@ -107,25 +103,35 @@ public class Airplane {
     _tank = (int) (_tank - (_efficiency * distance)); 
     return _tank;
   }
-  public void setBought(){
-     bought = true; 
-     state = 1;
+  public void setState( int n ){
+     _state = n; 
   }
+  public void setBought(){
+     _bought = true; 
+     setState(1);
+  }
+  
+  /**
+   Returns whether or not the airplane has a full tank of fuel.
+   */
   public boolean full(){
      return _tank == _fuelCapacity; 
   }
+  /**
+   Sets airplane's fuel back to maximum.
+   */
   public void refuel(){
      _tank = _fuelCapacity; 
   }
+  
   public String toString() {
-    if (state == 1){
+    if (_state == 1){
     return getAirplaneName() + ". Range: " + getRange() + ". Speed: " + getSpeed() +
-      ". Capacity: " + getCapacity() + ". Current city: " + getCity() +
-      ". Status: " + getStatus() + 
+      ". Capacity: " + getCapacity() + ". Status: " + getStatus() + 
       ". Fuel: " + getTank() + ".";
     }
-    else if (state == 2){
-      return getAirplaneName() + " Fuel Remaining : " + getTank() +
+    else if (_state == 2){
+      return getAirplaneName() + ". Fuel Remaining: " + getTank() +
       " out of " + _fuelCapacity + ". Cost to refuel: $" + getCost();
     }
     return getAirplaneName() + " . Range: " + getRange() + ". Speed: " + getSpeed() +
