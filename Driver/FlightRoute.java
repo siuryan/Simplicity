@@ -161,7 +161,7 @@ public class FlightRoute {
   }
 
   public String toString() {
-    if (getAirplane().getStatus() != 1) {
+    if (getAirplane().getStatus() != 1 && getAirplane().check(_distance) > 0) {
       return "Flight from " + getDeparture() + " to " + getArrival() +
         ". Distance: " + (int)getDistance() + ". Profit: " + getProfit() + ".\n"
         + "Airplane: " + getAirplane().toString();
