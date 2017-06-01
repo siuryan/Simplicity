@@ -31,10 +31,6 @@ void setup() {
 
   // if we want to give a free plane to start with
   airplanes.add(Shop.buy(Shop.airplanes[0]));
-  airplanes.add(Shop.buy(Shop.airplanes[0]));
-  airplanes.add(Shop.buy(Shop.airplanes[0]));
-  airplanes.add(Shop.buy(Shop.airplanes[0]));
-  airplanes.add(Shop.buy(Shop.airplanes[0]));
 
   // start with 2 random cities from the shop
   cities = new ArrayList<City>();
@@ -44,10 +40,6 @@ void setup() {
 
   // if free plane given
   airplanes.get(0).setCity( cities.get(0) );
-  airplanes.get(1).setCity( cities.get(1) );
-  airplanes.get(2).setCity( cities.get(0) );
-  airplanes.get(3).setCity( cities.get(1) );
-  airplanes.get(4).setCity( cities.get(0) );
 
   flights = new ArrayList<FlightRoute>();
 
