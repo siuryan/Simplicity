@@ -94,6 +94,13 @@ Eric Zhang :: Bug fixing, plan
 Tiffany Moi :: Added features to buy cities and airplanes, added feature to keep track of used fuel in airplanes, updated uml and flowchart
 ==============================================================
 
+2017-05-31
+--------------------------------------------------------------
+Ryan Siu :: Comments, code organization
+Eric Zhang :: 
+Tiffany Moi :: Added refueling feature in shop
+==============================================================
+
 TEMPLATE
 2017-0x-xx
 --------------------------------------------------------------
