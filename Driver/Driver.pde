@@ -120,11 +120,45 @@ void draw() {
 
     // possible flight routes
   case 1:
+    /*
     // create menu
-    ArrayList<FlightRoute> possibleRoutes = possibleFlights();
-    FlightRoute[] arrRoutes = possibleRoutes.toArray(new FlightRoute[possibleRoutes.size()]);
-    Menu<FlightRoute> possibleFlightMenu = new Menu<FlightRoute>( "Start a Flight", Constants.WIDTH, Constants.HEIGHT_NO_FOOTER, 50, 25, 4, THEME_COLOR, arrRoutes, true, currentPage );
-    possibleFlightMenu.update();
+     ArrayList<FlightRoute> possibleRoutes = possibleFlights();
+     FlightRoute[] arrRoutes = possibleRoutes.toArray(new FlightRoute[possibleRoutes.size()]);
+     Menu<FlightRoute> possibleFlightMenu = new Menu<FlightRoute>( "Start a Flight", Constants.WIDTH, Constants.HEIGHT_NO_FOOTER, 50, 25, 4, THEME_COLOR, arrRoutes, true, currentPage );
+     possibleFlightMenu.update();
+     
+     // handle interactions
+     if (mouseClicked) {
+     if (mainMenu.overElement() != -1) {
+     int input = mainMenu.overElement();
+     System.out.println(input);
+     
+     FlightRoute route = possibleRoutes.get(input);
+     flights.add(route);
+     route.getAirplane().setStatus(1);
+     route.getAirplane().setTank(route.getDistance());
+     money += route.getProfit();
+     mode = 0;
+     }
+     if (possibleFlightMenu.overBack()) {
+     possibleFlightMenu.prevPage();
+     currentPage = possibleFlightMenu.getPage();
+     } else if (possibleFlightMenu.overNext()) {
+     possibleFlightMenu.nextPage();
+     currentPage = possibleFlightMenu.getPage();
+     } else if (possibleFlightMenu.overExit()) {
+     mode = 0;
+     }
+     }
+     break;
+     */
+
+    //updated version
+
+    //ArrayList<Airplane> possiblePlanes = new ArrayList<Airplane>(airplanes);
+    Airplane[] arrPlanes = airplanes.toArray(new Airplane[airplanes.size()]);
+    Menu<Airplane> possiblePlaneMenu = new Menu<Airplane>( "Start a Flight: Choose an airplane/departure city", Constants.WIDTH, Constants.HEIGHT_NO_FOOTER, 50, 25, 4, THEME_COLOR, arrPlanes, true, currentPage );
+    possiblePlaneMenu.update();
 
     // handle interactions
     if (mouseClicked) {
@@ -132,24 +166,66 @@ void draw() {
         int input = mainMenu.overElement();
         System.out.println(input);
 
-        FlightRoute route = possibleRoutes.get(input);
-        flights.add(route);
-        route.getAirplane().setStatus(1);
-        route.getAirplane().setTank(route.getDistance());
-        money += route.getProfit();
-        mode = 0;
-      }
-      if (possibleFlightMenu.overBack()) {
-        possibleFlightMenu.prevPage();
-        currentPage = possibleFlightMenu.getPage();
-      } else if (possibleFlightMenu.overNext()) {
-        possibleFlightMenu.nextPage();
-        currentPage = possibleFlightMenu.getPage();
-      } else if (possibleFlightMenu.overExit()) {
-        mode = 0;
+        Airplane routePlane = airplanes.get(input);
+        HashMap <City, ArrayList<City>> paths = Pathfind.getPaths(routePlane.getRange(), routePlane.getCity(), cities);
+        City[] destinations = new City[paths.size()];
+        int count = 0;
+        for (City dest : paths.keySet()) {
+          destinations[count] = dest;
+        }
+        if (paths.size() > 0) {
+          Menu<City> possibleDestMenu = new Menu<City>( "Start a Flight: Choose a destination (if not immediately accessible, will direct to a stopover city)", Constants.WIDTH, Constants.HEIGHT_NO_FOOTER, 50, 25, 4, THEME_COLOR, destinations, true, currentPage );
+          possibleDestMenu.update();
+          mouseClicked = false;
+          if (mouseClicked) {
+            if (mainMenu.overElement() != -1) {
+              int inputDest = mainMenu.overElement();
+              System.out.println(inputDest);
+
+              City destCity = destinations[inputDest];
+
+              if (possibleDestMenu.overBack()) {
+                possibleDestMenu.prevPage();
+                currentPage = possibleDestMenu.getPage();
+              } else if (possibleDestMenu.overNext()) {
+                possibleDestMenu.nextPage();
+                currentPage = possibleDestMenu.getPage();
+              } else if (possibleDestMenu.overExit()) {
+                mode = 0;
+              }
+
+              FlightRoute route = new FlightRoute(routePlane.getCity(), paths.get(destCity).get(0), routePlane);
+              flights.add(route);
+              routePlane.setStatus(1);
+              routePlane.setTank(route.getDistance());
+              money += route.getProfit();
+              mode = 0;
+            }
+          } else {
+            long currentTime = System.currentTimeMillis();
+            while (System.currentTimeMillis() - currentTime < 3000) {
+              fill(THEME_COLOR);
+              rect(10, 10, Constants.WIDTH, Constants.HEIGHT_NO_FOOTER, 25);
+              fill(0);
+              textAlign( CENTER, CENTER );
+              text("No destinations", 10, 10, Constants.WIDTH, Constants.HEIGHT_NO_FOOTER);
+            }
+          }
+        }
+
+        if (possiblePlaneMenu.overBack()) {
+          possiblePlaneMenu.prevPage();
+          currentPage = possiblePlaneMenu.getPage();
+        } else if (possiblePlaneMenu.overNext()) {
+          possiblePlaneMenu.nextPage();
+          currentPage = possiblePlaneMenu.getPage();
+        } else if (possiblePlaneMenu.overExit()) {
+          mode = 0;
+        }
       }
     }
     break;
+
 
     // view airplanes
   case 2:
