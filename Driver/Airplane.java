@@ -110,6 +110,9 @@ public class Airplane {
      _bought = true; 
      setState(1);
   }
+  public int check(double distance){
+      return (int) (_tank - (_efficiency * distance)); 
+  }
   
   /**
    Returns whether or not the airplane has a full tank of fuel.

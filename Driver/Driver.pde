@@ -120,7 +120,7 @@ void draw() {
 
     // possible flight routes
   case 1:
-    /*
+    
     // create menu
      ArrayList<FlightRoute> possibleRoutes = possibleFlights();
      FlightRoute[] arrRoutes = possibleRoutes.toArray(new FlightRoute[possibleRoutes.size()]);
@@ -151,7 +151,7 @@ void draw() {
      }
      }
      break;
-     */
+     /*
 
     //updated version
 
@@ -225,7 +225,7 @@ void draw() {
       }
     }
     break;
-
+*/
 
     // view airplanes
   case 2:
@@ -320,7 +320,9 @@ void draw() {
     if (mouseClicked) {
       if (airplaneShop.overElement() != -1) {
         int input = airplaneShop.overElement();
-        airplanes.add(Shop.buy(newAirplanes[input]));
+        Airplane a = Shop.buy(newAirplanes[input]);
+        airplanes.add(a);
+        a.setCity(cities.get(0));
         money -= newAirplanes[input].getPrice();
         mode = 0;
       } else if (airplaneShop.overBack()) {
@@ -371,6 +373,9 @@ void draw() {
     Airplane[] refills = Shop.toBeFilled(airplanes);
     Menu<Airplane> refillShop = new Menu<Airplane>("Refuel", Constants.WIDTH, Constants.HEIGHT_NO_FOOTER, 50, 25, 2, THEME_COLOR, refills, true, currentPage );
     refillShop.update();
+    for(int i = 0; i < refills.length; i ++){
+       refills[i].setState(1); 
+    }
 
     // handle interactions
     if (mouseClicked) {
