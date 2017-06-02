@@ -388,8 +388,9 @@ void draw() {
             mode = 0;
           }
 
-          FlightRoute route = new FlightRoute(routePlane.getCity(), paths.get(destCity).get(0), routePlane);
+          FlightRoute route = new FlightRoute(routePlane.getCity(), paths.get(destCity).get(1), routePlane);
           flights.add(route);
+          System.out.println(route);
           routePlane.setStatus(1);
           routePlane.setTank(route.getDistance());
           money += route.getProfit();
