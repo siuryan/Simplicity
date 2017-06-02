@@ -97,8 +97,15 @@ Tiffany Moi :: Added features to buy cities and airplanes, added feature to keep
 2017-05-31
 --------------------------------------------------------------
 Ryan Siu :: Comments, code organization
-Eric Zhang :: 
+Eric Zhang :: Worked on pathfinder
 Tiffany Moi :: Added refueling feature in shop
+==============================================================
+
+2017-06-01
+--------------------------------------------------------------
+Ryan Siu :: Worked on intro animation
+Eric Zhang :: Started implementing pathfinder
+Tiffany Moi :: Worked on flowchart + UML
 ==============================================================
 
 TEMPLATE
