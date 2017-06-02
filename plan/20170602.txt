@@ -1,0 +1,22 @@
+6/2/17
+
+PLAN
+
+Game Aspects:
+1. Add a priority queue to the flights from each city/to each destination
+2. Add animations to start-up screen and transitions
+3. Add a saving feature
+
+Bug fixes:
+1. Fix the bugs in the flight choosing menu
+2. Correct the orientation of the airplane on the map
+
+Timeline
+              BUG 1   GAMING: 1 3 2   GAMING ASPECTS    BUG: 2 BUG FIXES
+START <-------------------------------------|----------------------|-----> FINISH
+                                         FINISHED               FINISHED
+				  
+Jobs
+Ryan    :: GAME 2 3
+Tiffany :: GAME 1 3
+Eric    :: BUG 1 GAME 3
