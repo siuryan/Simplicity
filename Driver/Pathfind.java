@@ -41,7 +41,7 @@ public class Pathfind {
         if (!(city.equals(current)) && distances.get(city)[0] == 0) {
           dist = getDistance(city, current);
           //replace distance with shorter one if applicable
-          if (dist < distances.get(city)[1]) {
+          if (dist + distances.get(current)[1] < distances.get(city)[1] && dist <= range) {
             tempInsert = distances.get(city);
             tempInsert[1] = dist;
             distances.put(city, tempInsert);
