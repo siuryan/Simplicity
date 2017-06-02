@@ -1,6 +1,7 @@
 int i = 3;
 float x = 0;
 float y = 0;
+int c = 0;
 
 boolean animEnded;
 boolean gameStarted;
@@ -34,7 +35,9 @@ void draw() {
     text( "Click anywhere to play", 0, height/3 * 2, width, height/12 );
     animEnded = true;
   } else if (gameStarted) {
-    background(255);
+    if (c < 254) {
+      background(c+=2);
+    }
   }
 }
 

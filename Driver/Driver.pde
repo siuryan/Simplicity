@@ -63,7 +63,7 @@ void draw() {
   Each "mode" represents a different in-game screen:
    -1: exit
    0: main
-   1: possible flight routes
+   1: possible flight routes (airplanes)
    2: view airplanes
    3: view current flight routes
    4: shop
@@ -71,6 +71,8 @@ void draw() {
    6: shop -- airplanes
    7: shop -- cities
    8: refuel airplanes
+   9: possible flight routes (choose flights)
+   10: view cities
    */
 
   switch (mode) {
@@ -160,7 +162,7 @@ void draw() {
 
     //ArrayList<Airplane> possiblePlanes = new ArrayList<Airplane>(airplanes);
     arrPlanes = airplanes.toArray(new Airplane[airplanes.size()]);
-    Menu<Airplane> possiblePlaneMenu = new Menu<Airplane>( "Start a Flight: Choose an airplane/departure city", Constants.WIDTH, Constants.HEIGHT_NO_FOOTER, 50, 25, 4, THEME_COLOR, arrPlanes, true, currentPage );
+    Menu<Airplane> possiblePlaneMenu = new Menu<Airplane>( "Start a Flight: Choose an airplane/departure city", Constants.WIDTH, Constants.HEIGHT_NO_FOOTER, 50, 25, 2, THEME_COLOR, arrPlanes, true, currentPage );
     possiblePlaneMenu.update();
 
     // handle interactions
@@ -244,11 +246,12 @@ void draw() {
     if (mouseClicked) {
       if (mainShopMenu.overElement() != -1) {
         int input = mainMenu.overElement();
+        System.out.println(input);
         if (input == 0) {
           mode = 6; //airplane
         } else if (input == 1) {
           mode = 7; //cities
-        } else {
+        } else if (input == 2) {
           mode = 8; //refuel
         }
       }
@@ -366,6 +369,7 @@ void draw() {
 
     break;
 
+    // display possible flight routes
   case 9:
     // create menu
     if (paths.size() > 0) {
@@ -402,17 +406,17 @@ void draw() {
     } else {
       long currentTime = System.currentTimeMillis();
       //while (System.currentTimeMillis() - currentTime < 3000) {
-        fill(THEME_COLOR);
-        rect(10, 10, Constants.WIDTH, Constants.HEIGHT_NO_FOOTER, 25);
-        fill(0);
-        textAlign( CENTER, CENTER );
-        text("No destinations", 10, 10, Constants.WIDTH, Constants.HEIGHT_NO_FOOTER);
-        mode = 1;
+      fill(THEME_COLOR);
+      rect(10, 10, Constants.WIDTH, Constants.HEIGHT_NO_FOOTER, 25);
+      fill(0);
+      textAlign( CENTER, CENTER );
+      text("No destinations", 10, 10, Constants.WIDTH, Constants.HEIGHT_NO_FOOTER);
+      mode = 1;
       //}
     }
     break;
-    
-        // view cities
+
+    // view cities
   case 10:
     City[] citiesArr = cities.toArray(new City[cities.size()]);
     Menu<City> cityMenu = new Menu<City>( "Cities", Constants.WIDTH, Constants.HEIGHT_NO_FOOTER, 50, 25, 2, THEME_COLOR, citiesArr, true, currentPage );
@@ -436,7 +440,7 @@ void draw() {
   mouseClicked = false;
 }
 
-void mouseClicked() {
+void mousePressed() {
   mouseClicked = true;
 }
 

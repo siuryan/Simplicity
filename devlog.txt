@@ -104,8 +104,15 @@ Tiffany Moi :: Added refueling feature in shop
 2017-06-01
 --------------------------------------------------------------
 Ryan Siu :: Worked on intro animation
-Eric Zhang :: Started implementing pathfinder
-Tiffany Moi :: Worked on flowchart + UML
+Eric Zhang :: Implemented pathfinder
+Tiffany Moi :: Worked on flowchart + UML, fix bugs
+==============================================================
+
+2017-06-02
+--------------------------------------------------------------
+Ryan Siu :: Finish intro animation, bug fixes
+Eric Zhang :: 
+Tiffany Moi :: 
 ==============================================================
 
 TEMPLATE
