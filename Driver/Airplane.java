@@ -81,11 +81,11 @@ public class Airplane {
   public int getTank() {
     return _tank;
   }
-  public boolean getBought(){
+  public boolean getBought() {
     return _bought;
   }
-  public int getCost(){
-     return (_fuelCapacity - _tank) * 10; 
+  public int getCost() {
+    return (_fuelCapacity - _tank) * 10;
   }
 
   // Mutators
@@ -103,41 +103,41 @@ public class Airplane {
     _tank = (int) (_tank - (_efficiency * distance)); 
     return _tank;
   }
-  public void setState( int n ){
-     _state = n; 
+  public void setState( int n ) {
+    _state = n;
   }
-  public void setBought(){
-     _bought = true; 
-     setState(1);
+  public void setBought() {
+    _bought = true; 
+    setState(1);
   }
-  
+  public int check(double distance){
+      return (int) (_tank - (_efficiency * distance)); 
+  }
   /**
    Returns whether or not the airplane has a full tank of fuel.
    */
-  public boolean full(){
-     return _tank == _fuelCapacity; 
+  public boolean full() {
+    return _tank == _fuelCapacity;
   }
   /**
    Sets airplane's fuel back to maximum.
    */
-  public void refuel(){
-     _tank = _fuelCapacity; 
+  public void refuel() {
+    _tank = _fuelCapacity;
   }
-  
+
   public String toString() {
-    if (_state == 1){
-    return getAirplaneName() + ". Range: " + getRange() + ". Speed: " + getSpeed() +
-      ". Capacity: " + getCapacity() + ". Status: " + getStatus() + 
-      ". Fuel: " + getTank() + ".";
-    }
-    else if (_state == 2){
+    if (_state == 1) {
+      return getAirplaneName() + ". Range: " + getRange() + ". Speed: " + getSpeed() +
+        ". Capacity: " + getCapacity() + ". Current City: " + getCity() + ". Status: " + getStatus() + 
+        ". Fuel: " + getTank() + ".";
+    } else if (_state == 2) {
       return getAirplaneName() + ". Fuel Remaining: " + getTank() +
-      " out of " + _fuelCapacity + ". Cost to refuel: $" + getCost();
+        " out of " + _fuelCapacity + ". Cost to refuel: $" + getCost();
     }
     return getAirplaneName() + " . Range: " + getRange() + ". Speed: " + getSpeed() +
       ". Capacity: " + getCapacity() + ". Current city: " + getCity() +
       ". Status: " + getStatus() + 
       ". Price: " + getPrice() + ".";
-    
   }
 }

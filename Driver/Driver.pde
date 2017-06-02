@@ -31,10 +31,6 @@ void setup() {
 
   // if we want to give a free plane to start with
   airplanes.add(Shop.buy(Shop.airplanes[0]));
-  airplanes.add(Shop.buy(Shop.airplanes[0]));
-  airplanes.add(Shop.buy(Shop.airplanes[0]));
-  airplanes.add(Shop.buy(Shop.airplanes[0]));
-  airplanes.add(Shop.buy(Shop.airplanes[0]));
 
   // start with 2 random cities from the shop
   cities = new ArrayList<City>();
@@ -44,10 +40,6 @@ void setup() {
 
   // if free plane given
   airplanes.get(0).setCity( cities.get(0) );
-  airplanes.get(1).setCity( cities.get(1) );
-  airplanes.get(2).setCity( cities.get(0) );
-  airplanes.get(3).setCity( cities.get(1) );
-  airplanes.get(4).setCity( cities.get(0) );
 
   flights = new ArrayList<FlightRoute>();
 
@@ -120,7 +112,7 @@ void draw() {
 
     // possible flight routes
   case 1:
-    /*
+    
     // create menu
      ArrayList<FlightRoute> possibleRoutes = possibleFlights();
      FlightRoute[] arrRoutes = possibleRoutes.toArray(new FlightRoute[possibleRoutes.size()]);
@@ -151,7 +143,7 @@ void draw() {
      }
      }
      break;
-     */
+     /*
 
     //updated version
 
@@ -225,7 +217,7 @@ void draw() {
       }
     }
     break;
-
+*/
 
     // view airplanes
   case 2:
@@ -320,7 +312,9 @@ void draw() {
     if (mouseClicked) {
       if (airplaneShop.overElement() != -1) {
         int input = airplaneShop.overElement();
-        airplanes.add(Shop.buy(newAirplanes[input]));
+        Airplane a = Shop.buy(newAirplanes[input]);
+        airplanes.add(a);
+        a.setCity(cities.get(0));
         money -= newAirplanes[input].getPrice();
         mode = 0;
       } else if (airplaneShop.overBack()) {
@@ -371,6 +365,9 @@ void draw() {
     Airplane[] refills = Shop.toBeFilled(airplanes);
     Menu<Airplane> refillShop = new Menu<Airplane>("Refuel", Constants.WIDTH, Constants.HEIGHT_NO_FOOTER, 50, 25, 2, THEME_COLOR, refills, true, currentPage );
     refillShop.update();
+    for(int i = 0; i < refills.length; i ++){
+       refills[i].setState(1); 
+    }
 
     // handle interactions
     if (mouseClicked) {
