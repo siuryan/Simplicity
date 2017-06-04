@@ -255,17 +255,17 @@ void draw() {
           mode = 8; //refuel
         }
       }
-    }
-    if (mainShopMenu.overBack()) {
-      mainShopMenu.prevPage();
-      currentPage = mainShopMenu.getPage();
-    } else if (mainShopMenu.overNext()) {
-      mainShopMenu.nextPage();
-      currentPage = mainShopMenu.getPage();
-    } else if (mainShopMenu.overExit()) {
-      mode = 0;
-    }
 
+      if (mainShopMenu.overBack()) {
+        mainShopMenu.prevPage();
+        currentPage = mainShopMenu.getPage();
+      } else if (mainShopMenu.overNext()) {
+        mainShopMenu.nextPage();
+        currentPage = mainShopMenu.getPage();
+      } else if (mainShopMenu.overExit()) {
+        mode = 0;
+      }
+    }
     break;
 
     // help
