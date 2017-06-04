@@ -52,6 +52,7 @@ public class Pathfind {
               tempPath = new ArrayList<City>();
             }
             tempPath.add(current);
+            tempPath.add(city);
             retHash.put(city, tempPath);
           }
         }
