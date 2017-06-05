@@ -160,8 +160,15 @@ void draw() {
 
     //updated version
 
-    //ArrayList<Airplane> possiblePlanes = new ArrayList<Airplane>(airplanes);
-    arrPlanes = airplanes.toArray(new Airplane[airplanes.size()]);
+    //only show planes not currently flying
+    ArrayList<Airplane> arrPlaneAL = new ArrayList<Airplane>();
+    for (Airplane possiblePlane: airplanes) {
+      if (possiblePlane.getStatus() == 0) {
+        arrPlaneAL.add(possiblePlane);
+      }
+    }
+    arrPlanes = arrPlaneAL.toArray(new Airplane[arrPlaneAL.size()]);
+    
     Menu<Airplane> possiblePlaneMenu = new Menu<Airplane>( "Start a Flight: Choose an airplane/departure city", Constants.WIDTH, Constants.HEIGHT_NO_FOOTER, 50, 25, 2, THEME_COLOR, arrPlanes, true, currentPage );
     possiblePlaneMenu.update();
 
@@ -379,7 +386,7 @@ void draw() {
         if (mainMenu.overElement() != -1) {
           int inputDest = mainMenu.overElement();
           System.out.println(inputDest);
-
+          System.out.println(destinations);
           City destCity = destinations[inputDest];
 
           if (possibleDestMenu.overBack()) {
