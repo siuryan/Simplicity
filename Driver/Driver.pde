@@ -402,6 +402,16 @@ void draw() {
           System.out.println("Statuses set");
           System.out.println(airplanes);
         }
+
+        if (possibleDestMenu.overBack()) {
+          possibleDestMenu.prevPage();
+          currentPage = possibleDestMenu.getPage();
+        } else if (possibleDestMenu.overNext()) {
+          possibleDestMenu.nextPage();
+          currentPage = possibleDestMenu.getPage();
+        } else if (possibleDestMenu.overExit()) {
+          mode = 0;
+        }
       }
     } else {
       long currentTime = System.currentTimeMillis();
