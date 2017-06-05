@@ -87,8 +87,8 @@ void draw() {
     map.update( cities, flights );
     mainMenu.update();
     if (mouseClicked) {
-      if (mainMenu.overElement() != -1) {
-        String input = mainMenu.getElement(mainMenu.overElement());
+      if (mainMenu.overElement(7) != -1) {
+        String input = mainMenu.getElement(mainMenu.overElement(7));
         currentPage = 0;
         switch (input) {
         case "Exit":
@@ -160,15 +160,21 @@ void draw() {
 
     //updated version
 
-    //ArrayList<Airplane> possiblePlanes = new ArrayList<Airplane>(airplanes);
-    arrPlanes = airplanes.toArray(new Airplane[airplanes.size()]);
+    ArrayList<Airplane> possiblePlanes = new ArrayList<Airplane>();
+    for (int i = 0; i < airplanes.size(); i ++) {
+      if (airplanes.get(i).getStatus() == 0) {
+        possiblePlanes.add(airplanes.get(i));
+      }
+    }
+    arrPlanes = possiblePlanes.toArray(new Airplane[possiblePlanes.size()]);
     Menu<Airplane> possiblePlaneMenu = new Menu<Airplane>( "Start a Flight: Choose an airplane/departure city", Constants.WIDTH, Constants.HEIGHT_NO_FOOTER, 50, 25, 2, THEME_COLOR, arrPlanes, true, currentPage );
     possiblePlaneMenu.update();
 
     // handle interactions
     if (mouseClicked) {
-      if (mainMenu.overElement() != -1) {
-        int input = mainMenu.overElement();
+      if (mainMenu.overElement(arrPlanes.length) != -1) {
+        int input = mainMenu.overElement(arrPlanes.length);
+        
         System.out.println(input);
 
         routePlane = airplanes.get(input);
@@ -183,16 +189,17 @@ void draw() {
         mode = 9;
       }
 
-      if (possiblePlaneMenu.overBack()) {
-        possiblePlaneMenu.prevPage();
-        currentPage = possiblePlaneMenu.getPage();
-      } else if (possiblePlaneMenu.overNext()) {
-        possiblePlaneMenu.nextPage();
-        currentPage = possiblePlaneMenu.getPage();
-      } else if (possiblePlaneMenu.overExit()) {
-        mode = 0;
+        if (possiblePlaneMenu.overBack()) {
+          possiblePlaneMenu.prevPage();
+          currentPage = possiblePlaneMenu.getPage();
+        } else if (possiblePlaneMenu.overNext()) {
+          possiblePlaneMenu.nextPage();
+          currentPage = possiblePlaneMenu.getPage();
+        } else if (possiblePlaneMenu.overExit()) {
+          mode = 0;
+        }
       }
-    }
+    
     break;
 
 
@@ -244,8 +251,8 @@ void draw() {
 
     // handle interactions
     if (mouseClicked) {
-      if (mainShopMenu.overElement() != -1) {
-        int input = mainMenu.overElement();
+      if (mainShopMenu.overElement(mainShopMenuContents.length) != -1) {
+        int input = mainMenu.overElement(mainShopMenuContents.length);
         System.out.println(input);
         if (input == 0) {
           mode = 6; //airplane
@@ -288,8 +295,8 @@ void draw() {
 
     // handle interactions
     if (mouseClicked) {
-      if (airplaneShop.overElement() != -1) {
-        int input = airplaneShop.overElement();
+      if (airplaneShop.overElement(newAirplanes.length) != -1) {
+        int input = airplaneShop.overElement(newAirplanes.length);
         Airplane a = Shop.buy(newAirplanes[input]);
         airplanes.add(a);
         a.setCity(cities.get(0));
@@ -317,8 +324,8 @@ void draw() {
 
     // handle interactions
     if (mouseClicked) {
-      if (citiesShop.overElement() != -1) {
-        int input = citiesShop.overElement();
+      if (citiesShop.overElement(newCities.length) != -1) {
+        int input = citiesShop.overElement(newCities.length);
         cities.add(newCities[input]);
         Shop.removeCity(input);
         newCities[input].setStatus(true);
@@ -349,8 +356,8 @@ void draw() {
 
     // handle interactions
     if (mouseClicked) {
-      if (refillShop.overElement() != -1) {
-        int input = refillShop.overElement();
+      if (refillShop.overElement(refills.length) != -1) {
+        int input = refillShop.overElement(refills.length);
         money -= refills[input].getCost();
         refills[input].refuel();
         refills[input].setState(1);
@@ -376,8 +383,8 @@ void draw() {
       Menu<City> possibleDestMenu = new Menu<City>( "Start a Flight: Choose a destination (if not immediately accessible, will direct to a stopover city)", Constants.WIDTH, Constants.HEIGHT_NO_FOOTER, 50, 25, 4, THEME_COLOR, destinations, true, currentPage );
       possibleDestMenu.update();
       if (mouseClicked) {
-        if (mainMenu.overElement() != -1) {
-          int inputDest = mainMenu.overElement();
+        if (mainMenu.overElement(destinations.length) != -1) {
+          int inputDest = mainMenu.overElement(destinations.length);
           System.out.println(inputDest);
 
           City destCity = destinations[inputDest];
@@ -403,7 +410,7 @@ void draw() {
           System.out.println(airplanes);
         }
       }
-    } else {
+    } /*else {
       long currentTime = System.currentTimeMillis();
       //while (System.currentTimeMillis() - currentTime < 3000) {
       fill(THEME_COLOR);
@@ -413,7 +420,9 @@ void draw() {
       text("No destinations", 10, 10, Constants.WIDTH, Constants.HEIGHT_NO_FOOTER);
       mode = 1;
       //}
+      
     }
+    */
     break;
 
     // view cities
