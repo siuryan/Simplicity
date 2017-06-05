@@ -160,6 +160,7 @@ void draw() {
 
     //updated version
 
+
     ArrayList<Airplane> possiblePlanes = new ArrayList<Airplane>();
     for (int i = 0; i < airplanes.size(); i ++) {
       if (airplanes.get(i).getStatus() == 0) {
@@ -167,6 +168,16 @@ void draw() {
       }
     }
     arrPlanes = possiblePlanes.toArray(new Airplane[possiblePlanes.size()]);
+    //only show planes not currently flying
+    ArrayList<Airplane> arrPlaneAL = new ArrayList<Airplane>();
+    for (Airplane possiblePlane: airplanes) {
+      if (possiblePlane.getStatus() == 0) {
+        arrPlaneAL.add(possiblePlane);
+      }
+    }
+    arrPlanes = arrPlaneAL.toArray(new Airplane[arrPlaneAL.size()]);
+    
+
     Menu<Airplane> possiblePlaneMenu = new Menu<Airplane>( "Start a Flight: Choose an airplane/departure city", Constants.WIDTH, Constants.HEIGHT_NO_FOOTER, 50, 25, 2, THEME_COLOR, arrPlanes, true, currentPage );
     possiblePlaneMenu.update();
 
@@ -386,7 +397,7 @@ void draw() {
         if (mainMenu.overElement(destinations.length) != -1) {
           int inputDest = mainMenu.overElement(destinations.length);
           System.out.println(inputDest);
-
+          System.out.println(destinations);
           City destCity = destinations[inputDest];
 
           if (possibleDestMenu.overBack()) {
@@ -409,7 +420,18 @@ void draw() {
           System.out.println("Statuses set");
           System.out.println(airplanes);
         }
+
+        if (possibleDestMenu.overBack()) {
+          possibleDestMenu.prevPage();
+          currentPage = possibleDestMenu.getPage();
+        } else if (possibleDestMenu.overNext()) {
+          possibleDestMenu.nextPage();
+          currentPage = possibleDestMenu.getPage();
+        } else if (possibleDestMenu.overExit()) {
+          mode = 0;
+        }
       }
+
     } /*else {
       long currentTime = System.currentTimeMillis();
       //while (System.currentTimeMillis() - currentTime < 3000) {
@@ -419,10 +441,17 @@ void draw() {
       textAlign( CENTER, CENTER );
       text("No destinations", 10, 10, Constants.WIDTH, Constants.HEIGHT_NO_FOOTER);
       mode = 1;
-      //}
+      */
       
+     else {
+      String[] noDests = {"No destinations"};
+      Menu<String> possibleDestMenu = new Menu<String>( "Start a Flight: Choose a destination (if not immediately accessible, will direct to a stopover city)", Constants.WIDTH, Constants.HEIGHT_NO_FOOTER, 50, 25, 4, THEME_COLOR, noDests, true, currentPage );
+      possibleDestMenu.update();
+      if (mouseClicked) {
+        mode = 0;
+      }
     }
-    */
+    
     break;
 
     // view cities
