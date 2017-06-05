@@ -414,15 +414,12 @@ void draw() {
         }
       }
     } else {
-      long currentTime = System.currentTimeMillis();
-      //while (System.currentTimeMillis() - currentTime < 3000) {
-      fill(THEME_COLOR);
-      rect(10, 10, Constants.WIDTH, Constants.HEIGHT_NO_FOOTER, 25);
-      fill(0);
-      textAlign( CENTER, CENTER );
-      text("No destinations", 10, 10, Constants.WIDTH, Constants.HEIGHT_NO_FOOTER);
-      mode = 1;
-      //}
+      String[] noDests = {"No destinations"};
+      Menu<String> possibleDestMenu = new Menu<String>( "Start a Flight: Choose a destination (if not immediately accessible, will direct to a stopover city)", Constants.WIDTH, Constants.HEIGHT_NO_FOOTER, 50, 25, 4, THEME_COLOR, noDests, true, currentPage );
+      possibleDestMenu.update();
+      if (mouseClicked) {
+        mode = 0;
+      }
     }
     break;
 
