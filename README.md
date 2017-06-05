@@ -8,7 +8,7 @@ Welcome to our airline game! In this game, you are the owner of an airline compa
 ## How it Works
 Our game works by creating instances of Cities, Airplanes, and FlightRoutes that the user possesses, and other instances of Cities and Airplanes are created in a Shop class as well, where they can be added to the user's collection the game progresses. 
 ### Algorithms
-The FlightRoutes available to the user are generated based all of the possible connections from each Airplane's current City to each City in the Airplane's range. A suggested FlightRoute feature would find the circuit of paths starting from the Airplane's current City that would generate the most money.
+After the user selects an airplane and a destination city for the airplane, the game uses a pathfinding algorithm to generate the best possible flight path for that airplane to get to that destination city, sometimes taking the airplane through multiple stop cities. 
 
 ## Launch Instructions
 There are two versions of this game: a Processing GUI version with the latest features, and a terminal, text-based version that was developed for testing. The terminal version may not have all the features contained in the GUI version, and may contain bugs.
