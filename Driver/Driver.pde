@@ -160,14 +160,6 @@ void draw() {
 
     //updated version
 
-
-    ArrayList<Airplane> possiblePlanes = new ArrayList<Airplane>();
-    for (int i = 0; i < airplanes.size(); i ++) {
-      if (airplanes.get(i).getStatus() == 0) {
-        possiblePlanes.add(airplanes.get(i));
-      }
-    }
-    arrPlanes = possiblePlanes.toArray(new Airplane[possiblePlanes.size()]);
     //only show planes not currently flying
     ArrayList<Airplane> arrPlaneAL = new ArrayList<Airplane>();
     for (Airplane possiblePlane: airplanes) {
@@ -195,8 +187,12 @@ void draw() {
         for (City dest : paths.keySet()) {
           System.out.println(dest);
           destinations[count] = dest;
+          count++;
         }
         System.out.println(paths.entrySet());
+        for (City dest: destinations) {
+          System.out.println(dest);
+        }
         mode = 9;
       }
 
