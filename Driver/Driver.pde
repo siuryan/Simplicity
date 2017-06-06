@@ -434,7 +434,7 @@ void draw() {
         destinations[i].setStatus(2);
         destinations[i].setProfit(profit(routePlane.getCity(), destinations[i], routePlane));
       }
-      Menu<City> possibleDestMenu = new Menu<City>( "Start a Flight: Choose a destination (if not immediately accessible, will direct to a stopover city)", Constants.WIDTH, Constants.HEIGHT_NO_FOOTER, 50, 25, 4, THEME_COLOR, destinations, true, currentPage );
+      Menu<City> possibleDestMenu = new Menu<City>( "Start a Flight: Choose a destination (if not immediately accessible, will direct to a stopover city)", Constants.WIDTH, Constants.HEIGHT_NO_FOOTER, 50, 25, 2, THEME_COLOR, destinations, true, currentPage );
       possibleDestMenu.update();
       if (mouseClicked) {
         if (mainMenu.overElement(destinations.length) != -1) {
