@@ -33,7 +33,7 @@ public class Shop {
   public static City popCity() {
     int index = (int)(Math.random()*cities.length);
     City city = cities[index];
-    city.setStatus(true);
+    city.setStatus(0);
     removeCity( index );
     return city;
   }
