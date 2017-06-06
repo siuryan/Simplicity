@@ -501,6 +501,9 @@ void draw() {
     // view cities
   case 10:
     City[] citiesArr = cities.toArray(new City[cities.size()]);
+    for (City eachCity: citiesArr) {
+      eachCity.setStatus(0);
+    }
     Menu<City> cityMenu = new Menu<City>( "Cities", Constants.WIDTH, Constants.HEIGHT_NO_FOOTER, 50, 25, 2, THEME_COLOR, citiesArr, true, currentPage );
     cityMenu.update();
     if (mouseClicked) {
