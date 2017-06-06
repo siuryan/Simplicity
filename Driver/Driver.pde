@@ -180,7 +180,7 @@ void draw() {
         
         System.out.println(input);
 
-        routePlane = airplanes.get(input);
+        routePlane = arrPlaneAL.get(input);
         paths = Pathfind.getPaths(routePlane.getRange(), routePlane.getCity(), cities);
         destinations = new City[paths.size()];
         int count = 0;
