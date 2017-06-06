@@ -146,15 +146,15 @@ class Menu<T> extends GUIElement {
    Finds the index of an element that is currently being selected.
    return int - index if an element is currently being selected, otherwise -1
    */
-  int overElement() {
+  int overElement(int max) {
     int maxContent = maxContent();
-    //System.out.println(maxContent);
+    System.out.println(maxContent);
     //System.out.println(_contents.length);
     //System.out.println(_page);
     //System.out.println(_menuItems);
     for (int i = 0; i+(_page*maxContent) < _contents.length && i <= maxContent; i++) {
-      if (_menuItems.get(i).overElement()) {
-        System.out.println(_menuItems.get(i));
+      if (_menuItems.get(i).overElement() && (i + _page*maxContent) < max) {
+        //System.out.println(_menuItems.get(i));
         return i+_page*maxContent;
       }
     }
