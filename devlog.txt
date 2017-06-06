@@ -111,8 +111,25 @@ Tiffany Moi :: Worked on flowchart + UML, fix bugs
 2017-06-02
 --------------------------------------------------------------
 Ryan Siu :: Finish intro animation, bug fixes
-Eric Zhang :: 
-Tiffany Moi :: 
+==============================================================
+
+2017-06-04
+-------------------------------------------------------------- 
+Eric Zhang :: fix back button, solidify pathfinding
+==============================================================
+
+2017-06-05
+--------------------------------------------------------------
+Ryan Siu :: updated help
+Eric Zhang :: fixed various bugs
+Tiffany Moi :: fixed menu elements bug
+==============================================================
+
+2017-06-06
+--------------------------------------------------------------
+Ryan Siu :: incorporate animation
+Eric Zhang :: fixed multiple flights being created, fixed null pointer exceptions
+Tiffany Moi :: fixed various bugs
 ==============================================================
 
 TEMPLATE
