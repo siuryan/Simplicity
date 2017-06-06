@@ -65,7 +65,13 @@ class Map {
       dy = dy / f.get(i).totalTime();
       float x = (float)(f.get(i).getDeparture().getXcor() + dx * f.get(i).getTimeElapsed());
       float y = (float) (f.get(i).getDeparture().getYcor() + dy * f.get(i).getTimeElapsed());
-      PImage img = loadImage("img/Airplane.png");
+      PImage img;
+      if (dx > 0) {
+        img = loadImage("img/Airplane.png");
+      }
+      else {
+         img = loadImage("../Driver/img/Airplane_rev.png");
+      }
       image(img, x-25, y-25, 50, 50);
     }
   }

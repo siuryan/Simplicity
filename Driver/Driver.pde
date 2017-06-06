@@ -63,7 +63,7 @@ void setup() {
   mouseClicked = false;
 
   currentPage = 0;
-  
+
   animEnded = false;
   gameStarted = false;
 }
