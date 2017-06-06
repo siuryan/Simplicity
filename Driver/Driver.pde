@@ -22,6 +22,14 @@ Airplane routePlane;
 HashMap <City, ArrayList<City>> paths;
 City[] destinations;
 
+// Animation constants
+int animCounter = 3;
+float animX = 0;
+float animY = 0;
+int animColor = 0;
+
+boolean animEnded;
+boolean gameStarted;
 
 // Main screen instantiation
 String[] mainMenuContents = {"Start a Flight", "Airplanes", "Cities", "Flight Routes", "Shop", "Help", "Exit"};
@@ -50,11 +58,14 @@ void setup() {
 
   flights = new ArrayList<FlightRoute>();
 
-  mode = 0;
+  mode = 99;
 
   mouseClicked = false;
 
   currentPage = 0;
+  
+  animEnded = false;
+  gameStarted = false;
 }
 
 void draw() {
@@ -73,6 +84,7 @@ void draw() {
    8: refuel airplanes
    9: possible flight routes (choose flights)
    10: view cities
+   99: startup animation
    */
 
   switch (mode) {
@@ -80,6 +92,36 @@ void draw() {
     // exit
   case -1:
     exit();
+    break;
+
+    // startup animation
+  case 99:
+    if (animCounter < 201) {
+      background(0);
+      PImage img = loadImage("../Driver/img/Airplane.png");
+      PImage img2 = loadImage("../Driver/img/Airplane_rev.png");
+      int num = 150;
+      if (animX < width && animY < height) {
+        animX = width/num * animCounter;
+        animY = height/num * animCounter;
+        image(img, animX, animY, 50, 50);
+        image(img2, width-animX-50, animY, 50, 50);
+      }
+      animCounter++;
+      textAlign(CENTER, CENTER);
+      textSize(animCounter/3);
+      text( "Airline Simulator", 0, height/2 - 50, width, height/6 );
+    } else if (!animEnded) {
+      textSize(20);
+      text( "Click anywhere to play", 0, height/3 * 2, width, height/12 );
+      animEnded = true;
+    } else if (gameStarted) {
+      if (animColor < 254) {
+        background(animColor+=2);
+      } else {
+        mode = 0;
+      }
+    }
     break;
 
     // main
@@ -387,6 +429,7 @@ void draw() {
   case 9:
     // create menu
     if (paths.size() > 0) {
+
       for (int i = 0; i < destinations.length; i ++) {
         destinations[i].setStatus(2);
         destinations[i].setProfit(profit(routePlane.getCity(), destinations[i], routePlane));
@@ -481,6 +524,9 @@ void draw() {
 
 void mousePressed() {
   mouseClicked = true;
+  if (animEnded) {
+    gameStarted = true;
+  }
 }
 
 /**
