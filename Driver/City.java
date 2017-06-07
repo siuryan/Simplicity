@@ -23,7 +23,7 @@ public class City {
   }
 
   // Overloaded constructor
-  public City( String n, int pop, int screenSize ) {
+  public City( String n, int pop ) {
     // set xcor and ycor to random values inside the playing map
     _xcor = (int)(Math.random()*(Constants.WIDTH-Constants.MENU_MAP_DIVIDE)+Constants.MENU_MAP_DIVIDE);
     _ycor = (int)(Math.random()*Constants.HEIGHT);
