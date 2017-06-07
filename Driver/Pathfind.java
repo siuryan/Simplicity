@@ -52,7 +52,7 @@ public class Pathfind {
               tempPath = new ArrayList<City>();
             }
             tempPath.add(current);
-            tempPath.add(city);
+            //tempPath.add(city);
             retHash.put(city, tempPath);
           }
         }
@@ -70,6 +70,13 @@ public class Pathfind {
         }
       }
     }
+
+    for (City city: retHash.keySet()) {
+      tempPath = retHash.get(city);
+      tempPath.add(city);
+      retHash.put(city,tempPath);
+    }
+
 
     return retHash;
   }

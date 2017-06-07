@@ -368,6 +368,9 @@ void draw() {
   case 7:
     // create menu
     City[] newCities = Shop.cities;
+    for (City eachCity: newCities) {
+      eachCity.setStatus(1);
+    }
     Menu<City> citiesShop = new Menu<City>("Cities", Constants.WIDTH, Constants.HEIGHT_NO_FOOTER, 50, 25, 2, THEME_COLOR, newCities, true, currentPage );
     citiesShop.update();
 

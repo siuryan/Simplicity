@@ -65,6 +65,6 @@ public class City {
     } else if (_status == 1) {
       return _name + " (" + getXcor() + "," + getYcor() + ") Price: " + getPrice();
     }
-    return _name + " (" + getXcor() + "," + getYcor() + ") Profit: " + _profit;
+    return _name + " (" + getXcor() + "," + getYcor() + ") Estimated profit: " + _profit;
   }
 }
