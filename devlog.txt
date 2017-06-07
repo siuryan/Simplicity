@@ -128,7 +128,7 @@ Tiffany Moi :: fixed menu elements bug
 2017-06-06
 --------------------------------------------------------------
 Ryan Siu :: incorporate animation
-Eric Zhang :: fixed multiple flights being created, fixed null pointer exceptions
+Eric Zhang :: fixed multiple flights being created, fixed null pointer exceptions, fixed other miscellaneous bugs, cleaned up old code
 Tiffany Moi :: fixed various bugs
 ==============================================================
 
