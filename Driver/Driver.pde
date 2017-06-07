@@ -568,10 +568,10 @@ static void updateFlights() {
  Calculates the profit from flying between these cities with a certain Airplane.
  returns int - profit
  */
-static int check(Airplane plane, double distance){
+private static int check(Airplane plane, double distance){
       return (int) (plane.getTank() - (plane.getEfficiency() * distance)); 
   }
-static double distance(City depart, City arrival){
+private static double distance(City depart, City arrival){
   double x1 = depart.getXcor();
   double y1 = depart.getYcor();
   double x2 = arrival.getXcor();
@@ -579,7 +579,7 @@ static double distance(City depart, City arrival){
   double distance = Math.sqrt( (y2-y1)*(y2-y1) + (x2-x1)*(x2-x1) );
   return distance;
 }
-static int profit(City depart, City arrival, Airplane plane) {
+private static int profit(City depart, City arrival, Airplane plane) {
   
   int passengers = (int)Math.sqrt((depart.getPop()+arrival.getPop())/2);
   if (passengers > plane.getCapacity()) {
@@ -587,7 +587,7 @@ static int profit(City depart, City arrival, Airplane plane) {
   }
   return (int) (passengers * distance(depart, arrival));
 }
-public static City[] remove( int index, City[] arr ) {
+private static City[] remove( int index, City[] arr ) {
     City[] copy = new City[arr.length-1];
     for (int i = 0; i < index; i++) {
       copy[i] = arr[i];

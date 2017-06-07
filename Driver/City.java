@@ -10,7 +10,7 @@ public class City {
   private int _ycor;
   private String _name;
   private int _profit;
-  private int _status; //true if bought, false otherwise
+  private int _status; //0 if bought, 1 if not, 2 to display profit
 
   // Default constructor
   public City() {
