@@ -310,11 +310,15 @@ void draw() {
     if (mouseClicked) {
       if (airplaneShop.overElement(newAirplanes.length) != -1) {
         int input = airplaneShop.overElement(newAirplanes.length);
-        Airplane a = Shop.buy(newAirplanes[input]);
-        airplanes.add(a);
-        a.setCity(cities.get(0));
-        money -= newAirplanes[input].getPrice();
-        mode = 0;
+        if (newAirplanes[input].getPrice() <= money) {
+          Airplane a = Shop.buy(newAirplanes[input]);
+          airplanes.add(a);
+          a.setCity(cities.get(0));
+          money -= newAirplanes[input].getPrice();
+          mode = 0;
+        } else {
+          mode = 11;
+        }
       } else if (airplaneShop.overBack()) {
         airplaneShop.prevPage();
         currentPage = airplaneShop.getPage();
@@ -332,7 +336,7 @@ void draw() {
   case 7:
     // create menu
     City[] newCities = Shop.cities;
-    for (City eachCity: newCities) {
+    for (City eachCity : newCities) {
       eachCity.setStatus(1);
     }
     Menu<City> citiesShop = new Menu<City>("Cities", Constants.WIDTH, Constants.HEIGHT_NO_FOOTER, 50, 25, 2, THEME_COLOR, newCities, true, currentPage );
@@ -342,11 +346,15 @@ void draw() {
     if (mouseClicked) {
       if (citiesShop.overElement(newCities.length) != -1) {
         int input = citiesShop.overElement(newCities.length);
-        cities.add(newCities[input]);
-        Shop.removeCity(input);
-        newCities[input].setStatus(0);
-        money -= newCities[input].getPrice();
-        mode = 0;
+        if (newCities[input].getPrice() <= money) {
+          cities.add(newCities[input]);
+          Shop.removeCity(input);
+          newCities[input].setStatus(0);
+          money -= newCities[input].getPrice();
+          mode = 0;
+        } else {
+          mode = 11;
+        }
       } else if (citiesShop.overBack()) {
         citiesShop.prevPage();
         currentPage = citiesShop.getPage();
@@ -443,18 +451,7 @@ void draw() {
           mode = 0;
         }
       }
-    } /*else {
-     long currentTime = System.currentTimeMillis();
-     //while (System.currentTimeMillis() - currentTime < 3000) {
-     fill(THEME_COLOR);
-     rect(10, 10, Constants.WIDTH, Constants.HEIGHT_NO_FOOTER, 25);
-     fill(0);
-     textAlign( CENTER, CENTER );
-     text("No destinations", 10, 10, Constants.WIDTH, Constants.HEIGHT_NO_FOOTER);
-     mode = 1;
-     */
-
-    else {
+    } else {
       String[] noDests = {"No destinations"};
       Menu<String> possibleDestMenu = new Menu<String>( "Start a Flight: Choose a destination (if not immediately accessible, will direct to a stopover city)", Constants.WIDTH, Constants.HEIGHT_NO_FOOTER, 50, 25, 4, THEME_COLOR, noDests, true, currentPage );
       possibleDestMenu.update();
@@ -468,7 +465,7 @@ void draw() {
     // view cities
   case 10:
     City[] citiesArr = cities.toArray(new City[cities.size()]);
-    for (City eachCity: citiesArr) {
+    for (City eachCity : citiesArr) {
       eachCity.setStatus(0);
     }
     Menu<City> cityMenu = new Menu<City>( "Cities", Constants.WIDTH, Constants.HEIGHT_NO_FOOTER, 50, 25, 2, THEME_COLOR, citiesArr, true, currentPage );
@@ -483,6 +480,16 @@ void draw() {
       } else if (cityMenu.overExit()) {
         mode = 0;
       }
+    }
+    break;
+
+    // not enough money to buy a shop item
+  case 11:
+    String[] noDests = {"Not enough money"};
+    Menu<String> possibleShopMenu = new Menu<String>( "Shop", Constants.WIDTH, Constants.HEIGHT_NO_FOOTER, 50, 25, 4, THEME_COLOR, noDests, true, currentPage );
+    possibleShopMenu.update();
+    if (mouseClicked) {
+      mode = 0;
     }
     break;
   }
