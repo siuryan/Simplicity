@@ -2,7 +2,7 @@ import java.util.*;
 /*
 class Pathfind
 Provides a function to return paths to all possible cities from a starting city
-Uses Djikstra's Algorithm to produce a HashMap mapping routes (arrayLists of cities) to destinations
+Uses Dijkstra's Algorithm to produce a HashMap mapping routes (arrayLists of cities) to destinations
 */
 public class Pathfind {
 
