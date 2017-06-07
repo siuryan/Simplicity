@@ -15,6 +15,30 @@ Airline simulator
     \____/_/ \_____\/ \___/_(   \_____\/ \_____\/ \_____\/ 
 ==============================================================
 
+Obstacles Overcome:
+Inexplicable GUI bugs, we found workarounds instead
+The hassle of merging code
+
+Unresolved Issues:
+GUI bugs mentioned above
+
+
+Cool Stuff Learned (conceptual and/or practical):
+HashMap
+Pathfinding algorithms (specifically Dijkstra's)
+Writing GUIs (and how much of a pain they are)
+
+
+Mid-development Design Changes (and why!):
+None -- we stayed according to plan!
+
+
+Lessons Learned:
+Important to build a strong foundation for code before details are added (especially for inheritance structures)
+Important to first have a firm understanding of what is the goal and how it is to be achieved before beginning to write the code
+MVP!!! We had a working terminal version just in case the GUI version didn’t work.
+
+
 
 2017-05-16
 --------------------------------------------------------------
