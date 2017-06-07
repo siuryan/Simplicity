@@ -18,7 +18,7 @@ public class City {
     _xcor = 0;
     _ycor = 0;
     _pop = 0;
-    _status = 0;
+    _status = 1;
     _profit = 0;
   }
 
@@ -29,7 +29,7 @@ public class City {
     _ycor = (int)(Math.random()*Constants.HEIGHT);
     _pop = pop;
     _name = n;
-    _status = 0;
+    _status = 1;
     _profit = 0;
   }
 
