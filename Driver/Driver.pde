@@ -166,42 +166,6 @@ void draw() {
 
     // possible flight routes
   case 1:
-    /*
-    // create menu
-     ArrayList<FlightRoute> possibleRoutes = possibleFlights();
-     FlightRoute[] arrRoutes = possibleRoutes.toArray(new FlightRoute[possibleRoutes.size()]);
-     Menu<FlightRoute> possibleFlightMenu = new Menu<FlightRoute>( "Start a Flight", Constants.WIDTH, Constants.HEIGHT_NO_FOOTER, 50, 25, 4, THEME_COLOR, arrRoutes, true, currentPage );
-     possibleFlightMenu.update();
-     
-     // handle interactions
-     if (mouseClicked) {
-     if (mainMenu.overElement() != -1) {
-     int input = mainMenu.overElement();
-     System.out.println(input);
-     
-     FlightRoute route = possibleRoutes.get(input);
-     flights.add(route);
-     route.getAirplane().setStatus(1);
-     route.getAirplane().setTank(route.getDistance());
-     money += route.getProfit();
-     mode = 0;
-     }
-     if (possibleFlightMenu.overBack()) {
-     possibleFlightMenu.prevPage();
-     currentPage = possibleFlightMenu.getPage();
-     } else if (possibleFlightMenu.overNext()) {
-     possibleFlightMenu.nextPage();
-     currentPage = possibleFlightMenu.getPage();
-     } else if (possibleFlightMenu.overExit()) {
-     mode = 0;
-     }
-     }
-     break;
-     */
-
-
-    //updated version
-
     //only show planes not currently flying
     ArrayList<Airplane> arrPlaneAL = new ArrayList<Airplane>();
     for (Airplane possiblePlane : airplanes) {
@@ -368,9 +332,6 @@ void draw() {
   case 7:
     // create menu
     City[] newCities = Shop.cities;
-    for (City eachCity: newCities) {
-      eachCity.setStatus(1);
-    }
     Menu<City> citiesShop = new Menu<City>("Cities", Constants.WIDTH, Constants.HEIGHT_NO_FOOTER, 50, 25, 2, THEME_COLOR, newCities, true, currentPage );
     citiesShop.update();
 
@@ -437,7 +398,7 @@ void draw() {
         destinations[i].setStatus(2);
         destinations[i].setProfit(profit(routePlane.getCity(), destinations[i], routePlane));
       }
-      Menu<City> possibleDestMenu = new Menu<City>( "Start a Flight: Choose a destination (if not immediately accessible, will direct to a stopover city)", Constants.WIDTH, Constants.HEIGHT_NO_FOOTER, 50, 25, 2, THEME_COLOR, destinations, true, currentPage );
+      Menu<City> possibleDestMenu = new Menu<City>( "Start a Flight: Choose a destination (if not immediately accessible, will direct to a stopover city)", Constants.WIDTH, Constants.HEIGHT_NO_FOOTER, 50, 25, 4, THEME_COLOR, destinations, true, currentPage );
       possibleDestMenu.update();
       if (mouseClicked) {
         if (mainMenu.overElement(destinations.length) != -1) {
@@ -504,9 +465,6 @@ void draw() {
     // view cities
   case 10:
     City[] citiesArr = cities.toArray(new City[cities.size()]);
-    for (City eachCity: citiesArr) {
-      eachCity.setStatus(0);
-    }
     Menu<City> cityMenu = new Menu<City>( "Cities", Constants.WIDTH, Constants.HEIGHT_NO_FOOTER, 50, 25, 2, THEME_COLOR, citiesArr, true, currentPage );
     cityMenu.update();
     if (mouseClicked) {
