@@ -559,6 +559,10 @@ static void updateFlights() {
   }
 }
 
+/**
+ Calculates the profit from flying between these cities with a certain Airplane.
+ returns int - profit
+ */
 static int profit(City depart, City arrival, Airplane plane) {
   double x1 = depart.getXcor();
   double y1 = depart.getYcor();

@@ -11,7 +11,7 @@ public class Shop {
     // name, range, speed, capacity, price, fuelCapacity, currentCity
     new Airplane( "Old plane", 500, 30, 10, 500000, 50, null), 
     new Airplane( "Boeing 747", 400, 75, 35, 1000000, 75, null),
-    new Airplane( "Airbus A380", 400, 75, 40, 1500000, 75, null),
+    new Airplane( "Airbus A320", 400, 75, 40, 1500000, 75, null),
     new Airplane( "Boeing 787", 300, 100, 50, 3000000, 100, null), 
     new Airplane( "Airbus A380", 300, 100, 75, 4200000, 100, null),
     new Airplane( "Air Force One", 1000, 150, 15, 10000000, 500, null)
